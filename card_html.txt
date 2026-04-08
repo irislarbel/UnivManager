@@ -1,0 +1,65 @@
+
+
+  <div class="course-banner" style="background-image: url('')">
+    <div class="image-div" role="img" aria-label="" ng-attr-aria-hidden="{{!altText}}" aria-hidden="true"></div>
+    <!---->
+    <!---->
+  </div>
+  <!---->
+  <div class="element-details summary">
+    <div class="small-12">
+      <!---->
+    </div>
+    <!----><span ng-if="!membership.course.isAvailable" class="sr-only" bb-translate=".courseUnavailable">.courseUnavailable</span><!---->
+    <!-- using ng-focus and ng-blur triggers re-evaluation of ng-class on containing .element-card div so that show-focus-outline class is toggled -->
+    <a href="javascript:void(0);" ng-click="baseCourses.handleCourseLinkClick(membership.course, $event)" class="course-title ellipsis hide-focus-outline large-10 medium-10 small-12" ng-focus="true" ng-blur="true" id="course-link-" bb-click-focus="#alert-dialog .alert-msg-container" analytics-id="base.courses.courseCard.courseLink.link">
+      <h4 class="js-course-title-element ellipsis" ng-class="{'ellipsis': !baseCourses.isMultiColumnCardView()}" ng-bind="baseCourses.getCourseName(membership)" id="course-name-"></h4>
+      <!---->
+    </a>
+    <!---->
+    <!-- course status row for card view -->
+    <!---->
+    <!---->
+    <div class="small-8 status-bar large-10 medium-10" ng-class="{'visibility' : showStatusBar, 'large-10': !baseCourses.isMultiColumnCardView(), 'medium-10': !baseCourses.isMultiColumnCardView()}">
+      <div class="basic-info">
+        <div class="course-status">
+          <!---->
+          <!---->
+          <!---->
+          <!---->
+        </div>
+        <!---->
+      </div>
+      <div class="more-info-toggle js-more-info-toggle">
+        <button id="more-info-" ng-click="onClickShowMoreInfo($event)" aria-expanded="" bb-translate-attrs="{'aria-label': 'base.courses.moreInfoAriaLabel'}" translate-attrs-values="{'courseTitle': membership.course.displayName}" analytics-id="base.courses.courseCard.moreInfo.button" aria-label="undefined에 대한 추가 정보">
+          <span bb-translate="">추가 정보</span><bb-svg-icon size="custom" icon="arrow-down">
+    <svg class="svg-icon svg-icon-directive custom-icon default directional-icon" focusable="false" aria-hidden="true" bb-cache-compilation="svg-icon">
+      <use xlink:href="https://eclass2.ajou.ac.kr/ultra/course#icon-custom-arrow-down" ng-href="https://eclass2.ajou.ac.kr/ultra/course#icon-custom-arrow-down"></use>
+    </svg>
+  </bb-svg-icon>
+        </button>
+      </div>
+    </div>
+    <div class="controls small-4 large-2 medium-2" ng-class="{'large-2': !baseCourses.isMultiColumnCardView(), 'medium-2': !baseCourses.isMultiColumnCardView()}">
+      <!-- information callout -->
+      <button ng-show="membership.course.description" class="info-icon ng-hide" ng-class="{'active': showInfoCallout}" ng-click="clickInfoIcon()" bb-translate-attrs="{'aria-label': '.title.courseInformation'}" translate-attrs-values="{'courseTitle': membership.course.displayName}" analytics-id="base.courses.courseCard.courseInformation.button" aria-label=".title.courseInformation">
+        <bb-svg-icon size="small" icon="information">
+    <svg class="svg-icon svg-icon-directive small-icon default " focusable="false" aria-hidden="true" bb-cache-compilation="svg-icon">
+      <use xlink:href="https://eclass2.ajou.ac.kr/ultra/course#icon-small-information" ng-href="https://eclass2.ajou.ac.kr/ultra/course#icon-small-information"></use>
+    </svg>
+  </bb-svg-icon>
+      </button>
+      <bb-course-info-callout course-id="membership.course.courseId" course-description="membership.course.description" key-prefix="baseCourses.keyPrefix" show="showInfoCallout" on-dismiss="dismissInfoCallout" target-element="infoCalloutTarget"></bb-course-info-callout>
+       <!-- favorite -->
+       <!---->
+      <!-- overflow menu for list view -->
+      <!---->
+    </div>
+
+    <!---->
+    <!---->
+
+  </div>
+
+  <!---->
+
