@@ -7,15 +7,16 @@ from .folder_handler import FolderHandler
 from .default_handler import DefaultHandler
 
 def get_handler(item_type: str) -> BaseHandler:
-    if "과제" in item_type:
+    item_type = item_type.lower() if item_type else ""
+    if "과제" in item_type or "assignment" in item_type:
         return AssignmentHandler()
-    elif "시험" in item_type or "퀴즈" in item_type:
+    elif "시험" in item_type or "form" in item_type:
         return ExamHandler()
-    elif "토론" in item_type:
+    elif "토론" in item_type or "discussion" in item_type:
         return DiscussionHandler()
-    elif "LTI 링크" in item_type or "외부" in item_type:
+    elif "lti" in item_type:
         return LtiHandler()
-    elif "폴더" in item_type:
+    elif "폴더" in item_type or "folder" in item_type:
         return FolderHandler()
     else:
         return DefaultHandler()

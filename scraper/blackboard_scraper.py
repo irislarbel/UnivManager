@@ -95,20 +95,13 @@ class BlackboardScraper:
                     await page.wait_for_selector("article[id*='course-list-course-_']", timeout=15000)
                     
                     print("코스 목록 페이지 접속 확인. 모든 과목을 불러오기 위해 화면을 스크롤합니다...")
-                    # [과목 목록 전체 스크롤]
+                    # [과목 목록 전체 스크롤 - 무한 스크롤 방식 적용]
                     last_c_height = 0
-                    for _ in range(10):
-                        await page.mouse.wheel(0, 5000)
-                        await page.wait_for_timeout(1000)
-                        
-                        # Load more 버튼이 있으면 클릭
-                        load_more_btn = await page.query_selector('button:has-text("Load")')
-                        if load_more_btn:
-                            try:
-                                await load_more_btn.click()
-                                await page.wait_for_timeout(1500)
-                            except:
-                                pass
+                    for _ in range(15):
+                        # 바닥으로 포커스 점프 후, 실제 IntersectionObserver 이벤트를 트리거하기 위한 약간의 휠
+                        await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                        await page.mouse.wheel(0, 1000)
+                        await page.wait_for_timeout(600)
                                 
                         new_c_height = await page.evaluate("document.body.scrollHeight")
                         if new_c_height == last_c_height:
@@ -160,53 +153,55 @@ class BlackboardScraper:
                             except Exception:
                                 pass
 
-                            # [전체 스크롤 로딩] 하단 내용(지연 로딩)을 전부 로딩해오기 위해 무한 스크롤 및 로드 버튼 클릭
-                            print("  - 페이지 하단까지 전체 데이터 로딩을 시도합니다...")
+                            print("  - 페이지 전체 데이터 로딩 및 폴더 확장을 시작합니다...")
                             
-                            no_change_count = 0
-                            last_height = await detail_page.evaluate("document.body.scrollHeight")
-                            
-                            while True:
-                                await detail_page.mouse.wheel(0, 8000)
-                                await detail_page.wait_for_timeout(1500) # 네트워크 로딩을 기다림
-                                
-                                # '추가 콘텐츠 로드' 류의 버튼이 보이면 클릭
-                                load_more = await detail_page.query_selector('button:has-text("Load")')
-                                if load_more:
-                                    try:
-                                        await load_more.click()
-                                        await detail_page.wait_for_timeout(2000)
-                                    except:
-                                        pass
-                                
-                                new_height = await detail_page.evaluate("document.body.scrollHeight")
-                                if new_height == last_height:
-                                    no_change_count += 1
-                                else:
-                                    no_change_count = 0  # 높이가 늘어났다면 카운터 초기화
-                                    last_height = new_height
-                                    
-                                # 3번 연속(약 4.5초 대기) 높이 변화가 없으면 진짜 끝단으로 간주하고 탈출
-                                if no_change_count >= 3:
-                                    break
-
-                            # [재귀적 폴더 펼치기] 닫혀 있는 모든 중첩 폴더를 끝까지 확장
                             expanded_count = 0
+                            
+                            # 더 이상 열 폴더가 없을 때까지(안 열린 폴더가 없을 때까지) 무한 반복
                             while True:
-                                # 닫혀있는 폴더만 명확히 타겟팅 (Blackboard 내부 속성 사용)
+                                # 1단계: 바닥까지 스크롤하여 현재 단계의 모든 목록 로딩
+                                no_change_count = 0
+                                last_height = await detail_page.evaluate("document.body.scrollHeight")
+                                while True:
+                                    await detail_page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                                    await detail_page.mouse.wheel(0, 1000)
+                                    await detail_page.wait_for_timeout(400) # 스크롤 후 대기 극히 단축
+                                    
+                                    new_height = await detail_page.evaluate("document.body.scrollHeight")
+                                    if new_height == last_height:
+                                        no_change_count += 1
+                                    else:
+                                        no_change_count = 0
+                                        last_height = new_height
+                                        
+                                    if no_change_count >= 3:
+                                        break
+                                        
+                                # 2단계: 현재 로딩된 항목 중 닫혀 있는 폴더를 찾아 모두 열기
                                 closed_folders = await detail_page.query_selector_all('button[id^="folder-title-"][aria-expanded="false"]')
                                 if not closed_folders:
-                                    break
-                                
+                                    break # 열 폴더가 아예 하나도 없으면 최종 완료로 간주하고 루프 탈출
+                                    
+                                clicked_any = False
                                 for folder in closed_folders:
                                     try:
-                                        await folder.click()
+                                        await folder.scroll_into_view_if_needed(timeout=500)
+                                        await folder.click(force=True)
                                         expanded_count += 1
-                                        await detail_page.wait_for_timeout(800) # 폴더가 열리는 애니메이션 대기
+                                        clicked_any = True
+                                        # 폴더마다 기다리지 않고 논스톱으로 클릭만 몰아서 전부 수행 (배치 클릭)
                                     except:
                                         pass
-                                        
-                            print(f"  - 총 {expanded_count}회의 숨겨진 중첩 폴더 확장을 완료했습니다.")
+                                
+                                # 찾은 폴더들을 순식간에 전부 누른 직후, 네트워크 통신/렌더링 애니메이션을 통째로 '딱 한 번만' 0.8초 대기
+                                if clicked_any:
+                                    await detail_page.wait_for_timeout(800)
+                                
+                                # 폴더 UI 요소는 찾았지만 팝업 등에 가려져 단 하나도 클릭하지 못했다면 무한 루프 늪에 빠질 수 있으므로 강제 탈출
+                                if not clicked_any:
+                                    break
+
+                            print(f"  - 총 {expanded_count}회의 숨겨진 중첩 폴더를 개방하였고, 문서 끝까지 로딩을 완료했습니다.")
 
                             # 2단계: 내용물이 모두 펼쳐진 상태에서, 부모 폴더 경로를 추적하며 전체 항목 추출
                             extracted_items = await detail_page.evaluate('''() => {
@@ -251,8 +246,9 @@ class BlackboardScraper:
                                         }
                                     }
                                     
-                                    // 사용자의 요청: aria-label이 "폴더 열기"이면 폴더로 인식
-                                    if (itemType.includes("폴더 열기")) {
+                                    // 사용자의 요청: aria-label이 "폴더 열기"이거나 영어로 "folder"일 때 폴더로 인식
+                                    let typeLower = itemType.toLowerCase();
+                                    if (itemType.includes("폴더 열기") || typeLower.includes("folder") || !!container.querySelector('svg[aria-label*="folder" i]')) {
                                         isFolder = true;
                                         itemType = "폴더";
                                     }
