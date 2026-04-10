@@ -9,6 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from playwright.async_api import async_playwright, TimeoutError
 from playwright_stealth import Stealth
 from config import BLACKBOARD_URL, BLACKBOARD_USER, BLACKBOARD_PASS, DATA_FILE, DOWNLOAD_PATH
+from handlers import get_handler
 
 class BlackboardScraper:
     def __init__(self):
@@ -18,7 +19,7 @@ class BlackboardScraper:
         if os.path.exists(DATA_FILE):
             with open(DATA_FILE, 'r', encoding='utf-8') as f:
                 return json.load(f)
-        return {"announcements": [], "files": [], "videos": []}
+        return {}
 
     def _save_processed_items(self):
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
@@ -139,6 +140,9 @@ class BlackboardScraper:
                         print(f"\n=============================================")
                         print(f"[과목 탐색] {course_title}")
                         
+                        if course_title not in self.processed_items:
+                            self.processed_items[course_title] = {}
+                        
                         detail_url = f"https://eclass2.ajou.ac.kr/ultra/courses/{internal_id}/outline"
                         detail_page = await context.new_page()
                         
@@ -235,12 +239,31 @@ class BlackboardScraper:
                                     
                                     let fullPath = path.length > 0 ? path.join('/') + '/' + name : name;
                                     
+                                    let itemType = 'Unknown';
+                                    let container = el.closest('.MuiListItemroot-root, [role="listitem"], .outline-item');
+                                    if (!container && el.parentElement && el.parentElement.parentElement) {
+                                        container = el.parentElement.parentElement.parentElement;
+                                    }
+                                    if (container) {
+                                        let icon = container.querySelector('svg[aria-label], img[aria-label], [role="img"][aria-label]');
+                                        if (icon) {
+                                            itemType = icon.getAttribute('aria-label');
+                                        }
+                                    }
+                                    
+                                    // 사용자의 요청: aria-label이 "폴더 열기"이면 폴더로 인식
+                                    if (itemType.includes("폴더 열기")) {
+                                        isFolder = true;
+                                        itemType = "폴더";
+                                    }
+                                    
                                     results.push({
                                         title: name,
                                         href: href,
                                         isFolder: isFolder,
                                         fullPath: fullPath,
-                                        scraperId: scraperId
+                                        scraperId: scraperId,
+                                        itemType: itemType
                                     });
                                 }
                                 return results;
@@ -262,113 +285,23 @@ class BlackboardScraper:
                                     continue
                                 seen_items.add(unique_key)
                                 
-                                if is_folder:
-                                    print(f"  📁 [폴더]: {full_path}")
-                                    continue
-                                
-                                # javascript 링크이거나 과제/시험/토론 등 내부 링크라면 클릭해서 '패널'을 열고 텍스트/파일 심층 확인
-                                if "javascript:" in i_href or "/assessment/" in i_href or "/discussion/" in i_href or i_href == "":
-                                    print(f"  🔍 [세부과제 탐색]: {full_path} (패널 내부 분석 중...)")
-                                    try:
-                                        node = detail_page.locator(f'[data-scraper-id="{s_id}"]')
-                                        # 화면에 확실히 노출시키고 클릭 강제 (가려져서 에러나는 케이스 방지)
-                                        await node.scroll_into_view_if_needed()
-                                        await node.click(force=True)
-                                        await detail_page.wait_for_timeout(2500)
+                                # --- 여기서부터는 모듈화된 (handlers) 개별 객체에 추출 책임을 위임합니다 ---
+                                handler = get_handler(item.get('itemType', 'Unknown'))
+                                try:
+                                    extracted_data = await handler.extract(detail_page, item)
+                                    
+                                    if extracted_data:
+                                        # 계층형 폴더 분리 로직 (예: "주차 1/강의자료/문서" -> 부모: "주차 1/강의자료")
+                                        path_parts = full_path.split('/')
+                                        folder_path = '/'.join(path_parts[:-1]) if len(path_parts) > 1 else '/'
                                         
-                                        # 1. 사이드 패널에서 '지시 사항 보기', '평가 보기', '토론 보기', '시작하기', '계속' 등 다음 단계로 넘어가기 위한 버튼 모두 스캔
-                                        view_btns = await detail_page.query_selector_all('button')
-                                        for v_btn in view_btns:
-                                            v_text = (await v_btn.inner_text()).strip()
-                                            v_clean = v_text.replace(" ", "").lower()
-                                            # 블랙보드에서 다음 뎁스로 넘겨주는 주요 액션 키워드들 확장
-                                            if any(kw in v_clean for kw in ["지시", "평가보기", "토론보기", "시작", "계속", "view", "start", "continue"]):
-                                                try:
-                                                    await v_btn.click(force=True)
-                                                    await detail_page.wait_for_timeout(2500)
-                                                    break # 성공하면 중단
-                                                except:
-                                                    pass
-                                                
-                                        # 2. 패널(또는 새 전체화면) 내부에 숨겨진 첨부파일 수집 + 본문 텍스트 정리
-                                        # 이때 전체 화면(document)이 아닌, 팝업으로 뜬 레이어(dialog, aside 등) 안에서만 찾게 제한
-                                        panel_data = await detail_page.evaluate('''() => {
-                                            // 최상단 활성 패널 찾기 (없으면 fallback으로 body 전체이나, 보통 오버레이가 위에 덮임)
-                                            let potentialPanels = Array.from(document.querySelectorAll('[role="dialog"], aside, .offcanvas-inner, .peek-panel'));
-                                            let activePanel = potentialPanels.reverse().find(p => p.offsetParent !== null) || document;
+                                        if folder_path not in self.processed_items[course_title]:
+                                            self.processed_items[course_title][folder_path] = []
                                             
-                                            // 마감일(Due Date) 탐색 로직
-                                            let deadline = "";
-                                            let ddNodes = activePanel.querySelectorAll('[id*="dueDate"], [class*="due-date"], .submission-details, [class*="date"]');
-                                            for(let node of ddNodes) {
-                                                let t = node.innerText;
-                                                // 마감이나 Due 관련 글자가 포함되어 있거나 날짜 형식인 경우
-                                                if(t.includes("마감") || t.includes("Due") || t.includes("기한") || /[0-9]{2}\\/[0-9]{2}\\/[0-9]{2}/.test(t)) {
-                                                    deadline = t.trim().replace(/\\n/g, ' ');
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            // 화면 뒤편 본문에 적힌 파일(전체)이 쓸려오지 않도록 activePanel 안에서만 검색!
-                                            let links = activePanel.querySelectorAll('a[href*="/file/"], a[href*="/bbcswebdav/"]');
-                                            let files = Array.from(links).map(a => ({ title: a.innerText.trim(), href: a.href }));
-                                            
-                                            let texts = [];
-                                            // 텍스트 블록 검색 범위를 대폭 강화 (.document-components, bb-document-part 등 추가)
-                                            let textBlocks = activePanel.querySelectorAll('.vtbegenerated, .prevent-copy-content, .js-description, [id*="description"], [class*="instruction"], .html-content, .document-components, bb-document-part, .content-viewer, .assessment-content, .rte-content');
-                                            textBlocks.forEach(tb => {
-                                                let t = tb.innerText.trim();
-                                                if (t && !texts.includes(t)) {
-                                                    texts.push(t);
-                                                }
-                                            });
-                                            if (texts.length === 0) {
-                                                // 확실한 블록이 없으면, 패널 안의 모든 문단 태그(p) 중 길이가 있는 유효 문장을 싹 쓸어옴
-                                                activePanel.querySelectorAll('div.js-document-content p, div.document-content p, .bb-text-block, p').forEach(p => {
-                                                    let t = p.innerText.trim();
-                                                    if (t && t.length > 5 && !texts.includes(t)) texts.push(t);
-                                                });
-                                            }
-                                            return { files: files, instructions: texts, deadline: deadline };
-                                        }''')
+                                        self.processed_items[course_title][folder_path].append(extracted_data)
                                         
-                                        if panel_data['deadline']:
-                                            print(f"    🗓️ [과제 마감일]: {panel_data['deadline']}")
-                                            
-                                        if panel_data['instructions']:
-                                            # 내용이 있으면 조인 후 최대 80자까지 자르고 출력
-                                            preview_text = '\\n'.join(panel_data['instructions'])[:80].replace('\\n', ' ')
-                                            print(f"    📝 [본문 내용 확보]: {preview_text} ...")
-                                        else:
-                                            print(f"    (본문 텍스트 없음)")
-
-                                        if panel_data['files']:
-                                            for p_file in panel_data['files']:
-                                                print(f"    📎 [패널 첨부파일]: {p_file['title']}")
-                                        
-                                        # 열었던 패널 모두 끄기 (다중 레이어로 열렸을 수 있으니 여러 번 닫기 시도)
-                                        for _ in range(4):
-                                            close_icons = await detail_page.query_selector_all('button[aria-label*="Close"], button[aria-label*="닫기"]')
-                                            if close_icons:
-                                                try:
-                                                    await close_icons[-1].click(force=True)
-                                                    await detail_page.wait_for_timeout(1000)
-                                                except:
-                                                    pass
-                                            else:
-                                                break
-                                                
-                                    except Exception as e:
-                                        print(f"    ❌ 패널 진입 중 에러 발생: {e}")
-                                
-                                else:
-                                    # 일반 파일 경로
-                                    if "/outline/file/" in i_href:
-                                        print(f"  📄 [파일/문서]: {full_path}")
-                                    elif "zoom.us" in i_href or "video" in i_href.lower() or "mp4" in i_href.lower():
-                                        print(f"  🎬 [녹화영상]: {full_path}")
-                                    else:
-                                        print(f"  🔗 [내부/외부링크]: {full_path} (URL: {i_href})")
+                                except Exception as e:
+                                    print(f"  ❌ [{item.get('itemType', 'Unknown')}] 항목 분석 중 에러: {e}")
 
                         except Exception as e:
                             print(f"과목 상세 로딩 중 에러: {e}")

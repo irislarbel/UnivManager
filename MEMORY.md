@@ -5,7 +5,10 @@
 - **텔레그램 알림**: 대화 인터페이스는 OpenClaw가 전담하므로, UnivManager 내의 텔레그램 알림 로직은 제거하거나 OpenClaw와의 통신용으로 축소될 수 있습니다.
 
 ## 과거 및 현재 작업사항 (구현 완료/진행 중)
-- **Blackboard 스크래퍼 기반 (수집)**: Playwright, Stealth를 이용한 브라우저 구동 및 SSO 자동 로그인 템플릿 구현 (`scraper/blackboard_scraper.py`).
+- **Blackboard 스크래퍼 기반 (수집 및 아키텍처 개편)**: Playwright, Stealth를 이용한 브라우저 구동 및 SSO 자동 로그인 템플릿 구현 (`scraper/blackboard_scraper.py`).
+  - **[최근 작업]** 메인 루프에서 조건문을 제거하고 `handlers/` 하위 모듈(`assignment_handler`, `exam_handler` 등)로 파싱 책임을 분리하는 전략 패턴 적용.
+  - **[최근 작업]** `aria-label` 속성을 기반으로 아이템 카테고리를 동적으로 판별하고, 저장 데이터를 `과목명 > 폴더 > 파일` 형태의 계층형 JSON 구조로 변환.
+  - **[이슈 트래킹]** 본문 추출 로직이 아직 완벽하지 않음: 여전히 다른 과제의 본문이나 배경 코스의 수업 자료들이 과제/시험 팝업(패널) 추출 결과에 섞여 들어오는 현상이 잔존함 (DOM 찌꺼기 문제 및 패널 탐색자 정밀도 개선 필요).
 - **Google Drive 연동 (보존)**: OAuth2.0 기반 토큰 발급 및 파이썬 API 연동 기초 마련 (`storage/google_drive.py`).
 - **메인 스케줄러 (통합 뼈대)**: 1시간 단위 반복 실행을 위한 Python 스케줄러 세팅 (`main.py`).
 - *주의*: `multimedia_analyzer.py`의 로컬 Whisper 로직은 더 이상 사용하지 않는 **레거시 데이터**입니다.
