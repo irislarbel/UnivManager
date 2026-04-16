@@ -4,6 +4,7 @@ from .exam_handler import ExamHandler
 from .discussion_handler import DiscussionHandler
 from .lti_handler import LtiHandler
 from .folder_handler import FolderHandler
+from .announcement_handler import AnnouncementHandler
 from .default_handler import DefaultHandler
 
 def get_handler(item_type: str) -> BaseHandler:

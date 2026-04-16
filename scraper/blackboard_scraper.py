@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from playwright.async_api import async_playwright, TimeoutError
 from playwright_stealth import Stealth
 from config import BLACKBOARD_URL, BLACKBOARD_USER, BLACKBOARD_PASS, DATA_FILE, DOWNLOAD_PATH
-from handlers import get_handler
+from handlers import get_handler, AnnouncementHandler
 
 class BlackboardScraper:
     def __init__(self):
@@ -298,6 +298,26 @@ class BlackboardScraper:
                                         
                                 except Exception as e:
                                     print(f"  ❌ [{item.get('itemType', 'Unknown')}] 항목 분석 중 에러: {e}")
+
+                            # --- 과목 상세 아이템 탐색 완료 후, 상단 탭을 통해 공지 사항 추출 시도 ---
+                            ann_handler = AnnouncementHandler()
+                            ann_list = await ann_handler.extract(detail_page)
+                            if ann_list:
+                                if '/공지사항' not in self.processed_items[course_title]:
+                                    self.processed_items[course_title]['/공지사항'] = []
+                                
+                                for ann in ann_list:
+                                    print(f"    📢 [공지]: {ann['title']} ({ann['date']})")
+                                    if ann['content']:
+                                        print(f"      📖 본문:\n{ann['content']}")
+                                        print(f"      {'-' * 40}")
+                                    
+                                    self.processed_items[course_title]['/공지사항'].append({
+                                        "type": "공지사항",
+                                        "title": ann['title'],
+                                        "date": ann['date'],
+                                        "content": ann['content']
+                                    })
 
                         except Exception as e:
                             print(f"과목 상세 로딩 중 에러: {e}")

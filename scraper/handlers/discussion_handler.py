@@ -48,39 +48,77 @@ class DiscussionHandler(BaseHandler):
             const getAuthorAndDate = (node) => {
                 let name = "알 수 없음";
                 let date = "";
-                let authorEl = node.querySelector('.bb-ui-username bdi, .bb-ui-username, .usercard-trigger, .user-name, .name, [class*="author"], h3, h4, bdi');
-                let dateEl = node.querySelector('.metadata, .date, .timestamp, [class*="date"]');
                 
-                if (authorEl) name = authorEl.innerText.trim();
+                // 1. 이름 찾기
+                // [가장 확실함]: bdi 태그는 보통 이름만 감싸고 있음
+                let bdi = node.querySelector('.bb-ui-username bdi, bdi');
+                if (bdi && bdi.innerText.trim()) {
+                    name = bdi.innerText.trim();
+                } else {
+                    let authorEl = node.querySelector(`
+                        .bb-ui-username, .usercard-trigger, .user-name, .name, 
+                        [class*="author" i], [class*="username" i], h3, h4, 
+                        .profile-handle, .display-name, [aria-label*="Author" i], [aria-label*="작성자" i]
+                    `);
+                    if (authorEl) {
+                        name = authorEl.innerText.trim() || authorEl.getAttribute('aria-label') || authorEl.getAttribute('title') || "알 수 없음";
+                    }
+                }
                 
+                // [보조 문구 정제]: 하드코딩된 슬라이싱 대신 정규식으로 다국어 관용구 제거
+                if (name && name !== "알 수 없음") {
+                    name = name.replace(/^User card for\s+/i, '')
+                               .replace(/\s*에 대한 사용자 카드$/, '')
+                               .replace(/^작성자:\s*/, '')
+                               .replace(/\s*에 대한 상세 정보$/, '')
+                               .replace(/[.\s:]+$/, '') // 끝의 마침표/콜론 제거
+                               .replace(/^[.\s:]+/, '') // 시작의 마침표/콜론 제거
+                               .trim();
+                }
+
+                if (!name || name === "undefined") name = "알 수 없음";
+                
+                // 2. 날짜 찾기
+                let dateEl = node.querySelector('.metadata, .date, .timestamp, [class*="date"], .time, .post-date, .v-timestamp');
                 if (dateEl) {
                     let rawDate = dateEl.innerText.trim().replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ');
                     if(rawDate.length > 50) rawDate = "";
                     if(rawDate) date = rawDate;
                 }
                 
-                let finalName = name ? name.split('\n')[0].replace(/\s+\./g, '').trim() : "";
+                // 3. 최종 이름 정제 (짧은 길이 검증 등)
+                let finalName = name === "알 수 없음" ? "알 수 없음" : name.split('\n')[0].trim();
+                if (finalName.length > 30) finalName = "알 수 없음";
                 
                 return { name: finalName, date: date };
             };
             
             // (1) 포럼 주제/안내문 (Instructor's Prompt)
             let opDict = { author: "", date: "", content: "" };
-            let opContainer = container.querySelector('.entry.original.initial-post, .original-post, .discussion-topic-body');
+            let opContainer = container.querySelector('.entry.original.initial-post, .original-post, .discussion-topic-body, .discussion-comments > div:nth-child(2)');
             
             if (opContainer) {
                 let meta = getAuthorAndDate(opContainer.parentElement || opContainer);
                 opDict.author = meta.name;
                 opDict.date = meta.date;
                 
-                let contentEl = opContainer.querySelector('.vtbegenerated, .ql-editor, bb-message, .message');
-                let targetArea = contentEl ? contentEl : opContainer;
+                // 실제 본문 텍스트가 담긴 요소만 타켓팅 (.ql-editor 가 주로 본문임)
+                let contentEl = opContainer.querySelector('.vtbegenerated, .ql-editor, bb-message, .message, .content-area, .body-content');
+                
+                // [변경]: contentEl이 없을 때 opContainer로 무분별하게 넘어가지 않고,
+                // 만약 contentEl이 없다면 opContainer 내부에서 메타데이터 요소를 제외한 순수 텍스트 영역만 찾거나, 없으면 빈 값 처리
+                let targetArea = contentEl;
+                if (!targetArea) {
+                    // Fallback: opContainer를 그대로 쓰되, 아래에서 clone 후 메타데이터를 더 엄격하게 지움
+                    targetArea = opContainer;
+                }
                 
                 let clone = targetArea.cloneNode(true);
                 
                 let trashSelectors = [
                     '.metadata', '[class*="badge"]', '[class*="edited"]', '.new-post-text', '[class*="new"]',
-                    'button', 'bb-user-role-badge', '[class*="role"]'
+                    'button', 'bb-user-role-badge', '[class*="role"]', '.profile-handle', '.user-info', '.post-date',
+                    '.avatar', '.bb-close', '.reply-button', '.post-options', '.bb-ui-username'
                 ];
                 clone.querySelectorAll(trashSelectors.join(', ')).forEach(n => n.remove());
                 
@@ -129,9 +167,39 @@ class DiscussionHandler(BaseHandler):
                 contentText = contentText.replace(/[ \t]+/g, ' ');
                 contentText = contentText.replace(/\n\s*\n+/g, '\n\n');
                 
+                // [강화]: 메타데이터(이름, 날짜)가 여전히 본문 영역의 앞부분에 포함되어 있다면 이를 제거합니다.
+                // 시작점(^)에만 의존하지 않고, 초반부 텍스트에서 패턴 매칭을 시도합니다.
+                if (meta.name && meta.name !== "알 수 없음") {
+                    let escapedName = meta.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    // 이름 뒤에 줄바꿈이나 공백이 오는 경우까지 포함하여 제거
+                    contentText = contentText.replace(new RegExp('^\\s*' + escapedName + '\\s*', 'i'), '').trim();
+                }
+                if (meta.date) {
+                    // 날짜 내의 공백/줄바꿈을 유연하게 처리하는 정규식
+                    let datePattern = meta.date.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s*');
+                    // 본문 시작 부분 혹은 이름 제거 후 바로 다음에 날짜가 오는 경우 제거
+                    contentText = contentText.replace(new RegExp('^\\s*' + datePattern + '\\s*', 'i'), '').trim();
+                }
+                
+                // 만약 meta.date의 일부(날짜만 또는 시간만)가 여전히 남아있을 경우를 대비해 한 번 더 체크
+                if (meta.date && meta.date.includes(' ')) {
+                    let dateParts = meta.date.split(/\s+/);
+                    dateParts.forEach(part => {
+                        if (part.length > 3) {
+                            let partPattern = part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                            contentText = contentText.replace(new RegExp('^\\s*' + partPattern + '\\s*', 'i'), '').trim();
+                        }
+                    });
+                }
+                
                 contentText = contentText.replace(/^\(\.[^)]+함\)\s*/, '');
                 contentText = contentText.replace(/^새 게시물\s*/, '');
                 contentText = contentText.replace(/^NEW\s*/i, '').trim();
+                
+                // 만약 최종 결과가 meta 데이터와 완전히 같거나 너무 짧으면 본문 없음 처리
+                if (contentText === meta.name || contentText === meta.date || contentText.length < 2) {
+                    contentText = "";
+                }
                 
                 opDict.author = meta.name;
                 opDict.content = contentText;
@@ -148,7 +216,7 @@ class DiscussionHandler(BaseHandler):
                 let closestEntry = messageEl.closest('.entry, .discussion-post, bb-response, bb-reply');
                 if (closestEntry !== cw) return;
                 
-                let isOP = cw.closest('.initial-post, .original-post, .discussion-topic-body');
+                let isOP = cw.closest('.initial-post, .original-post, .discussion-topic-body') || (opContainer && cw === opContainer);
                 if(isOP) return;
                 
                 let targetArea = messageEl ? messageEl : cw;
@@ -157,7 +225,8 @@ class DiscussionHandler(BaseHandler):
                 
                 let trashSelectors = [
                     '.metadata', '[class*="badge"]', '[class*="edited"]', '.new-post-text', '[class*="new"]',
-                    'button', 'bb-user-role-badge', '[class*="role"]'
+                    'button', 'bb-user-role-badge', '[class*="role"]', '.profile-handle', '.user-info', '.post-date',
+                    '.avatar', '.bb-close', '.reply-button', '.post-options', '.bb-ui-username'
                 ];
                 clone.querySelectorAll(trashSelectors.join(', ')).forEach(n => n.remove());
                 
@@ -204,15 +273,26 @@ class DiscussionHandler(BaseHandler):
                 }
                 
                 contentText = contentText.replace(/[ \t]+/g, ' ');
-                contentText = contentText.replace(/\n\s*\n+/g, '\n\n');
+                contentText = contentText.replace(/\n\s*\n+/g, '\n'); // 줄바꿈 최소화
+                
+                // [강화]: 메타데이터(이름, 날짜)가 여전히 본문 영역의 앞부분에 포함되어 있다면 이를 제거합니다.
+                if (meta.name && meta.name !== "알 수 없음") {
+                    // 이름 앞의 불필요한 마침표(.) 제거
+                    meta.name = meta.name.replace(/^\.+/, '').trim();
+                    let escapedName = meta.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    contentText = contentText.replace(new RegExp('^\\s*[.\\s]*' + escapedName + '\\s*', 'i'), '').trim();
+                }
+                if (meta.date) {
+                    let datePattern = meta.date.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s*');
+                    contentText = contentText.replace(new RegExp('^\\s*' + datePattern + '\\s*', 'i'), '').trim();
+                }
                 
                 contentText = contentText.replace(/^\(\.[^)]+함\)\s*/, '');
                 contentText = contentText.replace(/^새 게시물\s*/, '');
                 contentText = contentText.replace(/^NEW\s*/i, '').trim();
+                contentText = contentText.replace(/^\.+/, '').trim(); // 본문 시작의 마침표 제거
                 
                 if (contentText.length > 0) {
-                    // 답글(대댓글)인지 확인: 자신을 감싸고 있는 윗선(부모)에 또 다른 '참여글(.entry, bb-response 등)'이 존재한다면, 이것은 무조건 누군가의 글에 달린 답글(대댓글)입니다.
-                    // 애매한 래퍼 클래스 이름에 의존하지 않는 가장 완벽한 뎁스(Depth) 판단법입니다.
                     let parentEntry = cw.parentElement ? cw.parentElement.closest('.entry, .discussion-post, bb-response, bb-reply') : null;
                     let isReply = !!parentEntry;
                     
