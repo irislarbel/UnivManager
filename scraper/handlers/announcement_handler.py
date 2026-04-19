@@ -3,7 +3,7 @@ import re
 from .base_handler import BaseHandler
 
 class AnnouncementHandler(BaseHandler):
-    async def extract(self, detail_page):
+    async def extract(self, detail_page, skip_titles=None):
         print(f"  📢 [공지 사항 탐색 시작]")
         
         # 1. 상단바(Top Nav Bar) 공지 사항 탭으로 이동
@@ -45,6 +45,10 @@ class AnnouncementHandler(BaseHandler):
                 # 1. 리스트 뷰에서 제목 및 날짜 추출
                 title = await title_el.inner_text()
                 title = title.strip()
+                
+                if skip_titles and title in skip_titles:
+                    print(f"      ⏩ [스킵]: {title} (이미 처리됨)")
+                    continue
                 
                 # 날짜 정보: 정규식 기반으로 텍스트 노드에서 직접 추출 (YY. M. D. 전용 대응 고도화)
                 try:

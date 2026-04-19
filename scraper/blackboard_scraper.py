@@ -2,6 +2,7 @@ import json
 import os
 import sys
 import asyncio
+import re
 
 # 단독 파일 테스트 시를 위해 상위 폴더(루트 경로)를 sys.path에 추가합니다.
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -24,6 +25,72 @@ class BlackboardScraper:
     def _save_processed_items(self):
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
             json.dump(self.processed_items, f, ensure_ascii=False, indent=4)
+
+    def _export_item_to_txt(self, course_title, folder_path_list, item_data):
+        """추출된 개별 데이터를 .txt 파일로 이쁘게 포맷팅하여 저장합니다."""
+        if not item_data or not item_data.get('title'): return
+        
+        # OS 파일명에 사용할 수 없는 특수문자 치환 (경로 구조는 배열로 넘겨받았으므로 그대로 사용)
+        clean_course = re.sub(r'[\\/:*?"<>|]', '_', course_title)
+        clean_title = re.sub(r'[\\/:*?"<>|]', '_', item_data['title'])
+        
+        if not folder_path_list:
+            rel_folder = ''
+        else:
+            # 배열로 전달받은 각 폴더명(예: "4/19 공지")에 대해 개별적으로 특수문자를 치환하고 다시 결합
+            parts = [re.sub(r'[\\/:*?"<>|]', '_', p) for p in folder_path_list if p]
+            rel_folder = os.path.join(*parts) if parts else ''
+            
+        is_folder = item_data.get('type') == '폴더' or item_data.get('isFolder') == True
+        
+        # 현재 항목 자체가 폴더인 경우, 자신의 이름을 경로에 추가하여 물리적 폴더 구조를 만듭니다.
+        if is_folder:
+            rel_folder = os.path.join(rel_folder, clean_title) if rel_folder else clean_title
+            
+        save_dir = os.path.join(DOWNLOAD_PATH, clean_course, rel_folder) if rel_folder else os.path.join(DOWNLOAD_PATH, clean_course)
+        os.makedirs(save_dir, exist_ok=True)
+        
+        # 폴더 항목이면 텍스트 파일을 쓰지 않고 여기서 마칩니다.
+        if is_folder:
+            return
+            
+        filepath = os.path.join(save_dir, f"{clean_title}.txt")
+        
+        lines = []
+        lines.append(f"과목명: {course_title}")
+        lines.append(f"유형: {item_data.get('type', '기타')}")
+        lines.append(f"제목: {item_data['title']}")
+        
+        if item_data.get('date'):
+            lines.append(f"작성일: {item_data['date']}")
+        if item_data.get('deadline'):
+            lines.append(f"마감일: {item_data['deadline']}")
+        if item_data.get('maxScore'):
+            lines.append(f"최고점수: {item_data['maxScore']}")
+            
+        lines.append("\n" + "="*40 + "\n[본문 내용]\n" + "="*40)
+        
+        # 본문 설명 추출
+        instructions = item_data.get('instructions')
+        content = item_data.get('content')
+        
+        if content:
+            lines.append(content)
+        elif instructions:
+            if isinstance(instructions, list):
+                lines.append('\n'.join(instructions))
+            else:
+                lines.append(str(instructions))
+        else:
+            lines.append("(본문 없음)")
+            
+        if item_data.get('files') and len(item_data['files']) > 0:
+            lines.append("\n" + "="*40 + "\n[첨부파일 목록]\n" + "="*40)
+            for f in item_data['files']:
+                lines.append(f"- {f.get('title', '이름없음')} ({f.get('href', '링크없음')})")
+                
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(lines))
 
     async def login(self, page):
         """환경변수의 계정 정보로 자동 로그인을 수행합니다 (SSO 지원)."""
@@ -220,16 +287,41 @@ class BlackboardScraper:
                                     let isFolder = el.tagName.toLowerCase() === 'button';
                                     
                                     let path = [];
-                                    let ownLi = el.closest('li');
-                                    let currentLi = ownLi ? ownLi.parentElement.closest('li') : null;
+                                    let currNode = el.parentElement;
+                                    let folderNames = new Set();
                                     
-                                    // HTML의 계층 구조(ul > li)를 타고 올라가며 부모 폴더들의 이름을 조립
-                                    while (currentLi) {
-                                        let folderBtn = currentLi.querySelector('button[id^="folder-title-"]');
-                                        if (folderBtn) {
-                                            path.unshift(folderBtn.innerText.trim().split('\\n')[0]);
+                                    // HTML 트리 및 aria-controls 속성을 타고 가장 상위 루트까지 역추적
+                                    while (currNode && currNode !== document.body) {
+                                        // 1. 블랙보드 Ultra 특성상 DOM이 끊기고 aria-controls로 연결된 경우 (사이드 패널 등)
+                                        if (currNode.id) {
+                                            const controller = document.querySelector(`[aria-controls="${currNode.id}"]`);
+                                            if (controller) {
+                                                const txt = controller.innerText.trim().split('\\n')[0];
+                                                if (txt && !folderNames.has(txt)) {
+                                                    folderNames.add(txt);
+                                                    path.unshift(txt);
+                                                }
+                                                currNode = controller.parentElement;
+                                                continue;
+                                            }
                                         }
-                                        currentLi = currentLi.parentElement.closest('li');
+                                        
+                                        // 2. 물리적으로 내포(Nested)된 상위 컨테이너 탐색
+                                        let isContainer = currNode.tagName === 'LI' || currNode.classList.contains('outline-item') || currNode.getAttribute('role') === 'listitem' || currNode.classList.contains('js-element-details');
+                                        
+                                        if (isContainer) {
+                                            let titleCandidate = currNode.querySelector('[id^="folder-title-"], [id^="module-title-"], a[class*="contentItemTitle"], .item-title, h3');
+                                            
+                                            // 자신이 자신의 부모 폴더로 취급되는 것을 방지
+                                            if (titleCandidate && titleCandidate !== el) {
+                                                let folderName = titleCandidate.innerText.trim().split('\\n')[0];
+                                                if (folderName && !folderNames.has(folderName)) {
+                                                    folderNames.add(folderName);
+                                                    path.unshift(folderName);
+                                                }
+                                            }
+                                        }
+                                        currNode = currNode.parentElement;
                                     }
                                     
                                     let fullPath = path.length > 0 ? path.join('/') + '/' + name : name;
@@ -258,6 +350,7 @@ class BlackboardScraper:
                                         href: href,
                                         isFolder: isFolder,
                                         fullPath: fullPath,
+                                        folderPathArray: path,
                                         scraperId: scraperId,
                                         itemType: itemType
                                     });
@@ -274,6 +367,7 @@ class BlackboardScraper:
                                 is_folder = item['isFolder']
                                 full_path = item['fullPath']
                                 s_id = item['scraperId']
+                                item_title = item.get('title', '제목없음')
                                 
                                 # 동일한 요소 이중 클릭/출력 방지
                                 unique_key = (full_path, i_href, is_folder)
@@ -281,43 +375,68 @@ class BlackboardScraper:
                                     continue
                                 seen_items.add(unique_key)
                                 
+                                # --- 조기 종료(Early Exit) 중복 검사 로직 ---
+                                path_parts = item.get('folderPathArray', [])
+                                folder_path = '/'.join(path_parts) if path_parts else '/'
+                                
+                                already_processed = False
+                                if folder_path in self.processed_items.get(course_title, {}):
+                                    for p_item in self.processed_items[course_title][folder_path]:
+                                        if p_item.get('title') == item_title:
+                                            already_processed = True
+                                            break
+                                            
+                                if already_processed:
+                                    print(f"    ⏩ [스킵]: {item_title} (이미 처리됨)")
+                                    continue
+                                
                                 # --- 여기서부터는 모듈화된 (handlers) 개별 객체에 추출 책임을 위임합니다 ---
                                 handler = get_handler(item.get('itemType', 'Unknown'))
                                 try:
                                     extracted_data = await handler.extract(detail_page, item)
                                     
                                     if extracted_data:
-                                        # 계층형 폴더 분리 로직 (예: "주차 1/강의자료/문서" -> 부모: "주차 1/강의자료")
-                                        path_parts = full_path.split('/')
-                                        folder_path = '/'.join(path_parts[:-1]) if len(path_parts) > 1 else '/'
-                                        
                                         if folder_path not in self.processed_items[course_title]:
                                             self.processed_items[course_title][folder_path] = []
                                             
                                         self.processed_items[course_title][folder_path].append(extracted_data)
+                                        # 로컬 텍스트 파일 생성
+                                        self._export_item_to_txt(course_title, path_parts, extracted_data)
+                                        # 실시간 상태 저장 (강제 종료/크래시 대비)
+                                        self._save_processed_items()
                                         
                                 except Exception as e:
                                     print(f"  ❌ [{item.get('itemType', 'Unknown')}] 항목 분석 중 에러: {e}")
 
                             # --- 과목 상세 아이템 탐색 완료 후, 상단 탭을 통해 공지 사항 추출 시도 ---
                             ann_handler = AnnouncementHandler()
-                            ann_list = await ann_handler.extract(detail_page)
+                            
+                            processed_anns = self.processed_items.get(course_title, {}).get('/공지사항', [])
+                            skip_titles = [ann.get('title') for ann in processed_anns if ann.get('title')]
+                            
+                            ann_list = await ann_handler.extract(detail_page, skip_titles=skip_titles)
                             if ann_list:
                                 if '/공지사항' not in self.processed_items[course_title]:
                                     self.processed_items[course_title]['/공지사항'] = []
                                 
                                 for ann in ann_list:
-                                    print(f"    📢 [공지]: {ann['title']} ({ann['date']})")
+
+                                    print(f"    📢 [신규 공지]: {ann['title']} ({ann['date']})")
                                     if ann['content']:
-                                        print(f"      📖 본문:\n{ann['content']}")
+                                        print(f"      📖 본문 추출 완료")
                                         print(f"      {'-' * 40}")
                                     
+                                    # JSON 기록
                                     self.processed_items[course_title]['/공지사항'].append({
                                         "type": "공지사항",
                                         "title": ann['title'],
                                         "date": ann['date'],
                                         "content": ann['content']
                                     })
+                                    # TXT 추출
+                                    self._export_item_to_txt(course_title, ["공지사항"], ann)
+                                    # 실시간 상태 저장 (강제 종료/크래시 대비)
+                                    self._save_processed_items()
 
                         except Exception as e:
                             print(f"과목 상세 로딩 중 에러: {e}")
