@@ -121,7 +121,22 @@ class AnnouncementHandler(BaseHandler):
                     // 4. 숨겨진 첨부 파일(PDF 등) 탐색 강화
                     let attachments = [];
                     // 패널 전체에서 첨부 파일 관련 요소 전수 조사
-                    panel.querySelectorAll('[data-automation-id*="attachment"], .attachment-item, li.file-item').forEach(att => {
+                    panel.querySelectorAll('[data-automation-id*="attachment"], .attachment-item, li.file-item, div[data-bbtype="attachment"]').forEach(att => {
+                        // 1. data-bbfile 파싱 시도 (가장 명확함)
+                        if (att.hasAttribute('data-bbfile')) {
+                            try {
+                                let rawAttr = att.getAttribute('data-bbfile');
+                                let bbfile = typeof rawAttr === 'string' ? JSON.parse(rawAttr) : rawAttr;
+                                let name = bbfile.displayName || bbfile.fileName || bbfile.alternativeText;
+                                let url = bbfile.resourceUrl;
+                                if (name && url && !baseContent.includes(url)) {
+                                    attachments.push(`[첨부파일: ${name} (${url})]`);
+                                    return; // 파싱 성공시 다음 요소로
+                                }
+                            } catch(e) {}
+                        }
+                        
+                        // 2. 기존 방식 구조 탐색
                         let nameEl = att.querySelector('.attachment-name, [class*="name"], span, a');
                         let linkEl = att.querySelector('a[href], [data-url], button[data-url]');
                         
