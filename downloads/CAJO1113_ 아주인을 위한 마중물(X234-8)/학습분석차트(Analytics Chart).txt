@@ -5,4 +5,4 @@
 ========================================
 [본문 내용]
 ========================================
-(본문 없음)
+🔗 링크 주소: https://eclass2.ajou.ac.kr/webapps/blackboard/execute/ultraFramePassThrough?redirectTo=https%3A%2F%2Feclass2.ajou.ac.kr%2Fwebapps%2Fblackboard%2Fexecute%2Fblti%2FlaunchPlacement%3Fblti_placement_id%3D_809_1%26content_id%3D_2202200_1%26course_id%3D_111078_1%26wrapped%3Dtrue%26from_ultra%3Dtrue

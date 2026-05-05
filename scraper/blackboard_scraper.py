@@ -70,17 +70,52 @@ class BlackboardScraper:
             
         lines.append("\n" + "="*40 + "\n[본문 내용]\n" + "="*40)
         
-        # 본문 설명 추출
-        instructions = item_data.get('instructions')
-        content = item_data.get('content')
+        content_lines = []
         
-        if content:
-            lines.append(content)
-        elif instructions:
-            if isinstance(instructions, list):
-                lines.append('\n'.join(instructions))
+        # 1. 링크 주소
+        if item_data.get('href'):
+            content_lines.append(f"🔗 링크 주소: {item_data['href']}\n")
+            
+        # 2. 본문(공지사항 등)
+        if item_data.get('content'):
+            content_lines.append(item_data['content'])
+            
+        # 3. 설명(과제/시험)
+        if item_data.get('instructions'):
+            if isinstance(item_data['instructions'], list):
+                content_lines.append('\n'.join(item_data['instructions']))
             else:
-                lines.append(str(instructions))
+                content_lines.append(str(item_data['instructions']))
+                
+        # 4. 문항(시험/폼)
+        if item_data.get('questions'):
+            content_lines.append("\n" + "-"*30 + "\n[문항 목록]\n" + "-"*30)
+            for i, q in enumerate(item_data['questions'], 1):
+                content_lines.append(f"\nQ{i}. ({q.get('header', '')})")
+                content_lines.append(f"  {q.get('body', '')}")
+                if q.get('options'):
+                    for opt in q['options']:
+                        content_lines.append(f"    {opt}")
+                        
+        # 5. 토론(원문/댓글)
+        if item_data.get('original_post'):
+            op = item_data['original_post']
+            author = op.get('author', '알 수 없음')
+            date_str = f" | 작성일: {op.get('date', '')}" if op.get('date') else ""
+            content_lines.append(f"[원문 작성자: {author}{date_str}]")
+            content_lines.append(op.get('content', ''))
+            
+            comments = item_data.get('comments', [])
+            if comments:
+                content_lines.append("\n" + "-"*30 + "\n[댓글 및 답변 목록]\n" + "-"*30)
+                for c in comments:
+                    reply_mark = "  ↳ (답글) " if c.get('isReply') else "▶ "
+                    content_lines.append(f"{reply_mark}[{c.get('author')} | {c.get('date')}]")
+                    content_lines.append(f"    {c.get('content')}")
+                    content_lines.append("    " + "-" * 20)
+
+        if content_lines:
+            lines.extend(content_lines)
         else:
             lines.append("(본문 없음)")
             

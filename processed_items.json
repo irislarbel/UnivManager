@@ -2,14 +2,16 @@
     "CAJO1110_ 아주희망전공진로탐색(Z002-2)": {
         "/": [
             {
-                "type": "기타/문서",
+                "type": "LTI/외부링크",
                 "title": "강의계획서",
-                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#"
+                "href": "https://1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net/oidc/login_initiations?iss=https%3A%2F%2Fblackboard.com&login_hint=https%253A%252F%252Feclass2.ajou.ac.kr%252Fwebapps%252Fblackboard%252Fexecute%252Fblti%252FlaunchPlacement%253Fcmd%253Dauthenticate%2526course_id%253D_111215_1%2C12546fe42e424b9da1817688a59af132%2C717c2d998b4d49b686f99c301ae729cb&target_link_uri=https%3A%2F%2F1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net%2FajouSyllabus&lti_message_hint=eyJjb3Vyc2VJZCI6Il8xMTEyMTVfMSIsImdyb3VwSWQiOm51bGwsImNvbnRlbnRJZCI6Il8yMjA0ODI2XzEiLCJkZXBsb3ltZW50SWQiOiJiNThjNzRhZi02MWM0LTQzZmItOGY2MC1jNzZhYTVmZGM1MTEiLCJyZXNvdXJjZUxpbmtJZCI6Il8yMjA0ODI2XzEiLCJwYXJlbnRDb250ZW50SWQiOiIiLCJvcGVuSW5MaWdodEJveCI6ZmFsc2UsImZyb21VbHRyYSI6dHJ1ZSwiaW5saW5lTW9kZSI6ZmFsc2UsImhpZGVEb2N1bWVudCI6ZmFsc2UsImN1c3RvbVBhcmFtcyI6eyJjb3Vyc2VfaWQiOiJAWEBjb3Vyc2UuaWRAWEAiLCJ0b29sIjoiY291cnNlX3Rvb2wifSwicGxhY2VtZW50SWQiOiJfNTU2XzEiLCJ0YXJnZXRPdmVycmlkZSI6bnVsbCwiZnJvbUdyYWRlQ2VudGVyIjpmYWxzZSwib3Blbk5ld1dpbmRvdyI6dHJ1ZSwiZGVlcExpbmtMYXVuY2giOmZhbHNlLCJwb3NpdGlvbiI6LTEsInRhcmdldExpbmtVcmwiOiJodHRwczovLzFjNzc2MmUzYjBlZTk3NDA0MjlhNTk1MDQ1ZWRlZmZjLnRwLWFwcC5iYi1pY20taG9zdGluZy5uZXQvYWpvdVN5bGxhYnVzIn0&lti_deployment_id=b58c74af-61c4-43fb-8f60-c76aa5fdc511&client_id=1d53fbf9-c95a-4eae-b985-72b0b38c5dfd&lti_storage_target=lti_storage_frame",
+                "fullPath": "강의계획서"
             },
             {
-                "type": "기타/문서",
+                "type": "LTI/외부링크",
                 "title": "학습분석차트(Analytics Chart)",
-                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#"
+                "href": "https://eclass2.ajou.ac.kr/webapps/blackboard/execute/ultraFramePassThrough?redirectTo=https%3A%2F%2Feclass2.ajou.ac.kr%2Fwebapps%2Fblackboard%2Fexecute%2Fblti%2FlaunchPlacement%3Fblti_placement_id%3D_809_1%26content_id%3D_2204828_1%26course_id%3D_111215_1%26wrapped%3Dtrue%26from_ultra%3Dtrue",
+                "fullPath": "학습분석차트(Analytics Chart)"
             },
             {
                 "type": "폴더",
@@ -29,23 +31,24 @@
                 "title": "QnA"
             },
             {
-                "type": "기타/문서",
+                "type": "LTI/외부링크",
                 "title": "Zoom",
-                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#"
+                "href": "https://applications.zoom.us/lti/rich",
+                "fullPath": "Zoom"
             }
         ],
         "/공지사항": [
             {
                 "type": "공지사항",
-                "title": "아주대학교 온라인 법정필수교육 안내",
-                "date": "",
-                "content": "안녕하세요 여러분,아주대학교 전 구성원들이 연 1회 필수적으로 수강하여야 하는 법정필수교육에 관해 안내드립니다. 자유전공학부 신입생의 경우 온라인 교육 이수 기간은 4월 한달이니 아무쪼록 기간 내에 해당 법정필수교육을 이수하시길 바랍니다. 법정필수 교육 주소는 아래와 같습니다: [링크: https://equalityeclass.ajou.ac.kr/] [매뉴얼] 인권센터 온라인 법정필수교육 수강방법.pdf곧 아주희망 수업 때 뵙도록 하겠습니다!\n\n📎 첨부파일 목록:\n[첨부파일: [매뉴얼] 인권센터 온라인 법정필수교육 수강방법.pdf (https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026017292/announcements/_333825_1/%5B%EB%A7%A4%EB%89%B4%EC%96%BC%5D%20%EC%9D%B8%EA%B6%8C%EC%84%BC%ED%84%B0%20%EC%98%A8%EB%9D%BC%EC%9D%B8%20%EB%B2%95%EC%A0%95%ED%95%84%EC%88%98%EA%B5%90%EC%9C%A1%20%EC%88%98%EA%B0%95%EB%B0%A9%EB%B2%95.pdf)]"
-            },
-            {
-                "type": "공지사항",
                 "title": "4/29 수업 U-Chance Fair 참여로 대체",
                 "date": "",
                 "content": "안녕하세요, 여러분. 모두 중간고사 보시느라 고생 많으셨습니다.오늘 아주희망 수업은 강의실에서 정해진 시간에 모이는 것이 아닌, 학교에서 29일-30일 진행 중인 U-Chance Fair 에 참여하시는 것으로 대체합니다.https://www.ajou.ac.kr/kr/ajou/notice.do?mode=view&articleNo=367474링크로 가시면 행사에 관한 자세한 내용이 안내되어있습니다. 행사 참여를 확인 받을 수 있는 방법도 설명되어 있으니 확인하셔서 '출석 인증' 받으시길 바랍니다. 출석 인증 받으시면 저희에게도 출석 이력이 공유되어 여러분들 오늘 아주희망 수업을 출석으로 인정해드릴 수 있습니다.가벼운 마음으로 가셔서 즐겁게 참여해주시길 바랍니다. :)"
+            },
+            {
+                "type": "공지사항",
+                "title": "아주대학교 온라인 법정필수교육 안내",
+                "date": "",
+                "content": "안녕하세요 여러분,아주대학교 전 구성원들이 연 1회 필수적으로 수강하여야 하는 법정필수교육에 관해 안내드립니다. 자유전공학부 신입생의 경우 온라인 교육 이수 기간은 4월 한달이니 아무쪼록 기간 내에 해당 법정필수교육을 이수하시길 바랍니다. 법정필수 교육 주소는 아래와 같습니다: [링크: https://equalityeclass.ajou.ac.kr/] [매뉴얼] 인권센터 온라인 법정필수교육 수강방법.pdf곧 아주희망 수업 때 뵙도록 하겠습니다!\n\n📎 첨부파일 목록:\n[첨부파일: [매뉴얼] 인권센터 온라인 법정필수교육 수강방법.pdf (https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026017292/announcements/_333825_1/%5B%EB%A7%A4%EB%89%B4%EC%96%BC%5D%20%EC%9D%B8%EA%B6%8C%EC%84%BC%ED%84%B0%20%EC%98%A8%EB%9D%BC%EC%9D%B8%20%EB%B2%95%EC%A0%95%ED%95%84%EC%88%98%EA%B5%90%EC%9C%A1%20%EC%88%98%EA%B0%95%EB%B0%A9%EB%B2%95.pdf)]"
             }
         ]
     },
@@ -54,7 +57,7 @@
             {
                 "type": "LTI/외부링크",
                 "title": "강의계획서",
-                "href": "https://1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net/oidc/login_initiations?iss=https%3A%2F%2Fblackboard.com&login_hint=https%253A%252F%252Feclass2.ajou.ac.kr%252Fwebapps%252Fblackboard%252Fexecute%252Fblti%252FlaunchPlacement%253Fcmd%253Dauthenticate%2526course_id%253D_111078_1%2C12546fe42e424b9da1817688a59af132%2Cd83efe5457e247579d80d6488d6e826f&target_link_uri=https%3A%2F%2F1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net%2FajouSyllabus&lti_message_hint=eyJjdXN0b21QYXJhbXMiOnsiY291cnNlX2lkIjoiQFhAY291cnNlLmlkQFhAIiwidG9vbCI6ImNvdXJzZV90b29sIn0sIm9wZW5JbkxpZ2h0Qm94IjpmYWxzZSwiZnJvbVVsdHJhIjp0cnVlLCJpbmxpbmVNb2RlIjpmYWxzZSwiaGlkZURvY3VtZW50IjpmYWxzZSwicGxhY2VtZW50SWQiOiJfNTU2XzEiLCJvcGVuTmV3V2luZG93Ijp0cnVlLCJkZWVwTGlua0xhdW5jaCI6ZmFsc2UsInRhcmdldE92ZXJyaWRlIjpudWxsLCJmcm9tR3JhZGVDZW50ZXIiOmZhbHNlLCJjb3Vyc2VJZCI6Il8xMTEwNzhfMSIsImdyb3VwSWQiOm51bGwsImNvbnRlbnRJZCI6Il8yMjAyMTk4XzEiLCJkZXBsb3ltZW50SWQiOiJiNThjNzRhZi02MWM0LTQzZmItOGY2MC1jNzZhYTVmZGM1MTEiLCJwYXJlbnRDb250ZW50SWQiOiIiLCJyZXNvdXJjZUxpbmtJZCI6Il8yMjAyMTk4XzEiLCJ0YXJnZXRMaW5rVXJsIjoiaHR0cHM6Ly8xYzc3NjJlM2IwZWU5NzQwNDI5YTU5NTA0NWVkZWZmYy50cC1hcHAuYmItaWNtLWhvc3RpbmcubmV0L2Fqb3VTeWxsYWJ1cyIsInBvc2l0aW9uIjotMX0&lti_deployment_id=b58c74af-61c4-43fb-8f60-c76aa5fdc511&client_id=1d53fbf9-c95a-4eae-b985-72b0b38c5dfd&lti_storage_target=lti_storage_frame",
+                "href": "https://apply.ajou.ac.kr/courseplan/findReport.action?mac=78d377f6e122e033df87012adf40e766&cid=2026U00020012026007268&timestamp=1777975973&eng=n",
                 "fullPath": "강의계획서"
             },
             {
@@ -78,12 +81,25 @@
                 "title": "과제출제/제출"
             },
             {
+                "original_post": {
+                    "author": "익명",
+                    "date": "2024. 6. 26. 19:43",
+                    "content": "코스 내 QnA를 작성합니다."
+                },
+                "comments": [
+                    {
+                        "author": "강민규",
+                        "date": "2026. 3. 11. 18:04",
+                        "content": "안녕하세요 교수님 과제 제출을 잘못하여 다시 업로드 하였는데 괜찮을까요?",
+                        "isReply": false
+                    }
+                ],
                 "title": "QnA"
             },
             {
                 "type": "LTI/외부링크",
                 "title": "동영상 출석 조회",
-                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#",
+                "href": "https://eclass2.ajou.ac.kr/webapps/blackboard/execute/ultraFramePassThrough?redirectTo=https%3A%2F%2Feclass2.ajou.ac.kr%2Fwebapps%2Fblackboard%2Fexecute%2Fblti%2FlaunchPlacement%3Fblti_placement_id%3D_891_1%26content_id%3D_2307745_1%26course_id%3D_111078_1%26wrapped%3Dtrue%26from_ultra%3Dtrue",
                 "fullPath": "동영상 출석 조회"
             }
         ],
@@ -99,14 +115,6 @@
             {
                 "type": "폴더",
                 "title": "4주차: 함께 성장하는 대학생활 1 - 20대와 인간관계(대면수업)"
-            },
-            {
-                "type": "폴더",
-                "title": "6주차: 함께 성장하는 대학생활 2 - 자기 이해와 자기 계발"
-            },
-            {
-                "type": "폴더",
-                "title": "7주차: 슬기로운 대학생활 3"
             },
             {
                 "type": "폴더",
@@ -134,7 +142,7 @@
             {
                 "type": "LTI/외부링크",
                 "title": "XIN - 2.슬기로운 대학생활2-1.도서관 이용교육_Part.2 / 2026-03-17 00:00 ~ 2026-03-30 23:59",
-                "href": "chrome-error://chromewebdata/",
+                "href": "https://portfolio.ajou.ac.kr/em/69b3b7a3324e1",
                 "fullPath": "강의노트/3주차: 슬기로운 대학생활2/XIN - 2.슬기로운 대학생활2-1.도서관 이용교육_Part.2 / 2026-03-17 00:00 ~ 2026-03-30 23:59"
             },
             {
@@ -146,7 +154,7 @@
             {
                 "type": "LTI/외부링크",
                 "title": "XIN - 슬기로운 대학생활2-3.장학생의 학습 노하우2-한동민 / 2026-03-17 00:00 ~ 2026-03-30 23:59",
-                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#",
+                "href": "https://portfolio.ajou.ac.kr/em/69b3b8106a279",
                 "fullPath": "강의노트/3주차: 슬기로운 대학생활2/XIN - 슬기로운 대학생활2-3.장학생의 학습 노하우2-한동민 / 2026-03-17 00:00 ~ 2026-03-30 23:59"
             },
             {
@@ -251,85 +259,15 @@
                 "type": "시험"
             }
         ],
-        "강의노트/6주차: 함께 성장하는 대학생활 2 - 자기 이해와 자기 계발": [
+        "강의노트/10주차: 함께 성장하는 대학생활 3 - Learning Together - 함께 배우고 실패하고 소통하며 성장하기": [
             {
                 "type": "LTI/외부링크",
-                "title": "XIN - 함께 성장하는 대학생활1-1.자기이해와 자기계발 / 2026-04-07 00:00 ~ 2026-04-20 23:59",
-                "href": "https://portfolio.ajou.ac.kr/em/69ccd9b21a30f?unload=true&contentId=7339794a7056523172656f25324232777a714e75634c5041253344253344&userId=716642454754765041657a44703241434d4f6d4e6b77253344253344&per=100.0&st=1173.31&et=-9999.0&pr=1&attUrl=https%3A%2F%2Fbbattend.ajou.ac.kr%2Fatd%2Fxinics",
-                "fullPath": "강의노트/6주차: 함께 성장하는 대학생활 2 - 자기 이해와 자기 계발/XIN - 함께 성장하는 대학생활1-1.자기이해와 자기계발 / 2026-04-07 00:00 ~ 2026-04-20 23:59"
-            },
-            {
-                "deadline": "",
-                "timeLimit": "",
-                "attempts": "",
-                "maxScore": "",
-                "instructions": [],
-                "questions": [],
-                "title": "[퀴즈] 자기이해와 자기 계발",
-                "type": "시험"
-            },
-            {
-                "type": "기타/문서",
-                "title": "[설문조사] 아주인의 대학 생활 적응 및 정착 지원을 위한 조사",
-                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_111078_1/outline/assessment/_2327662_1/overview?courseId=_111078_1"
-            }
-        ],
-        "강의노트/7주차: 슬기로운 대학생활 3": [
-            {
-                "type": "LTI/외부링크",
-                "title": "XIN - 슬기로운 대학생활3-1.스트레스 관리와 자기 돌봄 루틴 만들기-김영아 / 2026-04-14 00:00 ~ 2026-04-27 23:59",
-                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#",
-                "fullPath": "강의노트/7주차: 슬기로운 대학생활 3/XIN - 슬기로운 대학생활3-1.스트레스 관리와 자기 돌봄 루틴 만들기-김영아 / 2026-04-14 00:00 ~ 2026-04-27 23:59"
-            },
-            {
-                "type": "LTI/외부링크",
-                "title": "XIN - 슬기로운 대학생활3-2.효율적인 시간 관리를 통한 학습 방법 만들기-김기은 / 2026-04-14 00:00 ~ 2026-04-27 23:59",
-                "href": "https://portfolio.ajou.ac.kr/em/69cb737e767ca?unload=true&contentId=6d324a445648526c3876457177327335475155774677253344253344&userId=716642454754765041657a44703241434d4f6d4e6b77253344253344&per=0.0&st=0.0&et=0.0&pr=0&attUrl=https%3A%2F%2Fbbattend.ajou.ac.kr%2Fatd%2Fxinics",
-                "fullPath": "강의노트/7주차: 슬기로운 대학생활 3/XIN - 슬기로운 대학생활3-2.효율적인 시간 관리를 통한 학습 방법 만들기-김기은 / 2026-04-14 00:00 ~ 2026-04-27 23:59"
-            },
-            {
-                "type": "시험/퀴즈",
-                "title": "[퀴즈] 슬기로운 대학생활3",
-                "error": "패널 진입 실패"
+                "title": "XIN - 함께 성장하는 대학생활2-1.Learning Together, 함께배우고 실패하고 소통하며 성장하는-신종호 / 2026-05-05 00:00 ~ 2026-05-18 23:59",
+                "href": "https://portfolio.ajou.ac.kr/em/69d31aea613d2?unload=true&contentId=796b697235494232613963574437764a384168756767253344253344&userId=716642454754765041657a44703241434d4f6d4e6b77253344253344&per=0.0&st=0.0&et=0.0&pr=0&attUrl=https%3A%2F%2Fbbattend.ajou.ac.kr%2Fatd%2Fxinics",
+                "fullPath": "강의노트/10주차: 함께 성장하는 대학생활 3 - Learning Together - 함께 배우고 실패하고 소통하며 성장하기/XIN - 함께 성장하는 대학생활2-1.Learning Together, 함께배우고 실패하고 소통하며 성장하는-신종호 / 2026-05-05 00:00 ~ 2026-05-18 23:59"
             }
         ],
         "/공지사항": [
-            {
-                "type": "공지사항",
-                "title": "아주인을 위한 마중물 FAQ 안내",
-                "date": "",
-                "content": ""
-            },
-            {
-                "type": "공지사항",
-                "title": "아주인을 위한 마중물 동영상 강의 출결 확인 안내",
-                "date": "",
-                "content": ""
-            },
-            {
-                "type": "공지사항",
-                "title": "아주인을 위한 마중물 수업 방법 및 학습 활동 안내",
-                "date": "",
-                "content": ""
-            },
-            {
-                "type": "공지사항",
-                "title": "아주인을 위한 마중물 1주차 ZOOM 접속 위한 아이디 및 비밀번호 안내",
-                "date": "",
-                "content": ""
-            },
-            {
-                "type": "공지사항",
-                "title": "아주인을 위한 마중물 수업 안내",
-                "date": "",
-                "content": ""
-            },
-            {
-                "type": "공지사항",
-                "title": "아주인을 위한 마중물 수업 출석 안내",
-                "date": "",
-                "content": ""
-            },
             {
                 "type": "공지사항",
                 "title": "아주인을 위한 마중물 9주차 ZOOM 접속 위한 아이디 및 비밀번호 안내",
@@ -353,14 +291,42 @@
                 "title": "3월 25일(수) 아주인을 위한 마중물 수업 안내",
                 "date": "",
                 "content": "<연암관 대면수업 대상 학과>전자공학과사이버보안학과디지털미디어학과프런티어과학학부국어국문학과사학과심리학과건설시스템공학과건축학과위에 안내된 학과 외 소속 학생의 경우,1) 다산관 B121호 강당에서 ZOOM 중계수업을 참여해주시거나2) 아주Bb에 개설된 ZOOM으로 개별 수업 참여해주시기 바랍니다. [이미지 첨부: https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026007268/announcements/_333062_1/%EC%95%84%EC%A3%BC%EC%9D%B8%20%ED%98%BC%EC%9A%A9%EC%88%98%EC%97%85%20%EC%B0%B8%EC%97%AC%EC%95%88%EB%82%B4%28%EC%97%B0%EC%95%94%EA%B4%80%EC%9A%A9%29%20%281%29.jpg]"
-            }
-        ],
-        "강의노트/10주차: 함께 성장하는 대학생활 3 - Learning Together - 함께 배우고 실패하고 소통하며 성장하기": [
+            },
             {
-                "type": "LTI/외부링크",
-                "title": "XIN - 함께 성장하는 대학생활2-1.Learning Together, 함께배우고 실패하고 소통하며 성장하는-신종호 / 2026-05-05 00:00 ~ 2026-05-18 23:59",
-                "href": "https://portfolio.ajou.ac.kr/em/69d31aea613d2?unload=true&contentId=796b697235494232613963574437764a384168756767253344253344&userId=716642454754765041657a44703241434d4f6d4e6b77253344253344&per=0.0&st=0.0&et=0.0&pr=0&attUrl=https%3A%2F%2Fbbattend.ajou.ac.kr%2Fatd%2Fxinics",
-                "fullPath": "강의노트/10주차: 함께 성장하는 대학생활 3 - Learning Together - 함께 배우고 실패하고 소통하며 성장하기/XIN - 함께 성장하는 대학생활2-1.Learning Together, 함께배우고 실패하고 소통하며 성장하는-신종호 / 2026-05-05 00:00 ~ 2026-05-18 23:59"
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 FAQ 안내",
+                "date": "",
+                "content": "수업과 관련하여 자주 묻는 질문(FAQ)을 안내드립니다.대면, 비대면(ZOOM), 동영상 수업별 출석 인정 기준과 오참석 시 유의사항 등 출석과 관련된 내용이 포함되어 있습니다.출석 상의 불이익을 받지 않도록, 첨부된 PDF 파일을 열람하여 내용을 숙지해 주시기 바랍니다.감사합니다.아주인을 위한 마중물 FAQ.pdf\n\n📎 첨부파일 목록:\n[첨부파일: 아주인을 위한 마중물 FAQ.pdf (https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026007268/announcements/_331990_1/%EC%95%84%EC%A3%BC%EC%9D%B8%EC%9D%84%20%EC%9C%84%ED%95%9C%20%EB%A7%88%EC%A4%91%EB%AC%BC%20FAQ.pdf)]"
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 동영상 강의 출결 확인 안내",
+                "date": "",
+                "content": "아주인을 위한 마중물 동영상 강의의 출결은 각 강의 마감일 이후 일괄적으로 처리됩니다.따라서 마감일 이전에는 출결 현황이 반영되지 않으며,수강 인원이 많아 출결 반영이 다소 지연될 수 있습니다.동영상 강의 수강 확인 방법▶ 학습 지원도구 → 동영상 출석 조회 → 출결 상태 'P' 확인 [이미지 첨부: https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026007268/announcements/_331797_1/X234%EC%95%84%EC%A3%BC%EC%9D%B8%20%EC%B6%9C%EC%84%9D%20%ED%99%95%EC%9D%B8%20%EA%B3%B5%EC%A7%80%20%EC%9E%90%EB%A3%8C.jpg]"
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 수업 방법 및 학습 활동 안내",
+                "date": "",
+                "content": "안녕하세요?여러분의 아주대학교 입학을 다시 한번 축하하며, 아주인이 된 여러분을 진심으로 뜨겁게 환영합니다.본 교과목은 모든 신입생이 수강하는 필수 과정으로, 여러분의 성공적인 대학 생활 적응과 정착을 돕기 위해 개설되었습니다.모든 학생들이 동시에 수강하는 관계로  더 많은 학생과 직접 소통하지 못하는 아쉬움이 크지만,효과적인 학습을 위해 온·오프라인 혼합 방식(Blended Learning)으로 운영되오니 학생 여러분의 너른 양해를 바랍니다.주요 학습 안내:수업 방식: 오프라인 수업 외 모든 주차는 동영상 강의를 중심으로 진행됩니다.학습 구성: 학습 내용은 총 4개 영역으로 구성되며, 주차별로 동영상 강의, 퀴즈, 과제가 제공됩니다.이수 방법: 지정된 기간 내에 동영상 수강을 완료하고, 해당 주차의 퀴즈나 과제를 수행해야 합니다.협조 사항: 매주 아주Bb에 접속하여 공지사항과 학습 활동을 반드시 확인해 주시기 바랍니다.수업과 관련하여 궁금한 사항은 조교에게 문의하면 답변을 하도록 하겠습니다.2주차 강의는 오늘(3월 9일) 등록될 예정입니다.아주인을 위한 마중물이 여러분의 활기찬 대학 생활을 여는 소중한 시작점이 되기를 응원합니다."
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 1주차 ZOOM 접속 위한 아이디 및 비밀번호 안내",
+                "date": "",
+                "content": "ID : 818 4199 8219PW : 554938아주 BB를 통한 ZOOM 접속에 오류가 있는 경우 줌의 회의 참가에 위의 아이디와 비밀번호를 입력하여 수업에 참여하시길 바랍니다."
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 수업 안내",
+                "date": "",
+                "content": "아주인을 위한 마중물 수업 안내입니다.본 수업은 대면+비대면(zoom)혼용수업과 원격수업으로 운영되는 수업입니다.대면+비대면(zoom)수업은 총 4회 운영 되며,대면 참석 지정학과는 반드시 연암관 강당 출석하여 대면으로 수업에 참여하여 주시고,나머지 학과는 아주Bb에 개설된 ZOOM 수업으로 참여 하시면 됩니다.본인 학과에 해당되지 않는 수업 방법으로 수강할 시 결석으로 처리되니 유의하시기 바랍니다.- 대면/비대면 수업 일정 1) 3월 4일 수요일 16시 30분 ~ 18시 2) 3월 25일 수요일 16시 30분 ~ 18시 3) 4월 29일 수요일 16시 30분 ~ 18시 4) 5월 20일 수요일 16시 30분 ~ 18시- 대면수업 장소 : 연암관 대강당(101)- 비대면 수업 참여 방법 옵션 1) 아주Bb에 개설된 ZOOM 수업 참여 옵션 2) 다산관 강당(B121호) ZOOM 중계수업 참여 ※ 대면/비대면 혼용수업 외 원격수업은 아주Bb에서 운영되며 11회 운영 됩니다. 문의사항은 ajouin_zoom2@ajou.ac.kr 로 보내주시기 바랍니다. [이미지 첨부: https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026007268/announcements/_328680_1/26-1%20%EC%95%84%EC%A3%BC%EC%9D%B8%20%EC%B6%9C%EA%B2%B0%EC%95%88%EB%82%B4%20%28%EB%B6%84%EB%B0%98%EB%B3%84%29%203.png] [이미지 첨부: https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026007268/announcements/_328680_1/26-1%20%EC%95%84%EC%A3%BC%EC%9D%B8%20%EC%B6%9C%EA%B2%B0%EC%95%88%EB%82%B4%20%28%EB%B6%84%EB%B0%98%EB%B3%84%29%204.png]"
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 수업 출석 안내",
+                "date": "",
+                "content": "[이미지 첨부: https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026007268/announcements/_328681_1/%EC%95%84%EC%A3%BC%EC%9D%B8%20%EC%B6%9C%EC%84%9D%20%EC%95%88%EB%82%B4%201.png] [이미지 첨부: https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026007268/announcements/_328681_1/%EC%95%84%EC%A3%BC%EC%9D%B8%20%EC%B6%9C%EC%84%9D%20%EC%95%88%EB%82%B4%202.png]"
             }
         ]
     },
@@ -369,7 +335,7 @@
             {
                 "type": "LTI/외부링크",
                 "title": "Syllabus",
-                "href": "https://1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net/oidc/login_initiations?iss=https%3A%2F%2Fblackboard.com&login_hint=https%253A%252F%252Feclass2.ajou.ac.kr%252Fwebapps%252Fblackboard%252Fexecute%252Fblti%252FlaunchPlacement%253Fcmd%253Dauthenticate%2526course_id%253D_112132_1%2C12546fe42e424b9da1817688a59af132%2Cf01fcc6859f64a0383814f7f63c1dfeb&target_link_uri=https%3A%2F%2F1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net%2FajouSyllabus&lti_message_hint=eyJjb3Vyc2VJZCI6Il8xMTIxMzJfMSIsImdyb3VwSWQiOm51bGwsImNvbnRlbnRJZCI6Il8yMjIyNTU2XzEiLCJkZXBsb3ltZW50SWQiOiJiNThjNzRhZi02MWM0LTQzZmItOGY2MC1jNzZhYTVmZGM1MTEiLCJwYXJlbnRDb250ZW50SWQiOiIiLCJoaWRlRG9jdW1lbnQiOmZhbHNlLCJ0YXJnZXRMaW5rVXJsIjoiaHR0cHM6Ly8xYzc3NjJlM2IwZWU5NzQwNDI5YTU5NTA0NWVkZWZmYy50cC1hcHAuYmItaWNtLWhvc3RpbmcubmV0L2Fqb3VTeWxsYWJ1cyIsImlubGluZU1vZGUiOmZhbHNlLCJyZXNvdXJjZUxpbmtJZCI6Il8yMjIyNTU2XzEiLCJwbGFjZW1lbnRJZCI6Il81NTZfMSIsImN1c3RvbVBhcmFtcyI6eyJjb3Vyc2VfaWQiOiJAWEBjb3Vyc2UuaWRAWEAiLCJ0b29sIjoiY291cnNlX3Rvb2wifSwib3BlbkluTGlnaHRCb3giOmZhbHNlLCJmcm9tVWx0cmEiOnRydWUsInRhcmdldE92ZXJyaWRlIjpudWxsLCJmcm9tR3JhZGVDZW50ZXIiOmZhbHNlLCJvcGVuTmV3V2luZG93Ijp0cnVlLCJkZWVwTGlua0xhdW5jaCI6ZmFsc2UsInBvc2l0aW9uIjotMX0&lti_deployment_id=b58c74af-61c4-43fb-8f60-c76aa5fdc511&client_id=1d53fbf9-c95a-4eae-b985-72b0b38c5dfd&lti_storage_target=lti_storage_frame",
+                "href": "https://apply.ajou.ac.kr/courseplan/findReport.action?mac=aff662951d97a66675f71a52d2270903&cid=2026U000200120260066511&timestamp=1777976075&eng=y",
                 "fullPath": "Syllabus"
             },
             {
@@ -922,6 +888,42 @@
                 },
                 "comments": [],
                 "title": "03-Topic selection"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Apr 7, 2026 10:01 AM",
+                    "content": "<Project evaluation> [이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_635713_1/embedded/PE.jpg] Complete your project proposal using these steps:1.Refer to the attached file:04-Proposal.docx2.Follow these four key criteria:Clarity: Make your objectives specific and clearSpecificity: Create a detailed, logical project planCreativity: Develop original ideas that stand outPunctuality: Submit by the deadline3.This time, please complete only two sections: 1. Project Overview and 2. Creativity and Originality.The remaining sections will be added after feedback.4.Due: 10:00am, Monday April 13 (W6)Upload your proposal document file to your designated group folder.You may revise and reupload it as many times as needed before the deadline, but be sure to add \"-final\" to the filename of your final version (e.g., \"Group9-Proposal-final.docx\").Check the sample proposal for guidance on creating an effective submission:05-Proposal_sample.pdf5.During the class: Students must upload their work before class ends at your group folder.This can be either a digital file or a photo of their handout work.6.AI usage: Additionally, provide screenshots of your AI usage.These should include:(1) the first prompt you used to initiate the AI activity along with the beginning of its response,(2) the final prompt you selected for the activity.The purpose of this requirement is to document your AI usage and demonstrate your thinking process."
+                },
+                "comments": [],
+                "title": "04-Proposal_1st draft"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Apr 9, 2026 8:42 AM",
+                    "content": "<Presentation schedule>W13  5/27(W) G1,2,3W14  6/1(M) G4,5,6Using your 2-team feedback sheet, complete the Proposal Review by following the steps below.Steps:1.Review your proposal, the 2-team feedback, and the Project Review Checklist.05-Proposal review-1.docx2.Identify the problems and outline possible solutions you can implement by next week.3.Before class ends: upload the pictures of following to your designated group folder:(A) the 2-team feedback sheet(B) your group's checklist for revision.4.Submit your revised proposal and completed timeline (referring to your presentation date) by 10:00 AM, Wednesday, April 15 to your group folder.Be sure to add \"-rev\" to the filename of your revised version (e.g., \"Group9-Proposal-rev.docx\").5.AI usage: Additionally, provide screenshots of your AI usage.These should include:(1) the first prompt you used to initiate the AI activity along with the beginning of its response,(2) the final prompt you selected for the activity.The purpose of this requirement is to document your AI usage and demonstrate your thinking process."
+                },
+                "comments": [],
+                "title": "05-2nd proposal due + project review"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Apr 14, 2026 1:00 PM",
+                    "content": "Assign RolesEach team member needs a specific role. Here are the main roles:Researchers [Your names] Finds information and sources for the projectTakes notes and organizes research materialsShares findings with the teamWriter/Editor  [Your names] Set up the survey, experiments, application designWrites the main contentChecks grammar and makes correctionsPrepares the script for presentationDesigner  [Your name] Creates visual materials (PowerPoint, posters, handouts)Makes sure slides look clear and professionalAdds images, charts, and graphicsPresenters/Speakers  [Your names] Practices speaking clearly and confidentlyDelivers the main presentationAnswers questions from the audienceIf you need extra roles then write more.Structure: Write items you should mention.IntroductionBodyConclusionYou can also refer the sample:07-structure_sample.pdfSubmit Before Class Ends: Before the end of class, upload your group’s outline to your designated group folder."
+                },
+                "comments": [],
+                "title": "06-Assign roles and make a tentative structure"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Apr 28, 2026 11:48 AM",
+                    "content": "1.Review your assigned role and group structure, then complete the following before the class ends:Identify three things (materials, resources, or tools) you need to bring.Write down who is responsible for bringing each item and which role that responsibility belongs to.Start to collect the data and make the tentative presentation file.2.Watch the MOCA videos by next class.Project Power-Up: From Ideas to Success3. Project Planning & Outline Development4.Gathering Resources & Research Methods [이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_643684_1/embedded/%ED%99%94%EB%A9%B4%20%EC%BA%A1%EC%B2%98%202026-04-28%20101936.jpg]"
+                },
+                "comments": [],
+                "title": "07-Resources"
             }
         ],
         "LectureNote": [
@@ -997,75 +999,5 @@
                 "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/file/_2295173_1"
             }
         ]
-    },
-    "CGEX1052_ 아주상상프로젝트-디지털 혁명과 사회변화(X117-13)": {},
-    "DLS101_ 주제탐구세미나(Z006-4)": {},
-    "MATH102_ 수학1(X341-24)": {},
-    "PHYS117_ 물리학(X476-1)": {
-        "/": [
-            {
-                "type": "LTI/외부링크",
-                "title": "강의계획서",
-                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#",
-                "fullPath": "강의계획서"
-            },
-            {
-                "type": "LTI/외부링크",
-                "title": "학습분석차트(Analytics Chart)",
-                "href": "https://eclass2.ajou.ac.kr/webapps/blackboard/execute/ultraFramePassThrough?redirectTo=https%3A%2F%2Feclass2.ajou.ac.kr%2Fwebapps%2Fblackboard%2Fexecute%2Fblti%2FlaunchPlacement%3Fblti_placement_id%3D_809_1%26content_id%3D_2222003_1%26course_id%3D_112103_1%26wrapped%3Dtrue%26from_ultra%3Dtrue",
-                "fullPath": "학습분석차트(Analytics Chart)"
-            },
-            {
-                "type": "폴더",
-                "title": "강의노트"
-            },
-            {
-                "type": "폴더",
-                "title": "과제출제/제출"
-            },
-            {
-                "title": "QnA"
-            },
-            {
-                "type": "LTI/외부링크",
-                "title": "Zoom",
-                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#",
-                "fullPath": "Zoom"
-            }
-        ],
-        "강의노트": [
-            {
-                "type": "기타/문서",
-                "title": "물리학_1주차_Ch1-2_강의노트_수정.pdf",
-                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2283281_1"
-            },
-            {
-                "type": "기타/문서",
-                "title": "물리학_2주차_Ch3_강의노트.pdf",
-                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2283282_1"
-            },
-            {
-                "type": "기타/문서",
-                "title": "물리학_3주차_Ch4_강의노트.pdf",
-                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2283283_1"
-            },
-            {
-                "type": "기타/문서",
-                "title": "물리학_4주차_Ch5_강의노트.pdf",
-                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2283284_1"
-            },
-            {
-                "type": "기타/문서",
-                "title": "물리학_5주차_Ch6_강의노트.pdf",
-                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2303852_1"
-            },
-            {
-                "type": "기타/문서",
-                "title": "물리학_6주차_Ch7_강의노트.pdf",
-                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2303853_1"
-            }
-        ]
-    },
-    "PHYS118_ 물리학실험(X453-7)": {},
-    "SCE103_ 컴퓨터프로그래밍및실습(F034-4)": {}
+    }
 }

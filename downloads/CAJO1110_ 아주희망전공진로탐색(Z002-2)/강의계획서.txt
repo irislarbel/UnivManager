@@ -1,8 +1,8 @@
 과목명: CAJO1110_ 아주희망전공진로탐색(Z002-2)
-유형: 기타/문서
+유형: LTI/외부링크
 제목: 강의계획서
 
 ========================================
 [본문 내용]
 ========================================
-(본문 없음)
+🔗 링크 주소: https://1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net/oidc/login_initiations?iss=https%3A%2F%2Fblackboard.com&login_hint=https%253A%252F%252Feclass2.ajou.ac.kr%252Fwebapps%252Fblackboard%252Fexecute%252Fblti%252FlaunchPlacement%253Fcmd%253Dauthenticate%2526course_id%253D_111215_1%2C12546fe42e424b9da1817688a59af132%2C717c2d998b4d49b686f99c301ae729cb&target_link_uri=https%3A%2F%2F1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net%2FajouSyllabus&lti_message_hint=eyJjb3Vyc2VJZCI6Il8xMTEyMTVfMSIsImdyb3VwSWQiOm51bGwsImNvbnRlbnRJZCI6Il8yMjA0ODI2XzEiLCJkZXBsb3ltZW50SWQiOiJiNThjNzRhZi02MWM0LTQzZmItOGY2MC1jNzZhYTVmZGM1MTEiLCJyZXNvdXJjZUxpbmtJZCI6Il8yMjA0ODI2XzEiLCJwYXJlbnRDb250ZW50SWQiOiIiLCJvcGVuSW5MaWdodEJveCI6ZmFsc2UsImZyb21VbHRyYSI6dHJ1ZSwiaW5saW5lTW9kZSI6ZmFsc2UsImhpZGVEb2N1bWVudCI6ZmFsc2UsImN1c3RvbVBhcmFtcyI6eyJjb3Vyc2VfaWQiOiJAWEBjb3Vyc2UuaWRAWEAiLCJ0b29sIjoiY291cnNlX3Rvb2wifSwicGxhY2VtZW50SWQiOiJfNTU2XzEiLCJ0YXJnZXRPdmVycmlkZSI6bnVsbCwiZnJvbUdyYWRlQ2VudGVyIjpmYWxzZSwib3Blbk5ld1dpbmRvdyI6dHJ1ZSwiZGVlcExpbmtMYXVuY2giOmZhbHNlLCJwb3NpdGlvbiI6LTEsInRhcmdldExpbmtVcmwiOiJodHRwczovLzFjNzc2MmUzYjBlZTk3NDA0MjlhNTk1MDQ1ZWRlZmZjLnRwLWFwcC5iYi1pY20taG9zdGluZy5uZXQvYWpvdVN5bGxhYnVzIn0&lti_deployment_id=b58c74af-61c4-43fb-8f60-c76aa5fdc511&client_id=1d53fbf9-c95a-4eae-b985-72b0b38c5dfd&lti_storage_target=lti_storage_frame

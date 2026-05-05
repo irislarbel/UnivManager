@@ -9,3 +9,12 @@
 This survey relates to the Generative AI Usage Policy outlined in the course syllabus, which describes the guidelines and important notes regarding the use of Generative AI.
 This confirmation is intended to verify that you have reviewed, understood, and acknowledged the Generative AI usage policy described in the course syllabus.
 Please review the course syllabus carefully before responding.
+
+------------------------------
+[문항 목록]
+------------------------------
+
+Q1. (1  Point)
+  I confirm that I have reviewed the Generative AI Usage Policy in the course syllabus and that I understand and will follow the course standards set by the instructor.
+    🔳 [ ] Yes
+    🔳 [ ] No
