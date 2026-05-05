@@ -1,0 +1,1071 @@
+{
+    "CAJO1110_ 아주희망전공진로탐색(Z002-2)": {
+        "/": [
+            {
+                "type": "기타/문서",
+                "title": "강의계획서",
+                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#"
+            },
+            {
+                "type": "기타/문서",
+                "title": "학습분석차트(Analytics Chart)",
+                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#"
+            },
+            {
+                "type": "폴더",
+                "title": "강의노트"
+            },
+            {
+                "type": "폴더",
+                "title": "과제출제/제출"
+            },
+            {
+                "original_post": {
+                    "author": "익명",
+                    "date": "2024. 6. 26. 19:43",
+                    "content": "코스 내 QnA를 작성합니다."
+                },
+                "comments": [],
+                "title": "QnA"
+            },
+            {
+                "type": "기타/문서",
+                "title": "Zoom",
+                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#"
+            }
+        ],
+        "/공지사항": [
+            {
+                "type": "공지사항",
+                "title": "아주대학교 온라인 법정필수교육 안내",
+                "date": "",
+                "content": "안녕하세요 여러분,아주대학교 전 구성원들이 연 1회 필수적으로 수강하여야 하는 법정필수교육에 관해 안내드립니다. 자유전공학부 신입생의 경우 온라인 교육 이수 기간은 4월 한달이니 아무쪼록 기간 내에 해당 법정필수교육을 이수하시길 바랍니다. 법정필수 교육 주소는 아래와 같습니다: [링크: https://equalityeclass.ajou.ac.kr/] [매뉴얼] 인권센터 온라인 법정필수교육 수강방법.pdf곧 아주희망 수업 때 뵙도록 하겠습니다!\n\n📎 첨부파일 목록:\n[첨부파일: [매뉴얼] 인권센터 온라인 법정필수교육 수강방법.pdf (https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026017292/announcements/_333825_1/%5B%EB%A7%A4%EB%89%B4%EC%96%BC%5D%20%EC%9D%B8%EA%B6%8C%EC%84%BC%ED%84%B0%20%EC%98%A8%EB%9D%BC%EC%9D%B8%20%EB%B2%95%EC%A0%95%ED%95%84%EC%88%98%EA%B5%90%EC%9C%A1%20%EC%88%98%EA%B0%95%EB%B0%A9%EB%B2%95.pdf)]"
+            },
+            {
+                "type": "공지사항",
+                "title": "4/29 수업 U-Chance Fair 참여로 대체",
+                "date": "",
+                "content": "안녕하세요, 여러분. 모두 중간고사 보시느라 고생 많으셨습니다.오늘 아주희망 수업은 강의실에서 정해진 시간에 모이는 것이 아닌, 학교에서 29일-30일 진행 중인 U-Chance Fair 에 참여하시는 것으로 대체합니다.https://www.ajou.ac.kr/kr/ajou/notice.do?mode=view&articleNo=367474링크로 가시면 행사에 관한 자세한 내용이 안내되어있습니다. 행사 참여를 확인 받을 수 있는 방법도 설명되어 있으니 확인하셔서 '출석 인증' 받으시길 바랍니다. 출석 인증 받으시면 저희에게도 출석 이력이 공유되어 여러분들 오늘 아주희망 수업을 출석으로 인정해드릴 수 있습니다.가벼운 마음으로 가셔서 즐겁게 참여해주시길 바랍니다. :)"
+            }
+        ]
+    },
+    "CAJO1113_ 아주인을 위한 마중물(X234-8)": {
+        "/": [
+            {
+                "type": "LTI/외부링크",
+                "title": "강의계획서",
+                "href": "https://1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net/oidc/login_initiations?iss=https%3A%2F%2Fblackboard.com&login_hint=https%253A%252F%252Feclass2.ajou.ac.kr%252Fwebapps%252Fblackboard%252Fexecute%252Fblti%252FlaunchPlacement%253Fcmd%253Dauthenticate%2526course_id%253D_111078_1%2C12546fe42e424b9da1817688a59af132%2Cd83efe5457e247579d80d6488d6e826f&target_link_uri=https%3A%2F%2F1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net%2FajouSyllabus&lti_message_hint=eyJjdXN0b21QYXJhbXMiOnsiY291cnNlX2lkIjoiQFhAY291cnNlLmlkQFhAIiwidG9vbCI6ImNvdXJzZV90b29sIn0sIm9wZW5JbkxpZ2h0Qm94IjpmYWxzZSwiZnJvbVVsdHJhIjp0cnVlLCJpbmxpbmVNb2RlIjpmYWxzZSwiaGlkZURvY3VtZW50IjpmYWxzZSwicGxhY2VtZW50SWQiOiJfNTU2XzEiLCJvcGVuTmV3V2luZG93Ijp0cnVlLCJkZWVwTGlua0xhdW5jaCI6ZmFsc2UsInRhcmdldE92ZXJyaWRlIjpudWxsLCJmcm9tR3JhZGVDZW50ZXIiOmZhbHNlLCJjb3Vyc2VJZCI6Il8xMTEwNzhfMSIsImdyb3VwSWQiOm51bGwsImNvbnRlbnRJZCI6Il8yMjAyMTk4XzEiLCJkZXBsb3ltZW50SWQiOiJiNThjNzRhZi02MWM0LTQzZmItOGY2MC1jNzZhYTVmZGM1MTEiLCJwYXJlbnRDb250ZW50SWQiOiIiLCJyZXNvdXJjZUxpbmtJZCI6Il8yMjAyMTk4XzEiLCJ0YXJnZXRMaW5rVXJsIjoiaHR0cHM6Ly8xYzc3NjJlM2IwZWU5NzQwNDI5YTU5NTA0NWVkZWZmYy50cC1hcHAuYmItaWNtLWhvc3RpbmcubmV0L2Fqb3VTeWxsYWJ1cyIsInBvc2l0aW9uIjotMX0&lti_deployment_id=b58c74af-61c4-43fb-8f60-c76aa5fdc511&client_id=1d53fbf9-c95a-4eae-b985-72b0b38c5dfd&lti_storage_target=lti_storage_frame",
+                "fullPath": "강의계획서"
+            },
+            {
+                "type": "LTI/외부링크",
+                "title": "Zoom",
+                "href": "https://applications.zoom.us/lti/rich",
+                "fullPath": "Zoom"
+            },
+            {
+                "type": "LTI/외부링크",
+                "title": "학습분석차트(Analytics Chart)",
+                "href": "https://eclass2.ajou.ac.kr/webapps/blackboard/execute/ultraFramePassThrough?redirectTo=https%3A%2F%2Feclass2.ajou.ac.kr%2Fwebapps%2Fblackboard%2Fexecute%2Fblti%2FlaunchPlacement%3Fblti_placement_id%3D_809_1%26content_id%3D_2202200_1%26course_id%3D_111078_1%26wrapped%3Dtrue%26from_ultra%3Dtrue",
+                "fullPath": "학습분석차트(Analytics Chart)"
+            },
+            {
+                "type": "폴더",
+                "title": "강의노트"
+            },
+            {
+                "type": "폴더",
+                "title": "과제출제/제출"
+            },
+            {
+                "title": "QnA"
+            },
+            {
+                "type": "LTI/외부링크",
+                "title": "동영상 출석 조회",
+                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#",
+                "fullPath": "동영상 출석 조회"
+            }
+        ],
+        "강의노트": [
+            {
+                "type": "폴더",
+                "title": "1주차: 아주인 소개 - 대학생이 된 너에게 아주대가 해줄 수 있는 것들"
+            },
+            {
+                "type": "폴더",
+                "title": "3주차: 슬기로운 대학생활2"
+            },
+            {
+                "type": "폴더",
+                "title": "4주차: 함께 성장하는 대학생활 1 - 20대와 인간관계(대면수업)"
+            },
+            {
+                "type": "폴더",
+                "title": "6주차: 함께 성장하는 대학생활 2 - 자기 이해와 자기 계발"
+            },
+            {
+                "type": "폴더",
+                "title": "7주차: 슬기로운 대학생활 3"
+            },
+            {
+                "type": "폴더",
+                "title": "9주차: 내일을 준비하는 대학생활 1 - [대면수업] 교내 교수님 특강"
+            },
+            {
+                "type": "폴더",
+                "title": "10주차: 함께 성장하는 대학생활 3 - Learning Together - 함께 배우고 실패하고 소통하며 성장하기"
+            }
+        ],
+        "강의노트/1주차: 아주인 소개 - 대학생이 된 너에게 아주대가 해줄 수 있는 것들": [
+            {
+                "type": "기타/문서",
+                "title": "아주인 1주차_오리엔테이션(X234).pdf",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_111078_1/outline/file/_2303462_1"
+            }
+        ],
+        "강의노트/3주차: 슬기로운 대학생활2": [
+            {
+                "type": "LTI/외부링크",
+                "title": "XIN - 슬기로운 대학생활2-1.도서관 이용교육_Part.1 / 2026-03-17 00:00 ~ 2026-03-30 23:59",
+                "href": "https://portfolio.ajou.ac.kr/em/69b3b7c156e8d",
+                "fullPath": "강의노트/3주차: 슬기로운 대학생활2/XIN - 슬기로운 대학생활2-1.도서관 이용교육_Part.1 / 2026-03-17 00:00 ~ 2026-03-30 23:59"
+            },
+            {
+                "type": "LTI/외부링크",
+                "title": "XIN - 2.슬기로운 대학생활2-1.도서관 이용교육_Part.2 / 2026-03-17 00:00 ~ 2026-03-30 23:59",
+                "href": "chrome-error://chromewebdata/",
+                "fullPath": "강의노트/3주차: 슬기로운 대학생활2/XIN - 2.슬기로운 대학생활2-1.도서관 이용교육_Part.2 / 2026-03-17 00:00 ~ 2026-03-30 23:59"
+            },
+            {
+                "type": "LTI/외부링크",
+                "title": "XIN - 슬기로운 대학생활2-2.장학생의 학습 노하우1-김미래 / 2026-03-17 00:00 ~ 2026-03-30 23:59",
+                "href": "https://portfolio.ajou.ac.kr/em/69b3b7ef1d1ff",
+                "fullPath": "강의노트/3주차: 슬기로운 대학생활2/XIN - 슬기로운 대학생활2-2.장학생의 학습 노하우1-김미래 / 2026-03-17 00:00 ~ 2026-03-30 23:59"
+            },
+            {
+                "type": "LTI/외부링크",
+                "title": "XIN - 슬기로운 대학생활2-3.장학생의 학습 노하우2-한동민 / 2026-03-17 00:00 ~ 2026-03-30 23:59",
+                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#",
+                "fullPath": "강의노트/3주차: 슬기로운 대학생활2/XIN - 슬기로운 대학생활2-3.장학생의 학습 노하우2-한동민 / 2026-03-17 00:00 ~ 2026-03-30 23:59"
+            },
+            {
+                "deadline": "26. 3. 31. 23:59(UTC+9)",
+                "timeLimit": "",
+                "attempts": "2회 시도가 남음1 제출됨(0일 지연)",
+                "maxScore": "10점",
+                "instructions": [],
+                "questions": [
+                    {
+                        "header": "1 점",
+                        "body": "오늘 강연에서 장학금 잘 받는 팁/노하우를 알려준 선배의 이름은?",
+                        "options": [
+                            "🔳 [ ] 옵션 A 김과거",
+                            "🔳 [ ] 옵션 B 김현재",
+                            "🔳 [ ] 옵션 C 김미래",
+                            "✅ [선택됨] 옵션 D 김아주 선택함"
+                        ]
+                    },
+                    {
+                        "header": "1 점",
+                        "body": "장학금에 대한 설명으로 적절하지 않은 것은?",
+                        "options": [
+                            "🔳 [ ] 옵션 A 소득분위가 상관없는 장학금도 많다.",
+                            "🔳 [ ] 옵션 B 성적(학점)은 반드시 1등이어야 한다.",
+                            "🔳 [ ] 옵션 C 학교 홈페이지의 장학게시판에서 괸련 정보를 확인할 수 있다.",
+                            "🔳 [ ] 옵션 D 교내 장학금에는 성적 장학, 응시료 지원 장학 등이 있다."
+                        ]
+                    },
+                    {
+                        "header": "1 점",
+                        "body": "등록금 고지서에 등록금이 감면된 형태로 지금되는 장학금의 유형은?",
+                        "options": [
+                            "🔳 [ ] 옵션 A 등록금성 장학금",
+                            "🔳 [ ] 옵션 B 생활비성 장학금",
+                            "🔳 [ ] 옵션 C 자기계발 장학금",
+                            "🔳 [ ] 옵션 D 학업지원형 장학금"
+                        ]
+                    },
+                    {
+                        "header": "1 점",
+                        "body": "수강 과목 계획을 짜기 위해 가장 먼저 인쇄하라고 추천한 것은?",
+                        "options": [
+                            "🔳 [ ] 옵션 A 지난 학기 시험 족보",
+                            "🔳 [ ] 옵션 B 시간표 템플릿",
+                            "🔳 [ ] 옵션 C 아주대학교 지도",
+                            "🔳 [ ] 옵션 D 전공 요람"
+                        ]
+                    },
+                    {
+                        "header": "1 점",
+                        "body": "장학금 잘 받는 Tip으로 적절하지 않은 것은?",
+                        "options": [
+                            "🔳 [ ] 옵션 A 학점 관리하기",
+                            "🔳 [ ] 옵션 B 장학 공지 확인 및 정보 찾기",
+                            "🔳 [ ] 옵션 C 공모전 및 어학성적은 고학년 때 준비하기",
+                            "🔳 [ ] 옵션 D 1학년 때가 장학금을 받기 가장 쉽다."
+                        ]
+                    },
+                    {
+                        "header": "1 점",
+                        "body": "다음 중 교내 장학금 유형이 아닌 것은?",
+                        "options": [
+                            "🔳 [ ] 옵션 A 대우장학",
+                            "🔳 [ ] 옵션 B 율곡장학",
+                            "🔳 [ ] 옵션 C 다산장학",
+                            "🔳 [ ] 옵션 D 글로벌장학"
+                        ]
+                    },
+                    {
+                        "header": "1 점",
+                        "body": "교수님과의 상담 예약을 할 수 있는 학교 시스템은 어디에 있나요?",
+                        "options": [
+                            "🔳 [ ] 옵션 A 학과 홈페이지 공지사항",
+                            "🔳 [ ] 옵션 B 학사서비스",
+                            "🔳 [ ] 옵션 C 도서관 홈페이지",
+                            "🔳 [ ] 옵션 D 이메일만 가능"
+                        ]
+                    },
+                    {
+                        "header": "1 점",
+                        "body": "강의에서 언급된 다른 학과 학생들과 친해질 수 있는 장소 중 가장 적절한 것은?",
+                        "options": [
+                            "🔳 [ ] 옵션 A 강의실",
+                            "🔳 [ ] 옵션 B 동아리",
+                            "🔳 [ ] 옵션 C 화장실",
+                            "🔳 [ ] 옵션 D 보건실"
+                        ]
+                    },
+                    {
+                        "header": "1 점",
+                        "body": "강의에서 언급된 강연자의 학습법 노하우로 옳은 것은?",
+                        "options": [
+                            "🔳 [ ] 옵션 A 나만의 교과서(정리노트) 만들기",
+                            "🔳 [ ] 옵션 B 뽀모도로 학습법",
+                            "🔳 [ ] 옵션 C 음악 들으며 공부하기",
+                            "🔳 [ ] 옵션 D 강의시간에 맨 뒤에 앉기"
+                        ]
+                    }
+                ],
+                "title": "[퀴즈] 슬기로운 대학생활2",
+                "type": "시험"
+            }
+        ],
+        "강의노트/6주차: 함께 성장하는 대학생활 2 - 자기 이해와 자기 계발": [
+            {
+                "type": "LTI/외부링크",
+                "title": "XIN - 함께 성장하는 대학생활1-1.자기이해와 자기계발 / 2026-04-07 00:00 ~ 2026-04-20 23:59",
+                "href": "https://portfolio.ajou.ac.kr/em/69ccd9b21a30f?unload=true&contentId=7339794a7056523172656f25324232777a714e75634c5041253344253344&userId=716642454754765041657a44703241434d4f6d4e6b77253344253344&per=100.0&st=1173.31&et=-9999.0&pr=1&attUrl=https%3A%2F%2Fbbattend.ajou.ac.kr%2Fatd%2Fxinics",
+                "fullPath": "강의노트/6주차: 함께 성장하는 대학생활 2 - 자기 이해와 자기 계발/XIN - 함께 성장하는 대학생활1-1.자기이해와 자기계발 / 2026-04-07 00:00 ~ 2026-04-20 23:59"
+            },
+            {
+                "deadline": "",
+                "timeLimit": "",
+                "attempts": "",
+                "maxScore": "",
+                "instructions": [],
+                "questions": [],
+                "title": "[퀴즈] 자기이해와 자기 계발",
+                "type": "시험"
+            },
+            {
+                "type": "기타/문서",
+                "title": "[설문조사] 아주인의 대학 생활 적응 및 정착 지원을 위한 조사",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_111078_1/outline/assessment/_2327662_1/overview?courseId=_111078_1"
+            }
+        ],
+        "강의노트/7주차: 슬기로운 대학생활 3": [
+            {
+                "type": "LTI/외부링크",
+                "title": "XIN - 슬기로운 대학생활3-1.스트레스 관리와 자기 돌봄 루틴 만들기-김영아 / 2026-04-14 00:00 ~ 2026-04-27 23:59",
+                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#",
+                "fullPath": "강의노트/7주차: 슬기로운 대학생활 3/XIN - 슬기로운 대학생활3-1.스트레스 관리와 자기 돌봄 루틴 만들기-김영아 / 2026-04-14 00:00 ~ 2026-04-27 23:59"
+            },
+            {
+                "type": "LTI/외부링크",
+                "title": "XIN - 슬기로운 대학생활3-2.효율적인 시간 관리를 통한 학습 방법 만들기-김기은 / 2026-04-14 00:00 ~ 2026-04-27 23:59",
+                "href": "https://portfolio.ajou.ac.kr/em/69cb737e767ca?unload=true&contentId=6d324a445648526c3876457177327335475155774677253344253344&userId=716642454754765041657a44703241434d4f6d4e6b77253344253344&per=0.0&st=0.0&et=0.0&pr=0&attUrl=https%3A%2F%2Fbbattend.ajou.ac.kr%2Fatd%2Fxinics",
+                "fullPath": "강의노트/7주차: 슬기로운 대학생활 3/XIN - 슬기로운 대학생활3-2.효율적인 시간 관리를 통한 학습 방법 만들기-김기은 / 2026-04-14 00:00 ~ 2026-04-27 23:59"
+            },
+            {
+                "type": "시험/퀴즈",
+                "title": "[퀴즈] 슬기로운 대학생활3",
+                "error": "패널 진입 실패"
+            }
+        ],
+        "/공지사항": [
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 FAQ 안내",
+                "date": "",
+                "content": ""
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 동영상 강의 출결 확인 안내",
+                "date": "",
+                "content": ""
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 수업 방법 및 학습 활동 안내",
+                "date": "",
+                "content": ""
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 1주차 ZOOM 접속 위한 아이디 및 비밀번호 안내",
+                "date": "",
+                "content": ""
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 수업 안내",
+                "date": "",
+                "content": ""
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 수업 출석 안내",
+                "date": "",
+                "content": ""
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 9주차 ZOOM 접속 위한 아이디 및 비밀번호 안내",
+                "date": "",
+                "content": "ID: 814 5274 3639PW: 570278아주 BB를 통한 ZOOM 접속에 오류가 있는 경우 줌의 회의 참가에 위의 아이디와 비밀번호를 입력하여 수업에 참여하시길 바랍니다."
+            },
+            {
+                "type": "공지사항",
+                "title": "4월 29일(수) 아주인을 위한 마중물 수업 안내",
+                "date": "",
+                "content": "<연암관 대면수업 대상 학과>첨단신소재공학과교통시스템공학과미래모빌리티공학과경제정치사회융합학부불어불문학과수학과간호학과약학과위에 안내된 학과 외 소속 학생의 경우,1) 다산관 B121호 강당에서 ZOOM 중계수업을 참여해주시거나2) 아주Bb에 개설된 ZOOM으로 개별 수업 참여해주시기 바랍니다. [이미지 첨부: https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026007268/announcements/_337624_1/4%EC%9B%94%2029%EC%9D%BC%20%EC%88%98%20%EB%A7%88%EC%A4%91%EB%AC%BC%20-%203.png]"
+            },
+            {
+                "type": "공지사항",
+                "title": "아주인을 위한 마중물 4주차 ZOOM 접속 위한 아이디 및 비밀번호 안내",
+                "date": "",
+                "content": "ID : 852 8421 6082PW : 759172아주 BB를 통한 ZOOM 접속에 오류가 있는 경우 줌의 회의 참가에 위의 아이디와 비밀번호를 입력하여 수업에 참여하시길 바랍니다."
+            },
+            {
+                "type": "공지사항",
+                "title": "3월 25일(수) 아주인을 위한 마중물 수업 안내",
+                "date": "",
+                "content": "<연암관 대면수업 대상 학과>전자공학과사이버보안학과디지털미디어학과프런티어과학학부국어국문학과사학과심리학과건설시스템공학과건축학과위에 안내된 학과 외 소속 학생의 경우,1) 다산관 B121호 강당에서 ZOOM 중계수업을 참여해주시거나2) 아주Bb에 개설된 ZOOM으로 개별 수업 참여해주시기 바랍니다. [이미지 첨부: https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U00020012026007268/announcements/_333062_1/%EC%95%84%EC%A3%BC%EC%9D%B8%20%ED%98%BC%EC%9A%A9%EC%88%98%EC%97%85%20%EC%B0%B8%EC%97%AC%EC%95%88%EB%82%B4%28%EC%97%B0%EC%95%94%EA%B4%80%EC%9A%A9%29%20%281%29.jpg]"
+            }
+        ],
+        "강의노트/10주차: 함께 성장하는 대학생활 3 - Learning Together - 함께 배우고 실패하고 소통하며 성장하기": [
+            {
+                "type": "LTI/외부링크",
+                "title": "XIN - 함께 성장하는 대학생활2-1.Learning Together, 함께배우고 실패하고 소통하며 성장하는-신종호 / 2026-05-05 00:00 ~ 2026-05-18 23:59",
+                "href": "https://portfolio.ajou.ac.kr/em/69d31aea613d2?unload=true&contentId=796b697235494232613963574437764a384168756767253344253344&userId=716642454754765041657a44703241434d4f6d4e6b77253344253344&per=0.0&st=0.0&et=0.0&pr=0&attUrl=https%3A%2F%2Fbbattend.ajou.ac.kr%2Fatd%2Fxinics",
+                "fullPath": "강의노트/10주차: 함께 성장하는 대학생활 3 - Learning Together - 함께 배우고 실패하고 소통하며 성장하기/XIN - 함께 성장하는 대학생활2-1.Learning Together, 함께배우고 실패하고 소통하며 성장하는-신종호 / 2026-05-05 00:00 ~ 2026-05-18 23:59"
+            }
+        ]
+    },
+    "CENG105_ English(X187-11)": {
+        "/": [
+            {
+                "type": "LTI/외부링크",
+                "title": "Syllabus",
+                "href": "https://1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net/oidc/login_initiations?iss=https%3A%2F%2Fblackboard.com&login_hint=https%253A%252F%252Feclass2.ajou.ac.kr%252Fwebapps%252Fblackboard%252Fexecute%252Fblti%252FlaunchPlacement%253Fcmd%253Dauthenticate%2526course_id%253D_112132_1%2C12546fe42e424b9da1817688a59af132%2Cf01fcc6859f64a0383814f7f63c1dfeb&target_link_uri=https%3A%2F%2F1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net%2FajouSyllabus&lti_message_hint=eyJjb3Vyc2VJZCI6Il8xMTIxMzJfMSIsImdyb3VwSWQiOm51bGwsImNvbnRlbnRJZCI6Il8yMjIyNTU2XzEiLCJkZXBsb3ltZW50SWQiOiJiNThjNzRhZi02MWM0LTQzZmItOGY2MC1jNzZhYTVmZGM1MTEiLCJwYXJlbnRDb250ZW50SWQiOiIiLCJoaWRlRG9jdW1lbnQiOmZhbHNlLCJ0YXJnZXRMaW5rVXJsIjoiaHR0cHM6Ly8xYzc3NjJlM2IwZWU5NzQwNDI5YTU5NTA0NWVkZWZmYy50cC1hcHAuYmItaWNtLWhvc3RpbmcubmV0L2Fqb3VTeWxsYWJ1cyIsImlubGluZU1vZGUiOmZhbHNlLCJyZXNvdXJjZUxpbmtJZCI6Il8yMjIyNTU2XzEiLCJwbGFjZW1lbnRJZCI6Il81NTZfMSIsImN1c3RvbVBhcmFtcyI6eyJjb3Vyc2VfaWQiOiJAWEBjb3Vyc2UuaWRAWEAiLCJ0b29sIjoiY291cnNlX3Rvb2wifSwib3BlbkluTGlnaHRCb3giOmZhbHNlLCJmcm9tVWx0cmEiOnRydWUsInRhcmdldE92ZXJyaWRlIjpudWxsLCJmcm9tR3JhZGVDZW50ZXIiOmZhbHNlLCJvcGVuTmV3V2luZG93Ijp0cnVlLCJkZWVwTGlua0xhdW5jaCI6ZmFsc2UsInBvc2l0aW9uIjotMX0&lti_deployment_id=b58c74af-61c4-43fb-8f60-c76aa5fdc511&client_id=1d53fbf9-c95a-4eae-b985-72b0b38c5dfd&lti_storage_target=lti_storage_frame",
+                "fullPath": "Syllabus"
+            },
+            {
+                "deadline": "",
+                "timeLimit": "",
+                "attempts": "1 attempt left",
+                "maxScore": "1 point",
+                "instructions": [
+                    "This survey relates to the Generative AI Usage Policy outlined in the course syllabus, which describes the guidelines and important notes regarding the use of Generative AI.\nThis confirmation is intended to verify that you have reviewed, understood, and acknowledged the Generative AI usage policy described in the course syllabus.\nPlease review the course syllabus carefully before responding."
+                ],
+                "questions": [
+                    {
+                        "header": "1  Point",
+                        "body": "I confirm that I have reviewed the Generative AI Usage Policy in the course syllabus and that I understand and will follow the course standards set by the instructor.",
+                        "options": [
+                            "🔳 [ ] Yes",
+                            "🔳 [ ] No"
+                        ]
+                    }
+                ],
+                "title": "Generative AI Usage Policy Confirmation",
+                "type": "Form"
+            },
+            {
+                "type": "LTI/외부링크",
+                "title": "Analytics Chart",
+                "href": "https://eclass2.ajou.ac.kr/webapps/blackboard/execute/ultraFramePassThrough?redirectTo=https%3A%2F%2Feclass2.ajou.ac.kr%2Fwebapps%2Fblackboard%2Fexecute%2Fblti%2FlaunchPlacement%3Fblti_placement_id%3D_809_1%26content_id%3D_2222558_1%26course_id%3D_112132_1%26wrapped%3Dtrue%26from_ultra%3Dtrue",
+                "fullPath": "Analytics Chart"
+            },
+            {
+                "type": "폴더",
+                "title": "LectureNote"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Mar 18, 2026 10:14 AM",
+                    "content": "This folder will be used as a portfolio to organize what your group has done this semester. Please continue to update the folder with the things you have done."
+                },
+                "comments": [
+                    {
+                        "author": "김은서",
+                        "date": "May 4, 2026 1:13 PM",
+                        "content": "다음시간까지 설문조사 초안 만들기 - 김은서피드백 받아 최종 결정+ 논문 조사 해보기 -전부",
+                        "isReply": false
+                    },
+                    {
+                        "author": "서제윤",
+                        "date": "Apr 17, 2026 5:26 PM",
+                        "content": "screenshots of AI usage.pdfScreenshots of group 1's AI usage.",
+                        "isReply": false
+                    },
+                    {
+                        "author": "김승원",
+                        "date": "Apr 15, 2026 1:05 PM",
+                        "content": "영어 7주차.docxResearchers [서제윤, 김은서, 김승원] Finds information and sources for the projectTakes notes and organizes research materialsShares findings with the team Writer/Editor  [서제윤, 김은서, 김승원] Set up the survey, experiments, application designWrites the main contentChecks grammar and makes correctionsPrepares the script for presentation Designer  [서제윤, 김은서, 김승원] Creates visual materials (PowerPoint, posters, handouts)Makes sure slides look clear and professionalAdds images, charts, and graphics Presenters/Speakers  [서제윤, 김은서, 김승원] Practices speaking clearly and confidentlyDelivers the main presentationAnswers questions from the audience Structure Introduction자기소개, 주제 선정 이유BodyToxic discourse 기준 선정설문조사 폼 제작설문조사 결과 공유가해자 측 가이드라인 판 제작피해자 측 가이드라인 판 제작Conclusion가이드라인 배포",
+                        "isReply": false
+                    },
+                    {
+                        "author": "서제윤",
+                        "date": "Apr 15, 2026 2:30 AM",
+                        "content": "Group1-Proposal-rev.pdf",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 15, 2026 10:52 AM",
+                        "content": "Title: 4/5 Clear and descriptive, though slightly longProblem Statement: 5/5 Well-articulated, identifies the paradox of anonymity with strong rationaleObjectives: 4/5 Specific and measurable; \"Context-Specific Communication Templates\" is concreteCreativity & Originality 4/5\"Actionable Nudges\" framing is good and behavior-focusedProject Plan: 3/5 Partially detailed but activities are still vagueAvg4.2/5Write details for the specific activities for each stage (e.g., which survey tool, how many participants, what template formats) to make the plan more executable.Consider narrowing the title slightly and naming the specific anonymous platform(s) you will study to sharpen the scope.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "김은서",
+                        "date": "Apr 13, 2026 1:17 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_638564_1/embedded/1000062565.jpg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "김은서",
+                        "date": "Apr 13, 2026 1:16 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_638561_1/embedded/1000062564.jpg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "서제윤",
+                        "date": "Apr 13, 2026 12:49 PM",
+                        "content": "Group 1-new Proposal.pdf",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 13, 2026 2:54 PM",
+                        "content": "The title is currently too vague; it should be revised to be more specific and realistically achievable.Regarding data collection, the plan to use the 에타 online community may not be appropriate, as it appears to be a closed platform. This could make it difficult to access or verify data, especially for those who are not registered users. Consider selecting a more accessible and transparent data source.The objectives also need further development, particularly in explaining how the project will generate, suggest, and promote its outcomes. At present, these processes are not clearly outlined.Finally, the creativity section is repetitive and does not introduce distinct or original ideas. It should be revised to present clearer, more specific, and differentiated creative elements.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "서제윤",
+                        "date": "Apr 12, 2026 11:30 PM",
+                        "content": "Group 1- Proposal.PDF",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 13, 2026 11:27 AM",
+                        "content": "Please refer to the following video:석유 대란이요? \"주문 2배\"…'탈플라스틱' 앞당긴 역설 / JTBC 뉴스룸 [첨부/링크: https://www.youtube.com/watch?v=6YUJ5cz0rCA (https://www.youtube.com/watch?v=6YUJ5cz0rCA)]",
+                        "isReply": true
+                    },
+                    {
+                        "author": "서제윤",
+                        "date": "Apr 8, 2026 1:15 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_636226_1/embedded/2471.jpg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "김은서",
+                        "date": "Apr 6, 2026 1:07 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_634257_1/embedded/1000061058.jpg]",
+                        "isReply": false
+                    }
+                ],
+                "title": "Group1"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Mar 18, 2026 10:14 AM",
+                    "content": "This folder will be used as a portfolio to organize what your group has done this semester. Please continue to update the folder with the things you have done."
+                },
+                "comments": [
+                    {
+                        "author": "조은서",
+                        "date": "May 4, 2026 4:49 PM",
+                        "content": "- 아주대학교의 상징, 정체성 조사",
+                        "isReply": false
+                    },
+                    {
+                        "author": "강한서",
+                        "date": "May 4, 2026 1:25 PM",
+                        "content": "Research the Ajou University's identity such as its history, symbols.",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박율리",
+                        "date": "May 4, 2026 1:13 PM",
+                        "content": "ㅡ다른학교 로고 사례 조사",
+                        "isReply": false
+                    },
+                    {
+                        "author": "강한서",
+                        "date": "Apr 15, 2026 1:00 PM",
+                        "content": "Researchers [All] Finds information and sources for the projectTakes notes and organizes research materialsShares findings with the teamWriter/Editor  [조은서, 김민준, 홍영우] Set up the survey, experiments, application designWrites the main contentChecks grammar and makes correctionsPrepares the script for presentationDesigner  [All] Creates visual materials (PowerPoint, posters, handouts)Makes sure slides look clear and professionalAdds images, charts, and graphicsPresenters/Speakers  [강한서, 박율리] Practices speaking clearly and confidentlyDelivers the main presentationAnswers questions from the audience",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박율리",
+                        "date": "Apr 15, 2026 12:58 PM",
+                        "content": "영어 프로젝트Researchers [All]Writer/Editor [조은서, 김민준, 홍영우]Designer [All]Presenters/Speakers [강한서, 박율리] <Introduction>Title: [Your project title] : Making a new logo for our schoolWho are you? (Group name or members):강한서,조은서,박율리,김민준,홍영우Why did you choose this topic?:As we prepare for upcoming AJOU FESTIVAL, we realized that a more creative and modern logo is needed to boost student pride and create a stronger sense of belonging.What is the goal of your project?:We aim to design a new logo that reflects the students' actual voices and the school's unique character.<Main part>The problem : In the beginning of the semester, I talked with my friend about the school logo. My friend and I were not familiar with our school logo, and thought our school logo wasn’t enough to represent our school identity.Approach : research through our school website, Wikipedia, NAVER, and more (about our school identity, establishment background, development direction, etc)      3. The outcome: the new logo of Ajou university      4. Obstacles & How to overcome <Conclusion>What did learn : Through this project, we successfully enhanced our teamwork by collaborating on a shared creative vision. We also significantly improved our English skills by documenting our research and ideas in English. Most importantly, we developed our creative thinking by transforming abstract school values into a tangible and modern logo design.Final message for the audience to remember : Our goal was to create a logo that students would actually want to wear and use during the AJOU Festival. Please remember that small creative changes, like a new logo, can significantly boost our school spirit and make our campus life more vibrant.",
+                        "isReply": false
+                    },
+                    {
+                        "author": "강한서",
+                        "date": "Apr 14, 2026 6:59 PM",
+                        "content": "04-Proposal 수정본.pdf",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 15, 2026 11:02 AM",
+                        "content": "Title: 3/5 Simple and clear, but not very distinctiveProblem Statement: 4/5 Relatable motivation (Ajou Festival), though slightly informal such as \"Many students...\"Objectives: 4/5 Good two-structured approach: research + participatory surveyCreativity & Originality: 4/5 Data-driven + participatory angle is a strength; links to merchandise nicelyProject Plan: 0/5No dates filled in — all weeks are blankAvg3.0/5Fill in specific week-by-week dates immediately, as this is the biggest gap holding back.You could also strengthen the problem statement by including a brief student survey or data point showing that students actually find the current logo outdated.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "김민준",
+                        "date": "Apr 13, 2026 1:16 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_638563_1/embedded/IMG_7224.jpeg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "김민준",
+                        "date": "Apr 13, 2026 1:16 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_638560_1/embedded/IMG_7223.jpeg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "강한서",
+                        "date": "Apr 13, 2026 10:45 AM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_638384_1/embedded/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-13%20104445.png]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 13, 2026 2:33 PM",
+                        "content": "Title: 3Problem Statement: 2Objectives: 4Creativity: 2Average: 2.8The problem statement lacks a personal and specific rationale — it reads as a general observation rather than a genuine motivation.The group should explain what specifically prompted them to care about the logo now, such as a recent school event, student dissatisfaction, or an upcoming anniversary.The creativity section fails to differentiate this project from a standard design assignment, so they should state what makes their approach unique.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "강한서",
+                        "date": "Apr 8, 2026 1:15 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_636225_1/embedded/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-04-08%20131425.png]",
+                        "isReply": false
+                    }
+                ],
+                "title": "Group2"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Mar 18, 2026 10:14 AM",
+                    "content": "This folder will be used as a portfolio to organize what your group has done this semester. Please continue to update the folder with the things you have done."
+                },
+                "comments": [
+                    {
+                        "author": "강석민",
+                        "date": "May 4, 2026 1:48 PM",
+                        "content": "설문조사 검토하고 주변 대학생들에게 답변 구하기, 구조 정리 - 모두",
+                        "isReply": false
+                    },
+                    {
+                        "author": "손윤서",
+                        "date": "Apr 15, 2026 1:01 PM",
+                        "content": "Researchers [강석민, 심재은] Finds information and sources for the projectTakes notes and organizes research materialsShares findings with the teamWriter/Editor [강석민, 심재은] Set up the survey, experiments, application designWrites the main contentChecks grammar and makes correctionsDesigner [김윤지] Creates visual materials (PowerPoint, posters, handouts)Makes sure slides look clear and professionalAdds images, charts, and graphicsPresenters/Speakers [손윤서, 박주원] Practices speaking clearly and confidentlyDelivers the main presentationAnswers questions from the audienceStructure: Write items you should mention.Introduction- 인사- 이유Body- 대학 커뮤니티 익명성에 댜한 긍부정 사례 조사 발표- 설문조사(대학내 익명성 커뮤니티에 대한 선호도, obj2 불이익 관련 의견조사) 결과 발표Conclusion- 익명 커뮤니티 안 좋은점 보완점 - 그래서 우리가 구상한 최선의 익명 커뮤니티",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박주원",
+                        "date": "Apr 15, 2026 1:28 AM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_639755_1/embedded/IMG_4806.jpeg] [이미지 첨부 2: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_639755_1/embedded/IMG_4807.jpeg] Group3-Proposal-rev.docx",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 15, 2026 11:09 AM",
+                        "content": "Title: 3.5/5  Catchy but vague — doesn't specify university context or methodologyProblem Statement: 3/5  Identifies the topic but lacks specific evidence or a sharply defined problemObjectives: 3/5  Objective 2 is broad and reads more like a mission statement than an action planCreativity & Originality: 2/5  The \"both sides of anonymity\" angle is reasonable but not distinctively new. It has been mentioned to revise but it looks same.Project Plan: 0/5  All dates blank; no activities describedAvg: 2.3/5Define a concrete method — such as a structured survey or content analysis of a specific campus platform — to give your objectives a measurable output.Add specific week numbers and planned activities to your timeline right away, as the plan is currently empty.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "심재은",
+                        "date": "Apr 12, 2026 5:10 PM",
+                        "content": "Group2 보고서.pdf",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 13, 2026 2:36 PM",
+                        "content": "Title: 4Problem Statement: 5Objectives: 4Creativity: 4Average: 4.3While the creativity section mentions a dual positive-and-negative perspective, this framing does not clearly flow from the problem statement or objectives, which should explicitly introduce both sides of anonymity early on to build a coherent argument throughout the proposal.Tying the creative approach back to the objectives — for example, by specifying that the project will produce both a risk assessment and a set of recommendations — would make the overall structure much more consistent and compelling.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "심재은",
+                        "date": "Apr 1, 2026 1:15 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_632229_1/embedded/IMG_0256.jpeg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박주원",
+                        "date": "Mar 31, 2026 4:19 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_631940_1/embedded/IMG_4535.jpeg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박주원",
+                        "date": "Mar 25, 2026 1:36 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_628568_1/embedded/IMG_4281.jpeg] unit 1. community",
+                        "isReply": false
+                    }
+                ],
+                "title": "Group3"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Mar 18, 2026 10:14 AM",
+                    "content": "This folder will be used as a portfolio to organize what your group has done this semester. Please continue to update the folder with the things you have done."
+                },
+                "comments": [
+                    {
+                        "author": "안은서",
+                        "date": "Apr 15, 2026 12:48 PM",
+                        "content": "Assign RolesEach team member needs a specific role. Here are the main roles:Researchers [김재우, 박지원, 안은서, 이창우] Finds information and sources for the projectTakes notes and organizes research materialsShares findings with the teamWriter/Editor  [김재우, 박지원, 안은서, 이창우] Set up the survey, experiments, application designWrites the main contentChecks grammar and makes correctionsPrepares the script for presentationDesigner  [안은서] Creates visual materials (PowerPoint, posters, handouts)Makes sure slides look clear and professionalAdds images, charts, and graphicsPresenters/Speakers  [김재우, 박지원, 안은서, 이창우] Practices speaking clearly and confidentlyDelivers the main presentationAnswers questions from the audienceIf you need extra roles then write more.",
+                        "isReply": false
+                    },
+                    {
+                        "author": "김재우",
+                        "date": "Apr 15, 2026 12:45 AM",
+                        "content": "Group4-Proposal_rev.docx",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 15, 2026 11:15 AM",
+                        "content": "Title: 4/5  Engaging and clear; \"Science vs Screen\" is memorableProblem Statement: 4/5  Well-connected to real-world concerns (misinformation, digital literacy)Objectives: 3/5  Objectives overlap significantly and could be more distinct and measurableCreativity & Originality: 3/5  The structured comparative report idea is solid, but the approach is fairly conventionalProject Plan: 0/5  No dates filled in — all weeks are blankAvg2.8/5Specify which movies and which scientific domains (e.g., geology, meteorology) you will analyze to make the objectives more concrete and distinct.Write the next step that your group is going to show except presenting and analyzing the scenes.Add a detailed timeline with week numbers and clear deliverables for each stage.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "김재우",
+                        "date": "Apr 13, 2026 1:16 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_638562_1/embedded/11518.jpg] [이미지 첨부 2: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_638562_1/embedded/11519.jpg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "김재우",
+                        "date": "Apr 12, 2026 6:37 PM",
+                        "content": "Group4-Proposal.pdf",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 13, 2026 2:39 PM",
+                        "content": "Title: 4Problem Statement: 4Objectives: 4Creativity: 3Average: 3.8Objective 2 should go beyond developing critical thinking skills and specify a tangible end-product — for example, a fact-checking report, a checklist, or a poster that presents their findings to an audience.The project looks like an internal exercise rather than a meaningful contribution, so proposing a final output would significantly strengthen both the objectives and the overall creativity of the project.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "김재우",
+                        "date": "Apr 6, 2026 1:09 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_634259_1/embedded/9687.jpg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박지원",
+                        "date": "Apr 1, 2026 3:09 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_632313_1/embedded/IMG_6942.jpeg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박지원",
+                        "date": "Mar 31, 2026 10:50 AM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_631773_1/embedded/IMG_6918.jpeg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "김재우",
+                        "date": "Mar 29, 2026 5:33 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_630170_1/embedded/20260325_131324.jpg] Unit8: Science fact and fiction",
+                        "isReply": false
+                    }
+                ],
+                "title": "Group4"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Mar 18, 2026 10:15 AM",
+                    "content": "This folder will be used as a portfolio to organize what your group has done this semester. Please continue to update the folder with the things you have done."
+                },
+                "comments": [
+                    {
+                        "author": "김수연",
+                        "date": "Apr 15, 2026 3:06 PM",
+                        "content": "Researchers [김수연] Finds information and sources for the projectTakes notes and organizes research materialsShares findings with the teamWriter/Editor  [변민정] Set up the survey, experiments, application designWrites the main contentChecks grammar and makes correctionsPrepares the script for presentationDesigner  [김현진] Creates visual materials (PowerPoint, posters, handouts)Makes sure slides look clear and professionalAdds images, charts, and graphicsPresenters/Speakers  [조승우, 배서준] Practices speaking clearly and confidentlyDelivers the main presentationAnswers questions from the audience",
+                        "isReply": false
+                    },
+                    {
+                        "author": "배서준",
+                        "date": "Apr 15, 2026 1:06 PM",
+                        "content": "Group5-Outline.pdf",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이현진",
+                        "date": "Apr 15, 2026 3:03 AM",
+                        "content": "Group5-Proposal-rev.pdf05-Proposal review-1.pdf",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 15, 2026 11:28 AM",
+                        "content": "Title: 5/5  Precise, academically framed, and clearly scopedProblem Statement: 5/5  Challenges a common assumption with a clear research gapObjectives: 4/5  Four distinct conditions, TTCT measurement tool named — highly specificCreativity & Originality: 5/5  Quantitative, experimental design with a real-world campus application is distinctiveProject Plan: 0/5 All dates blank; no activities describedAvg3.8/5Specify the sources of theoretical study and experimental design.Fill activity labels with concrete steps — for example, specify who the participants will be, how many, and how you'll control for confounding variables.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "이현진",
+                        "date": "Apr 15, 2026 2:59 AM",
+                        "content": "05-Proposal review-1.docx",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이현진",
+                        "date": "Apr 15, 2026 2:58 AM",
+                        "content": "Group5-Proposal-rev.docx [이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_639764_1/embedded/20260414_204605.jpg] [이미지 첨부 2: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_639764_1/embedded/20260414_204556.jpg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이현진",
+                        "date": "Apr 13, 2026 1:54 PM",
+                        "content": "I submit final proposal file.",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이현진",
+                        "date": "Apr 13, 2026 1:53 PM",
+                        "content": "Group5-Proposal-final.docx",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 13, 2026 2:46 PM",
+                        "content": "Title: 4Problem Statement: 5Objectives: 3Creativity: 4Average: 4Objective 1 is well-framed as a research goal, but objective 2 reads more like a mission statement than a concrete, actionable step — it should be rewritten to specify what the group will actually produce, such as a space design proposal, a noise environment guideline, or a pilot test in a specific campus location.The creativity section is strong, but it would benefit from explaining how white noise will be tested or measured across campus spaces, so the project feels grounded in a clear methodology rather than just an idea.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "이현진",
+                        "date": "Apr 13, 2026 11:22 AM",
+                        "content": "Group5-proposal-final.pdf",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이현진",
+                        "date": "Apr 12, 2026 10:36 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_638206_1/embedded/20260412_223608.jpg] [이미지 첨부 2: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_638206_1/embedded/20260412_223546.jpg] [이미지 첨부 3: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_638206_1/embedded/20260412_223614.jpg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 13, 2026 11:15 AM",
+                        "content": "It should be a document file. Please upload the file again.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "변민정",
+                        "date": "Apr 8, 2026 11:38 AM",
+                        "content": "Creating a Campus Space to Improve Creativity: Focusing on the Impact of Noise on Creativity",
+                        "isReply": false
+                    }
+                ],
+                "title": "Group5"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Mar 18, 2026 10:16 AM",
+                    "content": "This folder will be used as a portfolio to organize what your group has done this semester. Please continue to update the folder with the things you have done."
+                },
+                "comments": [
+                    {
+                        "author": "백시현",
+                        "date": "May 4, 2026 2:34 PM",
+                        "content": "아이언맨, 설국열차 영화에 나온 기술이 현재까지 얼마나 진행되었는지 조사-백시현, 구혜민",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박영철",
+                        "date": "May 4, 2026 1:59 PM",
+                        "content": "Group6-Proposal-rev.pdfstructure서론-인사-주제 선정 이유본론-조사한 사례-계산한 결과결론- 사람들이 지녀야 할 자세 소개",
+                        "isReply": false
+                    },
+                    {
+                        "author": "백시현",
+                        "date": "Apr 15, 2026 1:02 PM",
+                        "content": "Assign RolesEach team member needs a specific role. Here are the main roles:Researchers [백시현, 구혜민] Finds information and sources for the projectTakes notes and organizes research materialsShares findings with the teamWriter/Editor  [정은찬] Set up the survey, experiments, application designWrites the main contentChecks grammar and makes correctionsPrepares the script for presentationDesigner  [김민석] Creates visual materials (PowerPoint, posters, handouts)Makes sure slides look clear and professionalAdds images, charts, and graphicsPresenters/Speakers  [김민석, 박영철] Practices speaking clearly and confidentlyDelivers the main presentationAnswers questions from the audience",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박영철",
+                        "date": "Apr 14, 2026 2:44 PM",
+                        "content": "Group6-Proposal-rev.pdf",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 15, 2026 11:34 AM",
+                        "content": "Title: 4/5  Catchy with a clear focus; minor typo (\"Examing\")Problem Statement: 4/5  Well-motivated and has a forward-looking dimension (predicting future tech)Objectives: 2.5/5  Two objectives are reasonable but lack specificity (which movies? which technologies?)Creativity & Originality: 3/5  The future-technology prediction angle is interestingProject Plan: 0/5  All dates blank; no activities describedAvg 2.7/5Add the end-product that your group want to show not simply analyzing the movies.Name specific films and technologies you plan to analyze (e.g., Iron Man's exoskeleton vs. real exoskeleton R&D) to make your objectives actionable.Provide the predicting method mentioned in the creativity section.Add a detailed timeline with week numbers, and fix the typo in the title before the final submission.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "박영철",
+                        "date": "Apr 14, 2026 1:21 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_639241_1/embedded/IMG_1318.jpeg] [이미지 첨부 2: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_639241_1/embedded/IMG_1317.jpeg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박영철",
+                        "date": "Apr 13, 2026 11:27 AM",
+                        "content": "Group6-Proposal-final.pdf",
+                        "isReply": false
+                    },
+                    {
+                        "author": "이나리",
+                        "date": "Apr 13, 2026 2:44 PM",
+                        "content": "Title: 3.5Problem Statement: 3Objectives: 3Creativity: 3Average: 3.1There is a logical inconsistency between the title, which limits the scope to 20th-century classic films, and objective 2, which shifts focus to current movies and predicting future technologies — the group must decide on one clear scope and align all sections accordingly.The problem statement also needs stronger internal logic; it jumps from a general observation about students and technology to a broad research goal without explaining why classic films specifically are the right lens for this inquiry.",
+                        "isReply": true
+                    },
+                    {
+                        "author": "박영철",
+                        "date": "Apr 12, 2026 11:33 PM",
+                        "content": "영어.pdf",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박영철",
+                        "date": "Apr 8, 2026 1:14 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_636224_1/embedded/image.jpg]",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박영철",
+                        "date": "Apr 8, 2026 1:13 PM",
+                        "content": "1-백시현title, reasons for topic choice2-구혜민objective13-정은찬objective24-박영철creativity, originality feedback collecter5-김민석hardcopy answer the qs",
+                        "isReply": false
+                    },
+                    {
+                        "author": "박영철",
+                        "date": "Apr 6, 2026 1:08 PM",
+                        "content": "[이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_634258_1/embedded/IMG_1302.jpeg]",
+                        "isReply": false
+                    }
+                ],
+                "title": "Group6"
+            },
+            {
+                "type": "폴더",
+                "title": "Assignment"
+            },
+            {
+                "original_post": {
+                    "author": "Anonymous",
+                    "date": "Jun 26, 2024 7:53 PM",
+                    "content": "Please leave a question for this course."
+                },
+                "comments": [],
+                "title": "QnA"
+            },
+            {
+                "type": "LTI/외부링크",
+                "title": "Zoom",
+                "href": "https://applications.zoom.us/lti/rich",
+                "fullPath": "Zoom"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Mar 25, 2026 1:08 PM",
+                    "content": "Post the picture of the handout and write the unit title that you've selected at your group folder."
+                },
+                "comments": [],
+                "title": "01-Unit selection"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Mar 31, 2026 11:59 AM",
+                    "content": "1.Write your keywords or phrases on the activity sheet. Make sure your ideas are specific and clear.2.As a group, discuss and agree on what each member will prepare before the next class.Write down your group's decision on the activity sheet.For example)A. Bring 3 specific ideas related to today's topic.B. Choose 2 topics you think are most realistic and doable for your team project — and be ready to share your reasons with the group3.Take a photo of your completed sheet and upload it to your group's designated folder.Creativity → Art spaces on campus → Designing low-cost creative zones for non-art majorsThe Second Self → Avatar culture in gaming → What players’ game characters reveal about their true personalityBrain Power → Memory and exam performance → Comparing study techniques that actually improve long-term retentionDesign Thinking → Poorly designed campus spaces → Applying design thinking to improve university library usabilityScience Fact and Fiction → AI in sci-fi movies vs. reality → How Hollywood's portrayal of AI compares to actual technologyBody Matters → Body image pressure from social media → How Instagram filters affect college students’ self-confidence"
+                },
+                "comments": [],
+                "title": "02-Possible topic samples"
+            },
+            {
+                "original_post": {
+                    "author": "이나리",
+                    "date": "Apr 6, 2026 11:44 AM",
+                    "content": "1.Referring to the previous activity sheet, add more ideas if you have any.2.Apply the convergent thinking method: Hits3.Write your final project topic as either a phrase or a complete sentence in the blank.4.Take a photo of your completed sheet and upload it to your group's designated folder.5.By next class, each member should bring two more reasons why you have chosen the topic. These will be used in your proposal.6.Watch MOCA video: Project Power-Up: From Ideas to Success - 2. Project Proposal Writing & Revision Process"
+                },
+                "comments": [],
+                "title": "03-Topic selection"
+            }
+        ],
+        "LectureNote": [
+            {
+                "type": "기타/문서",
+                "title": "01-Syllabus",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/edit/document/_2275321_1?courseId=_112132_1&view=content&state=view"
+            },
+            {
+                "type": "폴더",
+                "title": "02-Audio files"
+            },
+            {
+                "type": "기타/문서",
+                "title": "03-Additional websites_0317",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/edit/document/_2295157_1?courseId=_112132_1&view=content&state=view"
+            },
+            {
+                "type": "기타/문서",
+                "title": "04-Grammar",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/edit/document/_2347352_1?courseId=_112132_1&view=content&state=view"
+            }
+        ],
+        "LectureNote/02-Audio files": [
+            {
+                "type": "기타/문서",
+                "title": "U1_p5.mp3",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/file/_2295164_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "U1_p6.mp3",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/file/_2295165_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "U1_p10.mp3",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/file/_2295166_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "U3_p33.mp3",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/file/_2295167_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "U3_p34.mp3",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/file/_2295168_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "U3_p38.mp3",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/file/_2295169_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "U4_p49.mp3",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/file/_2295170_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "U4_p50.mp3",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/file/_2295171_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "U4_p54.mp3",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/file/_2295172_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "U5_p63.mp3",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112132_1/outline/file/_2295173_1"
+            }
+        ]
+    },
+    "CGEX1052_ 아주상상프로젝트-디지털 혁명과 사회변화(X117-13)": {},
+    "DLS101_ 주제탐구세미나(Z006-4)": {},
+    "MATH102_ 수학1(X341-24)": {},
+    "PHYS117_ 물리학(X476-1)": {
+        "/": [
+            {
+                "type": "LTI/외부링크",
+                "title": "강의계획서",
+                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#",
+                "fullPath": "강의계획서"
+            },
+            {
+                "type": "LTI/외부링크",
+                "title": "학습분석차트(Analytics Chart)",
+                "href": "https://eclass2.ajou.ac.kr/webapps/blackboard/execute/ultraFramePassThrough?redirectTo=https%3A%2F%2Feclass2.ajou.ac.kr%2Fwebapps%2Fblackboard%2Fexecute%2Fblti%2FlaunchPlacement%3Fblti_placement_id%3D_809_1%26content_id%3D_2222003_1%26course_id%3D_112103_1%26wrapped%3Dtrue%26from_ultra%3Dtrue",
+                "fullPath": "학습분석차트(Analytics Chart)"
+            },
+            {
+                "type": "폴더",
+                "title": "강의노트"
+            },
+            {
+                "type": "폴더",
+                "title": "과제출제/제출"
+            },
+            {
+                "title": "QnA"
+            },
+            {
+                "type": "LTI/외부링크",
+                "title": "Zoom",
+                "href": "https://ultra.content.blackboardcdn.com/ultra/uiv4000.12.0-rel.21_918f75a#",
+                "fullPath": "Zoom"
+            }
+        ],
+        "강의노트": [
+            {
+                "type": "기타/문서",
+                "title": "물리학_1주차_Ch1-2_강의노트_수정.pdf",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2283281_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "물리학_2주차_Ch3_강의노트.pdf",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2283282_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "물리학_3주차_Ch4_강의노트.pdf",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2283283_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "물리학_4주차_Ch5_강의노트.pdf",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2283284_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "물리학_5주차_Ch6_강의노트.pdf",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2303852_1"
+            },
+            {
+                "type": "기타/문서",
+                "title": "물리학_6주차_Ch7_강의노트.pdf",
+                "href": "https://eclass2.ajou.ac.kr/ultra/courses/_112103_1/outline/file/_2303853_1"
+            }
+        ]
+    },
+    "PHYS118_ 물리학실험(X453-7)": {},
+    "SCE103_ 컴퓨터프로그래밍및실습(F034-4)": {}
+}

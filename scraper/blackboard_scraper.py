@@ -212,7 +212,8 @@ class BlackboardScraper:
                             
                             # [팝업 제거] 공지사항 등 화면을 가리는 오버레이 강제 제거
                             try:
-                                close_btn = await detail_page.query_selector('button[aria-label="Close new announcements modal"]')
+                                # 블랙보드 Ultra의 공지사항 팝업 전용 고유 ID (언어나 클래스명이 바뀌어도 동일함)
+                                close_btn = await detail_page.wait_for_selector('button[data-analytics-id="course.announcements.modal.close.button"], button.close-reveal-modal', timeout=3000)
                                 if close_btn:
                                     print("  ⛔ 공지사항 팝업이 감지되었습니다. 화면 확보를 위해 닫습니다.")
                                     await close_btn.click()
@@ -391,7 +392,7 @@ class BlackboardScraper:
                                     continue
                                 
                                 # --- 여기서부터는 모듈화된 (handlers) 개별 객체에 추출 책임을 위임합니다 ---
-                                handler = get_handler(item.get('itemType', 'Unknown'))
+                                handler = get_handler(item.get('itemType', 'Unknown'), item.get('href', ''))
                                 try:
                                     extracted_data = await handler.extract(detail_page, item)
                                     

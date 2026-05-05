@@ -1,0 +1,11 @@
+과목명: CENG105_ English(X187-11)
+유형: Form
+제목: Generative AI Usage Policy Confirmation
+최고점수: 1 point
+
+========================================
+[본문 내용]
+========================================
+This survey relates to the Generative AI Usage Policy outlined in the course syllabus, which describes the guidelines and important notes regarding the use of Generative AI.
+This confirmation is intended to verify that you have reviewed, understood, and acknowledged the Generative AI usage policy described in the course syllabus.
+Please review the course syllabus carefully before responding.
