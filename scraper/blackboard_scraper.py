@@ -67,6 +67,10 @@ class BlackboardScraper:
             lines.append(f"마감일: {item_data['deadline']}")
         if item_data.get('maxScore'):
             lines.append(f"최고점수: {item_data['maxScore']}")
+        if item_data.get('timeLimit'):
+            lines.append(f"제한시간: {item_data['timeLimit']}")
+        if item_data.get('attempts'):
+            lines.append(f"제출횟수/시도정보: {item_data['attempts']}")
             
         lines.append("\n" + "="*40 + "\n[본문 내용]\n" + "="*40)
         
@@ -80,22 +84,18 @@ class BlackboardScraper:
         if item_data.get('content'):
             content_lines.append(item_data['content'])
             
-        # 3. 설명(과제/시험)
-        if item_data.get('instructions'):
+        # 3. 설명(과제 등에서 사용됨)
+        # ExamHandler에서 이미 content로 포맷을 맞춰주지만, 기존 과제 핸들러 등을 위해 남겨두되, 
+        # content가 비어있을 때만 instructions를 출력하도록 처리하여 중복을 방지합니다.
+        if item_data.get('instructions') and not item_data.get('content'):
             if isinstance(item_data['instructions'], list):
                 content_lines.append('\n'.join(item_data['instructions']))
             else:
                 content_lines.append(str(item_data['instructions']))
                 
         # 4. 문항(시험/폼)
-        if item_data.get('questions'):
-            content_lines.append("\n" + "-"*30 + "\n[문항 목록]\n" + "-"*30)
-            for i, q in enumerate(item_data['questions'], 1):
-                content_lines.append(f"\nQ{i}. ({q.get('header', '')})")
-                content_lines.append(f"  {q.get('body', '')}")
-                if q.get('options'):
-                    for opt in q['options']:
-                        content_lines.append(f"    {opt}")
+        # ExamHandler에서 이미 content로 터미널과 동일한 포맷을 밀어넣었으므로,
+        # 중복 출력을 막기 위해 여기서 별도로 questions를 문자열로 조립하지 않습니다.
                         
         # 5. 토론(원문/댓글)
         if item_data.get('original_post'):
@@ -245,10 +245,17 @@ class BlackboardScraper:
                             await detail_page.goto(detail_url)
                             await detail_page.wait_for_timeout(3000) # 초기 로딩 확보
                             
-                            # [팝업 제거] 공지사항 등 화면을 가리는 오버레이 강제 제거
                             try:
-                                # 블랙보드 Ultra의 공지사항 팝업 전용 고유 ID (언어나 클래스명이 바뀌어도 동일함)
-                                close_btn = await detail_page.wait_for_selector('button[data-analytics-id="course.announcements.modal.close.button"], button.close-reveal-modal', timeout=3000)
+                                # 블랙보드 Ultra의 공지사항 팝업 전용 고유 ID 및 한국어/영어 로케일 대응 닫기 버튼
+                                close_btn = await detail_page.wait_for_selector(
+                                    'button[analytics-id="bb-close.course.outline.announcements.title"], '
+                                    'button[data-analytics-id="course.announcements.modal.close.button"], '
+                                    'button.close-reveal-modal, '
+                                    'button[aria-label*="닫기"], '
+                                    'button[aria-label*="Close"], '
+                                    'button.bb-close',
+                                    timeout=3000
+                                )
                                 if close_btn:
                                     print("  ⛔ 공지사항 팝업이 감지되었습니다. 화면 확보를 위해 닫습니다.")
                                     await close_btn.click()
@@ -381,6 +388,8 @@ class BlackboardScraper:
                                         itemType = "폴더";
                                     }
                                     
+                                    let ariaLabel = el.getAttribute('aria-label') || '';
+                                    
                                     results.push({
                                         title: name,
                                         href: href,
@@ -388,7 +397,8 @@ class BlackboardScraper:
                                         fullPath: fullPath,
                                         folderPathArray: path,
                                         scraperId: scraperId,
-                                        itemType: itemType
+                                        itemType: itemType,
+                                        ariaLabel: ariaLabel
                                     });
                                 }
                                 return results;
@@ -427,17 +437,35 @@ class BlackboardScraper:
                                     continue
                                 
                                 # --- 여기서부터는 모듈화된 (handlers) 개별 객체에 추출 책임을 위임합니다 ---
-                                handler = get_handler(item.get('itemType', 'Unknown'), item.get('href', ''))
+                                handler = get_handler(item.get('itemType', 'Unknown'), item.get('href', ''), item.get('title', ''), item.get('ariaLabel', ''))
                                 try:
-                                    extracted_data = await handler.extract(detail_page, item)
+                                    # 물리적 파일 저장을 위한 절대 경로 사전 계산 (특수문자 정제 및 조인)
+                                    clean_course = re.sub(r'[\\/:*?"<>|]', '_', course_title)
+                                    parts = [re.sub(r'[\\/:*?"<>|]', '_', p) for p in path_parts if p]
+                                    rel_folder = os.path.join(*parts) if parts else ''
+                                    save_dir = os.path.join(DOWNLOAD_PATH, clean_course, rel_folder) if rel_folder else os.path.join(DOWNLOAD_PATH, clean_course)
+                                    
+                                    # FileHandler(첨부 파일 등)인 경우에만 save_dir를 주입하여 실제 문서 다운로드를 수행합니다.
+                                    if handler.__class__.__name__ == "FileHandler":
+                                        extracted_data = await handler.extract(detail_page, item, save_dir=save_dir)
+                                    else:
+                                        extracted_data = await handler.extract(detail_page, item)
                                     
                                     if extracted_data:
+                                        # 다운로드 타겟이지만 실패했다면, 이번 회차에서는 무시하고 다음 번에 재시도할 수 있도록 처리합니다.
+                                        if extracted_data.get('download_status') == 'failed':
+                                            print(f"    ⚠️ 다운로드 실패 또는 타임아웃: {item_title} (다음 스크랩 시 재시도)")
+                                            continue
+                                            
                                         if folder_path not in self.processed_items[course_title]:
                                             self.processed_items[course_title][folder_path] = []
                                             
                                         self.processed_items[course_title][folder_path].append(extracted_data)
-                                        # 로컬 텍스트 파일 생성
-                                        self._export_item_to_txt(course_title, path_parts, extracted_data)
+                                        
+                                        # 실제 다운로드된 파일인 경우 텍스트(.txt) 기록을 남기지 않습니다.
+                                        if extracted_data.get('download_status') != 'success':
+                                            self._export_item_to_txt(course_title, path_parts, extracted_data)
+                                            
                                         # 실시간 상태 저장 (강제 종료/크래시 대비)
                                         self._save_processed_items()
                                         

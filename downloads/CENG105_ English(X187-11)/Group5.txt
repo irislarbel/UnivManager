@@ -11,6 +11,9 @@ This folder will be used as a portfolio to organize what your group has done thi
 ------------------------------
 [댓글 및 답변 목록]
 ------------------------------
+▶ [이현진 | May 12, 2026 11:39 PM]
+    영어 팀프로젝트 프레젠테이션.pptx초안 / 큰 틀만 잡아놓은 상태 / 세부적 수정 필요
+    --------------------
 ▶ [김수연 | Apr 15, 2026 3:06 PM]
     Researchers [김수연] Finds information and sources for the projectTakes notes and organizes research materialsShares findings with the teamWriter/Editor  [변민정] Set up the survey, experiments, application designWrites the main contentChecks grammar and makes correctionsPrepares the script for presentationDesigner  [김현진] Creates visual materials (PowerPoint, posters, handouts)Makes sure slides look clear and professionalAdds images, charts, and graphicsPresenters/Speakers  [조승우, 배서준] Practices speaking clearly and confidentlyDelivers the main presentationAnswers questions from the audience
     --------------------
@@ -46,7 +49,4 @@ This folder will be used as a portfolio to organize what your group has done thi
     --------------------
   ↳ (답글) [이나리 | Apr 13, 2026 11:15 AM]
     It should be a document file. Please upload the file again.
-    --------------------
-▶ [변민정 | Apr 8, 2026 11:38 AM]
-    Creating a Campus Space to Improve Creativity: Focusing on the Impact of Noise on Creativity
     --------------------

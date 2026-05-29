@@ -6,6 +6,12 @@
 
 ## 과거 및 현재 작업사항 (구현 완료/진행 중)
 - **Blackboard 스크래퍼 기반 (수집 및 아키텍처 개편)**: Playwright, Stealth를 이용한 브라우저 구동 및 SSO 자동 로그인 템플릿 구현 (`scraper/blackboard_scraper.py`).
+  - **[완료]** 한국어 로케일 환경에서 공지사항 상세 패널의 닫기 버튼 클릭 실패 버그 완벽 해결. 다중 라인 개행 나열 시 파이썬 콤마(`,`)에 의해 의도치 않은 튜플(Tuple) 구조가 생성되어 잘못된 문자열 인자가 전달되던 치명적인 구문 결함을 박멸했습니다. 사용자가 명시한 고유 마크업에 정확히 매칭되는 단일 CSS 셀렉터 `'button.bb-close[data-close="bb-offcanvas"]'`로 전면 일치화하여 원래의 네이티브 클릭 방식(`await close_btn.click()`)으로 오류 없이 패널이 안전하게 닫히도록 완벽 복구 완료. (2026-05-28)
+  - **[완료]** 영어 및 한글 다국어 로케일 대응 퀴즈/시험 탐색 및 저장 안정화. 영문명 `Quiz`, `Test`, `Assessment`, `평가` 등의 라벨을 가진 퀴즈들이 `get_handler` 분기에서 누락되어 일반 기타 문서로 유도되어 빈 파일로 생성되던 인지 필터의 키워드 범위를 완벽하게 확장 완료. 또한 퀴즈 메타데이터(`timeLimit`, `attempts`)를 텍스트 파일 헤더에 정교하게 포맷팅하여 부모 폴더 경로 내에 이쁘게 기록되도록 익스포트 함수를 대폭 고도화함. (2026-05-28)
+  - **[완료]** 실행 위치(cwd) 종속성 제거 및 Docker용 환경 변수 기반 절대 경로 고정. 메인 스크립트 실행 디렉토리가 바뀔 때 다운로드 폴더나 캐시 파일이 흩어지던 현상을 방지하고자, `config.py` 내의 `DOWNLOAD_PATH`, `CHROMA_DB_PATH`, `DATA_FILE` 경로를 프로젝트 물리 루트(`BASE_DIR`) 절대 경로 기준으로 완전히 통일 완료. 또한 환경 변수(`DOWNLOAD_PATH` 등) 연동을 지원하여 Docker 컨테이너 볼륨 마운트 매칭을 100% 보장하도록 설정함. (2026-05-28)
+  - **[완료]** 가상환경(.venv) 재설치 후 IDE의 샌드박스 정책 충돌에 따른 Python 3.14 인터프리터 인식 불가 현상 대응. 기존 .venv를 제거한 뒤 `--copies` 옵션을 강제하여 물리 파일 복사 형태의 새로운 가상환경으로 재구축 완료. pip 패키지 및 Playwright 브라우저 드라이버 재설치를 완벽히 마쳐 정상화 달성. (2026-05-28)
+  - **[완료]** `Cannot find module playwright.async_api` 에러 발생 건 조치. `.vscode/settings.json` 내의 `python.defaultInterpreterPath`가 잘못된 경로(`~/.venv/bin/python`)로 설정되어 있어 시스템 전역 파이썬으로 분석기가 폴백되던 현상을 로컬 가상환경 경로(`${workspaceFolder}/.venv/bin/python`)로 수정하여 해결함. (2026-05-28)
+  - **[완료]** 실행 버튼 클릭 시 가상환경이 자동 활성화되지 않는 현상 조치. `.vscode/settings.json` 파일에 `"python.terminal.activateEnvironment": true` 설정을 명시하여 VS Code 터미널 구동 및 실행 시 로컬 가상환경을 우선적으로 로드하도록 환경을 복구함. (2026-05-28)
   - **[최근 작업]** 메인 루프에서 조건문을 제거하고 `handlers/` 하위 모듈(`assignment_handler`, `exam_handler` 등)로 파싱 책임을 분리하는 전략 패턴 적용.
   - **[완료]** `announcement_handler.py` 공지 사항 추출 로직 고도화 및 첨부파일(data-bbfile JSON 파싱) 대응 완료. (2026-04-19)
   - **[최근 작업]** `discussion_handler.py` 토론 게시판 파싱 로직 전면 고도화.

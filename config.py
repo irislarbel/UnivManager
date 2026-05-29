@@ -16,12 +16,18 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 # AI 및 분석 설정 (Gemini 3 Pro)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
+# 프로젝트 물리적 루트 경로 고정
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # 데이터베이스 저장 경로 (ChromaDB)
-CHROMA_DB_PATH = os.getenv("CHROMA_DB_PATH", "./chroma_db")
+CHROMA_DB_PATH = os.getenv("CHROMA_DB_PATH", os.path.join(BASE_DIR, "chroma_db"))
+CHROMA_DB_PATH = os.path.abspath(CHROMA_DB_PATH)
 
 # 데이터 및 파일 저장 경로
-DOWNLOAD_PATH = os.path.join(os.getcwd(), "downloads")
-DATA_FILE = "processed_items.json"
+DOWNLOAD_PATH = os.getenv("DOWNLOAD_PATH", os.path.join(BASE_DIR, "downloads"))
+DOWNLOAD_PATH = os.path.abspath(DOWNLOAD_PATH)
+
+DATA_FILE = os.path.join(BASE_DIR, "processed_items.json")
 
 # 필요한 폴더 생성
 if not os.path.exists(DOWNLOAD_PATH):

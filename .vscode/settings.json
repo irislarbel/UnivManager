@@ -1,0 +1,10 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.interpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/.venv/lib/python3.14/site-packages"
+  ],
+  "python.linting.enabled": true,
+  "python-envs.workspaceSearchPaths": [],
+  "python.terminal.activateEnvironment": true
+}

@@ -179,11 +179,15 @@ class AnnouncementHandler(BaseHandler):
                 })
                 
                 # 4. 패널 닫기
-                close_btn = await detail_page.query_selector('[data-automation-id="close-announcement-detail"], button.bb-close, button[aria-label*="Close"]');
-                if (close_btn):
-                    await close_btn.click()
-                    await detail_page.wait_for_timeout(1000)
-                else:
+                try:
+                    close_btn = await detail_page.wait_for_selector(
+                        'button.bb-close[data-close="bb-offcanvas"]',
+                        timeout=5000
+                    )
+                    if close_btn:
+                        await close_btn.click()
+                        await detail_page.wait_for_timeout(1000)
+                except Exception:
                     await detail_page.keyboard.press("Escape")
                     await detail_page.wait_for_timeout(1000)
 

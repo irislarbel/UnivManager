@@ -2,19 +2,18 @@
 유형: Form
 제목: Generative AI Usage Policy Confirmation
 최고점수: 1 point
+제출횟수/시도정보: 1 attempt left
 
 ========================================
 [본문 내용]
 ========================================
+📖 [시험 지문/공지사항]
 This survey relates to the Generative AI Usage Policy outlined in the course syllabus, which describes the guidelines and important notes regarding the use of Generative AI.
 This confirmation is intended to verify that you have reviewed, understood, and acknowledged the Generative AI usage policy described in the course syllabus.
 Please review the course syllabus carefully before responding.
 
-------------------------------
-[문항 목록]
-------------------------------
+📝 [문제 추출 완료] (총 1문항 확인됨)
 
-Q1. (1  Point)
-  I confirm that I have reviewed the Generative AI Usage Policy in the course syllabus and that I understand and will follow the course standards set by the instructor.
-    🔳 [ ] Yes
-    🔳 [ ] No
+Q1. (1  Point) I confirm that I have reviewed the Generative AI Usage Policy in the course syllabus and that I understand and will follow the course standards set by the instructor.
+  - 🔳 [ ] Yes
+  - 🔳 [ ] No

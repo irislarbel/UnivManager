@@ -196,30 +196,47 @@ class ExamHandler(BaseHandler):
         panel_data['title'] = item.get('title')
         panel_data['type'] = item.get('itemType', '시험/퀴즈')
         
-        # 터미널 출력 및 확인
+        # ---------------------------------------------------------
+        # 터미널 출력 및 텍스트 파일(content)에 들어갈 내용 구성
+        # ---------------------------------------------------------
         print(f"    🏷️ [{panel_data['type']} 제목]: {panel_data['title']}")
         if panel_data.get('deadline'): print(f"    🗓️ [시험 마감일]: {panel_data['deadline']}")
         if panel_data.get('timeLimit'): print(f"    ⏱️ [제한 시간]: {panel_data['timeLimit']}")
         if panel_data.get('attempts'): print(f"    🔄 [제출 횟수]: {panel_data['attempts']}")
         if panel_data.get('maxScore'): print(f"    💯 [시험 총점]: {panel_data['maxScore']}")
 
-        # 지문 영역 출력
+        content_str = ""
+        
+        # 지문 영역 구성 및 출력
         instructions = panel_data.get('instructions', [])
         if instructions:
-            formatted_inst = '\n      '.join(instructions)
-            print(f"    📖 [시험 지문/공지사항]:\n      {formatted_inst}")
+            formatted_inst = '\n'.join(instructions)
+            print(f"    📖 [시험 지문/공지사항]:\n      {formatted_inst.replace('\n', '\n      ')}")
+            content_str += f"📖 [시험 지문/공지사항]\n{formatted_inst}\n\n"
 
-        # 문제 영역 출력
+        # 문제 영역 구성 및 출력
         questions = panel_data.get('questions', [])
         if questions:
             print(f"    📝 [문제 추출 완료] (총 {len(questions)}문항 확인됨)")
+            content_str += f"📝 [문제 추출 완료] (총 {len(questions)}문항 확인됨)\n"
+            
             for i, q in enumerate(questions):
                 header_str = f"({q['header']})" if q.get('header') else ""
-                print(f"      Q{i+1}. {header_str} {q['body']}")
+                q_text = f"Q{i+1}. {header_str} {q['body']}"
+                
+                print(f"      {q_text}")
+                content_str += f"\n{q_text}\n"
+                
                 for opt in q.get('options', []):
                     print(f"        - {opt}")
+                    content_str += f"  - {opt}\n"
         else:
-            print("    (문제 텍스트를 찾을 수 없거나 평가가 아직 열려있지 않습니다.)")
+            msg = "(문제 텍스트를 찾을 수 없거나 평가가 아직 열려있지 않습니다.)"
+            print(f"    {msg}")
+            content_str += f"\n{msg}\n"
+
+        # 터미널에서 보는 내용 그대로를 텍스트 파일의 'content'에 밀어넣습니다.
+        panel_data['content'] = content_str.strip()
 
         # 패널 리소스를 모두 정리
         await self.close_all_panels(detail_page)
