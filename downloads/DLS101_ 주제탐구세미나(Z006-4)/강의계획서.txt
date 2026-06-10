@@ -5,4 +5,4 @@
 ========================================
 [본문 내용]
 ========================================
-🔗 링크 주소: https://apply.ajou.ac.kr/courseplan/findReport.action?mac=5400343d3c83614ebf55c00c42edf8e9&cid=2026U00020012026055994&timestamp=1779957142&eng=n
+🔗 링크 주소: https://apply.ajou.ac.kr/courseplan/findReport.action?mac=a1ae6db4a87dd2874df6fc1081260cf5&cid=2026U00020012026055994&timestamp=1781085462&eng=n

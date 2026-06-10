@@ -22,6 +22,15 @@
 - **Google Drive 연동 (보존)**: OAuth2.0 기반 토큰 발급 및 파이썬 API 연동 기초 마련 (`storage/google_drive.py`).
 - **메인 스케줄러 (통합 뼈대)**: 1시간 단위 반복 실행을 위한 Python 스케줄러 세팅 (`main.py`).
 
+## 수정 완료된 버그 목록 (2026-06-10)
+
+- **[완료]** 파일 여러 개일 때 첫 번째 파일만 반복 다운로드되는 버그 수정. `filter(has=...).first`가 리스트 전체 래퍼를 잡아 항상 첫 번째 파일 버튼을 눌렀던 것을, `filter(has=overflow_selector).last`로 정확히 해당 파일의 행을 잡도록 수정. 다운로드 전후 Escape로 잔여 메뉴 정리도 추가. (`base_handler.py`)
+- **[완료]** `container` null 참조 크래시. JS evaluate 내 `if (container)` 가드 밖에서 `container.querySelector()`를 호출해 TypeError 발생 시 과목 전체 수집이 0개로 실패하던 심각한 버그. `!!(container && container.querySelector(...))` 로 수정. (`blackboard_scraper.py`)
+- **[완료]** 다운로드 재시도/영구누락 판별 오류. `not_downloadable`(파일 아님)과 `failed`(일시 오류) 반환이 반대로 되어 있어 파일 아닌 항목을 무한 재시도하고 진짜 파일은 조용히 누락되었음. 판별 기준을 "더보기 메뉴에 다운로드 항목 존재 여부"로 교정. expect_download 타임아웃 5s → 15s로 확대. (`base_handler.py`)
+- **[완료]** 파일 다운로드 aria-label 미제공 시 FileHandler 누락. 폴백으로 title/href 확장자 검사 추가. aria-label(`"PDF, 파일명.pdf"`) 1순위는 유지 — 확장자 방식으로 대체하지 말 것. (`handlers/__init__.py`)
+- **[완료]** 공지 사항 stale 핸들 및 evaluate_handle 누수. 패널 열고 닫을 때 리스트 re-render로 핸들 무효화 가능. 매 반복 목록 재조회 + `row_handle.dispose()` 추가. (`announcement_handler.py`)
+- **[완료]** `processed_items.json` 항목마다 전체 재기록(O(n²) I/O). 저장 시점을 과목 단위(finally 블록)로 이동. 과목 중간 크래시 시 해당 과목만 재수집(dedup 멱등). (`blackboard_scraper.py`)
+
 ## 추후 진행할 작업 (미구현 항목 및 계획)
 1. **[직전 작업 예정] AssignmentHandler 안정화**: 과제 본문 혼선 문제 해결.
 2. **[Phase 1] Google Drive 계층형 업로드 시스템**: 

@@ -31,17 +31,26 @@ class AnnouncementHandler(BaseHandler):
                 return []
             print("    ⚠️ 공지 사항 리스트 로딩이 지연되었습니다.")
 
-        title_elements = await detail_page.query_selector_all('a.list-item-title, [class*="list-item-title"]')
-        
+        ann_list_selector = 'a.list-item-title, [class*="list-item-title"]'
+        title_elements = await detail_page.query_selector_all(ann_list_selector)
+
         if not title_elements:
             print(f"    (공지 사항 데이터가 검색되지 않았습니다.)")
             return []
 
-        print(f"    총 {len(title_elements)}개의 공지 사항이 확인되었습니다. 상세 내용을 추출합니다.")
+        total = len(title_elements)
+        print(f"    총 {total}개의 공지 사항이 확인되었습니다. 상세 내용을 추출합니다.")
 
         final_data = []
-        for i, title_el in enumerate(title_elements):
+        for i in range(total):
             try:
+                # 공지를 열고 닫는 과정에서 리스트가 다시 렌더링되면 처음 잡아둔 핸들이 무효화(stale)될 수 있으므로,
+                # 매 반복마다 목록을 새로 조회하여 i번째 요소를 사용합니다.
+                fresh_elements = await detail_page.query_selector_all(ann_list_selector)
+                if i >= len(fresh_elements):
+                    break
+                title_el = fresh_elements[i]
+
                 # 1. 리스트 뷰에서 제목 및 날짜 추출
                 title = await title_el.inner_text()
                 title = title.strip()
@@ -54,6 +63,7 @@ class AnnouncementHandler(BaseHandler):
                 try:
                     row_handle = await detail_page.evaluate_handle('(el) => el.closest("li, [role=\'row\'], [class*=\'item\']") || el.parentElement', title_el)
                     row_text = await row_handle.inner_text()
+                    await row_handle.dispose()  # 공지마다 핸들이 쌓이지 않도록 즉시 해제
                     # 연도(2~4자리), 월, 일 패턴 (예: 26. 4. 1. 또는 2024. 04. 01.)
                     date_match = re.search(r'(\d{2,4})\.\s*(\d{1,2})\.\s*(\d{1,2})\.', row_text)
                     if date_match:

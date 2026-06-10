@@ -383,7 +383,7 @@ class BlackboardScraper:
                                     
                                     // 사용자의 요청: aria-label이 "폴더 열기"이거나 영어로 "folder"일 때 폴더로 인식
                                     let typeLower = itemType.toLowerCase();
-                                    if (itemType.includes("폴더 열기") || typeLower.includes("folder") || !!container.querySelector('svg[aria-label*="folder" i]')) {
+                                    if (itemType.includes("폴더 열기") || typeLower.includes("folder") || !!(container && container.querySelector('svg[aria-label*="folder" i]'))) {
                                         isFolder = true;
                                         itemType = "폴더";
                                     }
@@ -465,10 +465,7 @@ class BlackboardScraper:
                                         # 실제 다운로드된 파일인 경우 텍스트(.txt) 기록을 남기지 않습니다.
                                         if extracted_data.get('download_status') != 'success':
                                             self._export_item_to_txt(course_title, path_parts, extracted_data)
-                                            
-                                        # 실시간 상태 저장 (강제 종료/크래시 대비)
-                                        self._save_processed_items()
-                                        
+
                                 except Exception as e:
                                     print(f"  ❌ [{item.get('itemType', 'Unknown')}] 항목 분석 중 에러: {e}")
 
@@ -499,13 +496,14 @@ class BlackboardScraper:
                                     })
                                     # TXT 추출
                                     self._export_item_to_txt(course_title, ["공지사항"], ann)
-                                    # 실시간 상태 저장 (강제 종료/크래시 대비)
-                                    self._save_processed_items()
 
                         except Exception as e:
                             print(f"과목 상세 로딩 중 에러: {e}")
                         
                         finally:
+                            # 과목 단위로 한 번만 저장합니다. (항목마다 359KB JSON 전체를 다시 쓰던 O(n^2) I/O 제거)
+                            # 과목 중간에 크래시가 나도 조기종료 dedup이 멱등이라 다음 실행에 해당 과목만 다시 수집됩니다.
+                            self._save_processed_items()
                             await detail_page.close()
 
                 except TimeoutError:

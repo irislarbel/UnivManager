@@ -29,14 +29,25 @@ def get_handler(item_type: str, href: str = "", title: str = "", aria_label: str
         
     # 다운로드 대상 파일 유형 검사
     file_types = ['pdf', 'hwp', 'hwpx', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'zip', 'rar', 'mp3', 'mp4']
-    
+
     is_file = False
+
+    # 1순위(가장 정확): 사이트가 제공하는 aria-label 형태 "PDF, 아주인 1주차_오리엔테이션(X234).pdf"
     if aria_label and ',' in aria_label:
-        # aria-label 형태: "PDF, 아주인 1주차_오리엔테이션(X234).pdf"
         prefix = aria_label.split(',')[0].strip()
         if prefix in file_types:
             is_file = True
-            
+
+    # 2순위(폴백): aria-label이 비었거나 형식이 다른 경우, 제목/href가 알려진 파일 확장자로 끝나는지 검사.
+    #   (Blackboard가 항상 aria-label을 주지는 않아, 확장자 기반으로 한 번 더 건집니다.)
+    if not is_file:
+        def _ends_with_known_ext(s):
+            s = (s or "").split('?')[0].split('#')[0].strip()
+            return any(s.endswith('.' + ext) for ext in file_types)
+
+        if _ends_with_known_ext(title) or _ends_with_known_ext(href):
+            is_file = True
+
     if is_file:
         return FileHandler()
         
