@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from playwright.async_api import async_playwright, TimeoutError
 from playwright_stealth import Stealth
-from config import BLACKBOARD_URL, BLACKBOARD_USER, BLACKBOARD_PASS, DATA_FILE, DOWNLOAD_PATH
+from config import BLACKBOARD_URL, BLACKBOARD_USER, BLACKBOARD_PASS, DATA_FILE, DOWNLOAD_PATH, TARGET_COURSE
 from handlers import get_handler, AnnouncementHandler
 
 class BlackboardScraper:
@@ -43,9 +43,8 @@ class BlackboardScraper:
             
         is_folder = item_data.get('type') == '폴더' or item_data.get('isFolder') == True
         
-        # 현재 항목 자체가 폴더인 경우, 자신의 이름을 경로에 추가하여 물리적 폴더 구조를 만듭니다.
-        if is_folder:
-            rel_folder = os.path.join(rel_folder, clean_title) if rel_folder else clean_title
+        # 1번안 구조 (모든 항목을 개별 폴더화): 폴더든 파일이든 자신의 이름으로 폴더를 한 뎁스 더 만듭니다.
+        rel_folder = os.path.join(rel_folder, clean_title) if rel_folder else clean_title
             
         save_dir = os.path.join(DOWNLOAD_PATH, clean_course, rel_folder) if rel_folder else os.path.join(DOWNLOAD_PATH, clean_course)
         os.makedirs(save_dir, exist_ok=True)
@@ -232,6 +231,9 @@ class BlackboardScraper:
 
                     # 수집한 각 과목별로 새 탭을 열고 outline 페이지에 접속합니다.
                     for internal_id, course_title in course_info_list:
+                        if TARGET_COURSE and TARGET_COURSE.lower() not in course_title.lower():
+                            continue
+                            
                         print(f"\n=============================================")
                         print(f"[과목 탐색] {course_title}")
                         
@@ -441,15 +443,17 @@ class BlackboardScraper:
                                 try:
                                     # 물리적 파일 저장을 위한 절대 경로 사전 계산 (특수문자 정제 및 조인)
                                     clean_course = re.sub(r'[\\/:*?"<>|]', '_', course_title)
+                                    clean_item_title = re.sub(r'[\\/:*?"<>|]', '_', item_title)
                                     parts = [re.sub(r'[\\/:*?"<>|]', '_', p) for p in path_parts if p]
                                     rel_folder = os.path.join(*parts) if parts else ''
+                                    
+                                    # 1번안 구조 (모든 항목을 개별 폴더화): 폴더든 파일이든 자신의 이름으로 폴더를 한 뎁스 더 만듭니다.
+                                    rel_folder = os.path.join(rel_folder, clean_item_title) if rel_folder else clean_item_title
+                                    
                                     save_dir = os.path.join(DOWNLOAD_PATH, clean_course, rel_folder) if rel_folder else os.path.join(DOWNLOAD_PATH, clean_course)
                                     
-                                    # FileHandler(첨부 파일 등)인 경우에만 save_dir를 주입하여 실제 문서 다운로드를 수행합니다.
-                                    if handler.__class__.__name__ == "FileHandler":
-                                        extracted_data = await handler.extract(detail_page, item, save_dir=save_dir)
-                                    else:
-                                        extracted_data = await handler.extract(detail_page, item)
+                                    # FileHandler 및 AssignmentHandler 등 모든 핸들러에 save_dir를 주입합니다.
+                                    extracted_data = await handler.extract(detail_page, item, save_dir=save_dir)
                                     
                                     if extracted_data:
                                         # 다운로드 타겟이지만 실패했다면, 이번 회차에서는 무시하고 다음 번에 재시도할 수 있도록 처리합니다.

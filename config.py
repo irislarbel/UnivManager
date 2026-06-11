@@ -9,6 +9,10 @@ BLACKBOARD_URL = os.getenv("BLACKBOARD_URL", "https://blackboard.yourschool.edu"
 BLACKBOARD_USER = os.getenv("BLACKBOARD_USER", "")
 BLACKBOARD_PASS = os.getenv("BLACKBOARD_PASS", "")
 
+# 테스트용: 단일 과목만 스크래핑하고 싶을 때 여기에 과목명 일부를 입력하세요. (예: "아주인을 위한 마중물")
+# 빈 문자열("")이면 모든 과목을 스크래핑합니다.
+TARGET_COURSE = os.getenv("TARGET_COURSE", "")
+
 # Telegram 설정
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")

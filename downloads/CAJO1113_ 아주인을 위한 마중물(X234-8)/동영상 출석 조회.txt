@@ -1,8 +1,0 @@
-과목명: CAJO1113_ 아주인을 위한 마중물(X234-8)
-유형: LTI/외부링크
-제목: 동영상 출석 조회
-
-========================================
-[본문 내용]
-========================================
-🔗 링크 주소: https://eclass2.ajou.ac.kr/webapps/blackboard/execute/ultraFramePassThrough?redirectTo=https%3A%2F%2Feclass2.ajou.ac.kr%2Fwebapps%2Fblackboard%2Fexecute%2Fblti%2FlaunchPlacement%3Fblti_placement_id%3D_891_1%26content_id%3D_2307745_1%26course_id%3D_111078_1%26wrapped%3Dtrue%26from_ultra%3Dtrue

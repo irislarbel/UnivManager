@@ -1,9 +1,10 @@
 class BaseHandler:
-    async def extract(self, detail_page, item: dict):
+    async def extract(self, detail_page, item: dict, save_dir: str = None):
         """
         상속받은 클래스에서 구현해야 하는 메인 추출 로직입니다.
         detail_page: Playwright Page 객체
         item: 블랙보드 항목 딕셔너리 (title, href, fullPath, scraperId, itemType 등)
+        save_dir: 첨부파일 다운로드를 위한 디렉토리 경로 (선택)
         """
         raise NotImplementedError("extract method must be implemented by subclasses.")
 
