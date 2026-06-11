@@ -1,7 +1,7 @@
 from .base_handler import BaseHandler
 
 class DefaultHandler(BaseHandler):
-    async def extract(self, detail_page, item: dict):
+    async def extract(self, detail_page, item: dict, save_dir: str = None):
         full_path = item.get('fullPath', '')
         href = item.get('href', '#')
         item_title = item.get('title', '제목없음')

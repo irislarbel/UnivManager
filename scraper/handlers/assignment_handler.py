@@ -1,7 +1,7 @@
 from .base_handler import BaseHandler
 
 class AssignmentHandler(BaseHandler):
-    async def extract(self, detail_page, item: dict):
+    async def extract(self, detail_page, item: dict, save_dir: str = None):
         full_path = item.get('fullPath', '')
         s_id = item.get('scraperId', '')
         print(f"  📝 [과제 탐색]: {full_path} (패널 내부 분석 중...)")
@@ -16,33 +16,28 @@ class AssignmentHandler(BaseHandler):
         # 패널 내부 평가 내용 추출 공통 로직 (R-string으로 감싸 파이썬 이스케이프 오류 방지)
         panel_data = await detail_page.evaluate(r'''() => {
             // [버그 해결 핵심]: querySelector는 화면에 보이지 않는 이전 패널(닫혔으나 DOM에 남은 찌꺼기)을 계속 찾아냅니다.
-            // 모든 후보를 찾고 배열을 뒤집은 뒤(가장 마지막/최상위 팝업), 실제 화면 공간을 차지하는(getBoundingClientRect().width > 0) 요소만 활성 패널로 간주합니다.
             let potentialPanels = Array.from(document.querySelectorAll('.bb-offcanvas-panel.active:not(.hide-in-background), .panel-has-focus, [role="dialog"], aside, .offcanvas-inner, .peek-panel'));
             let activePanel = potentialPanels.reverse().find(p => p.getBoundingClientRect().width > 0 && window.getComputedStyle(p).display !== 'none');
             
             if (!activePanel) {
-                return null; // 배경 코스 수집 차단을 위해 활성 패널이 없으면 강제 취소
+                return null;
             }
             
             const findValueNextToLabel = (labelText) => {
-                // TreeWalker를 이용하여 DOM 트리의 모든 텍스트 노드를 순회하여 동적인 클래스명 변화에 구애받지 않음
                 const walker = document.createTreeWalker(activePanel, NodeFilter.SHOW_TEXT, null, false);
                 let node;
                 while (node = walker.nextNode()) {
                     let text = node.nodeValue.trim();
                     if (text === labelText) {
                         let el = node.parentElement;
-                        // 1. 텍스트를 감싸는 요소의 바로 다음 형제 (일반 구조)
                         if (el.nextElementSibling) {
                             let val = el.nextElementSibling.innerText.trim();
                             if (val) return val;
                         }
-                        // 2. 부모 요소의 다음 형제 (MUI Grid, Box 등 레이아웃 분리 시 우회용)
                         if (el.parentElement && el.parentElement.nextElementSibling) {
                             let val = el.parentElement.nextElementSibling.innerText.trim();
                             if (val) return val;
                         }
-                        // 3. 조부모 요소의 다음 형제 (깊게 트리 중첩된 경우)
                         if (el.parentElement && el.parentElement.parentElement && el.parentElement.parentElement.nextElementSibling) {
                             let val = el.parentElement.parentElement.nextElementSibling.innerText.trim();
                             if (val) return val;
@@ -55,12 +50,10 @@ class AssignmentHandler(BaseHandler):
             let deadline = findValueNextToLabel("기간") || findValueNextToLabel("평가 마감일") || findValueNextToLabel("Due Date") || findValueNextToLabel("마감일");
             
             const extractDate = (str) => {
-                // "26. 3. 30. 23:59(UTC+9)" 또는 "10/24/25 11:59 PM" 형태의 날짜/시간 정규식 추출
                 let match = str.match(/([0-9]{2,4}[./-]\s*[0-9]{1,2}[./-]\s*[0-9]{1,2}[^0-9]+[0-9]{1,2}:[0-9]{2}(?:\s*[apAP][mM])?(?:\s*\([^)]+\))?)/);
                 if (match) {
                     return match[1].trim();
                 }
-                // 정규식 실패 시 기본적으로 줄바꿈만 없앰
                 return str.replace(/[\r\n]+/g, ' ').trim();
             };
 
@@ -102,20 +95,14 @@ class AssignmentHandler(BaseHandler):
             let texts = [];
             let textBlocks = activePanel.querySelectorAll('#bb-editorassignment-attempt-authoring-instructions, .vtbegenerated, .prevent-copy-content, .js-description, [id*="description"], [class*="instruction"], .html-content, .document-components, bb-document-part, .content-viewer, .assessment-content, .rte-content, #assignment-attempt-authoring-instructions-summary + div p');
             textBlocks.forEach(tb => {
-                // UI 구조나 숨겨진 첨부파일 아이콘, 빈 div 때문에 \n이 수십 개씩 이어지는 것을 하나의 줄바꿈으로 압축
                 let t = tb.innerText.trim().replace(/[\r\n]+/g, '\n');
                 if (t && t.length > 5) {
-                    // 1. 현재 텍스트(자식 노드)가 이미 저장된 기존 텍스트(부모 노드)에 완전히 포함되면 무시
                     if (texts.some(existing => existing.includes(t))) return;
-                    
-                    // 2. 반대로 현재 텍스트(부모 노드)가 이전에 파싱된 텍스트들을 모두 품고 있다면, 파편들을 버리고 본인으로 병합
                     texts = texts.filter(existing => !t.includes(existing));
-                    
                     texts.push(t);
                 }
             });
             
-            // 만약 일치하는 요소가 아예 없었다면 최후의 보루(p태그 등) 탐색 시도
             if (texts.length === 0) {
                 activePanel.querySelectorAll('div.js-document-content p, div.document-content p, .bb-text-block, p').forEach(p => {
                     let t = p.innerText.trim().replace(/[\r\n]+/g, '\n');
@@ -140,6 +127,68 @@ class AssignmentHandler(BaseHandler):
         panel_data['type'] = item.get('itemType', '과제')
         panel_data['href'] = item.get('href', '')
         
+        if 'files' not in panel_data:
+            panel_data['files'] = []
+            
+        # [수정된 핵심 로직]: Playwright Python으로 첨부파일 더보기 버튼(Shadow DOM 통과)들을 찾고 직접 다운로드 수행
+        if save_dir:
+            import os
+            import re
+            try:
+                option_btns = await detail_page.locator('.bb-offcanvas-panel.active button[data-analytics-id="fileViewer.action.menu"], .bb-offcanvas-panel.active button[aria-label*="에 대한 추가 옵션"]').all()
+                for btn in option_btns:
+                    try:
+                        title_attr = await btn.get_attribute('title') or await btn.get_attribute('aria-label') or ""
+                        filename = title_attr.replace('에 대한 추가 옵션', '').replace('Additional options for ', '').strip()
+                        if not filename:
+                            filename = "첨부파일"
+                        
+                        # JSON 목록에 아직 없다면 추가
+                        existing_titles = [f.get('title') for f in panel_data['files']]
+                        if filename not in existing_titles:
+                            panel_data['files'].append({"title": filename, "href": "download_via_menu"})
+                        
+                        print(f"    🖱️ [{filename}] 더보기 메뉴 클릭 시도")
+                        await btn.scroll_into_view_if_needed()
+                        await btn.click(force=True)
+                        await detail_page.wait_for_timeout(800)
+                        
+                        # 다운로드 버튼 클릭
+                        download_selector = 'li[data-analytics-id="fileViewer.downloadFile"], li[role="menuitem"]:has-text("다운로드")'
+                        download_el = detail_page.locator(download_selector)
+                        
+                        if await download_el.count() > 0:
+                            async with detail_page.expect_download(timeout=15000) as download_info:
+                                await download_el.first.click(force=True)
+                                print(f"      💾 [{filename}] 다운로드 버튼 클릭 완료. 파일 스트림 획득 중...")
+                            
+                            download = await download_info.value
+                            clean_filename = re.sub(r'[\\/:*?"<>|]', '_', download.suggested_filename or filename)
+                            final_filepath = os.path.join(save_dir, clean_filename)
+                            
+                            os.makedirs(save_dir, exist_ok=True)
+                            await download.save_as(final_filepath)
+                            print(f"      ✅ [물리 원본 다운로드 성공]: {clean_filename}")
+                            
+                            # 다운로드 성공 기록
+                            for pf in panel_data['files']:
+                                if pf['title'] == filename:
+                                    pf['download_status'] = 'success'
+                                    pf['filepath'] = final_filepath
+                                    pf['href'] = download.url
+                        else:
+                            print(f"      ℹ️ [{filename}] 다운로드 메뉴가 없음.")
+                        
+                        # 메뉴 닫기 처리
+                        await detail_page.keyboard.press("Escape")
+                        await detail_page.wait_for_timeout(300)
+                    except Exception as inner_e:
+                        print(f"    ❌ [{filename}] 다운로드 중 에러: {inner_e}")
+                        await detail_page.keyboard.press("Escape")
+                        await detail_page.wait_for_timeout(300)
+            except Exception as e:
+                print(f"    ❌ 패널 내부 첨부파일 추출 중 에러: {e}")
+        
         # 상세 결과 로깅
         print(f"    🏷️ [과제 제목]: {panel_data['title']}")
         if panel_data.get('deadline'): print(f"    🗓️ [과제 마감일]: {panel_data['deadline']}")
@@ -148,7 +197,6 @@ class AssignmentHandler(BaseHandler):
         
         if panel_data.get('instructions'):
             full_text = '\n'.join(panel_data['instructions'])
-            # 여러 줄의 본문이 콘솔에 이쁘게 출력되도록 내부 줄바꿈 앞에도 들여쓰기(공백 6칸)를 추가해주어 정렬합니다.
             formatted_text = full_text.replace('\n', '\n      ')
             print(f"    📝 [본문 내용 확보]:\n      {formatted_text}")
         else:
