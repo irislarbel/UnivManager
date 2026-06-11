@@ -178,6 +178,12 @@ class BlackboardScraper:
             context = await browser.new_context()
             page = await context.new_page()
 
+            # 중복 로그인 방지 등 자바스크립트 팝업(confirm, alert)이 뜰 경우 자동으로 확인(Accept) 처리
+            async def handle_dialog(dialog):
+                print(f"  💬 팝업 자동 승인: {dialog.message}")
+                await dialog.accept()
+            page.on("dialog", handle_dialog)
+
             # 봇 탐지 회피 (playwright-stealth)
             await Stealth().apply_stealth_async(page)
 
