@@ -1,0 +1,8 @@
+과목명: CAJO1113_ 아주인을 위한 마중물(X234-8)
+유형: LTI/외부링크
+제목: 강의계획서
+
+========================================
+[본문 내용]
+========================================
+🔗 링크 주소: https://1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net/oidc/login_initiations?iss=https%3A%2F%2Fblackboard.com&login_hint=https%253A%252F%252Feclass2.ajou.ac.kr%252Fwebapps%252Fblackboard%252Fexecute%252Fblti%252FlaunchPlacement%253Fcmd%253Dauthenticate%2526course_id%253D_111078_1%2C12546fe42e424b9da1817688a59af132%2C74f6edecc9e049a6b6ff4d16b5cf361b&target_link_uri=https%3A%2F%2F1c7762e3b0ee9740429a595045edeffc.tp-app.bb-icm-hosting.net%2FajouSyllabus&lti_message_hint=eyJjb3Vyc2VJZCI6Il8xMTEwNzhfMSIsImdyb3VwSWQiOm51bGwsImNvbnRlbnRJZCI6Il8yMjAyMTk4XzEiLCJkZXBsb3ltZW50SWQiOiJiNThjNzRhZi02MWM0LTQzZmItOGY2MC1jNzZhYTVmZGM1MTEiLCJyZXNvdXJjZUxpbmtJZCI6Il8yMjAyMTk4XzEiLCJwbGFjZW1lbnRJZCI6Il81NTZfMSIsInRhcmdldE92ZXJyaWRlIjpudWxsLCJmcm9tVWx0cmEiOnRydWUsImZyb21HcmFkZUNlbnRlciI6ZmFsc2UsIm9wZW5OZXdXaW5kb3ciOnRydWUsImRlZXBMaW5rTGF1bmNoIjpmYWxzZSwiY3VzdG9tUGFyYW1zIjp7ImNvdXJzZV9pZCI6IkBYQGNvdXJzZS5pZEBYQCIsInRvb2wiOiJjb3Vyc2VfdG9vbCJ9LCJvcGVuSW5MaWdodEJveCI6ZmFsc2UsImlubGluZU1vZGUiOmZhbHNlLCJoaWRlRG9jdW1lbnQiOmZhbHNlLCJwYXJlbnRDb250ZW50SWQiOiIiLCJ0YXJnZXRMaW5rVXJsIjoiaHR0cHM6Ly8xYzc3NjJlM2IwZWU5NzQwNDI5YTU5NTA0NWVkZWZmYy50cC1hcHAuYmItaWNtLWhvc3RpbmcubmV0L2Fqb3VTeWxsYWJ1cyIsInBvc2l0aW9uIjotMX0&lti_deployment_id=b58c74af-61c4-43fb-8f60-c76aa5fdc511&client_id=1d53fbf9-c95a-4eae-b985-72b0b38c5dfd&lti_storage_target=lti_storage_frame

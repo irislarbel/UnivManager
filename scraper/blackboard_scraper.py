@@ -121,7 +121,7 @@ class BlackboardScraper:
         if item_data.get('files') and len(item_data['files']) > 0:
             lines.append("\n" + "="*40 + "\n[첨부파일 목록]\n" + "="*40)
             for f in item_data['files']:
-                lines.append(f"- {f.get('title', '이름없음')} ({f.get('href', '링크없음')})")
+                    lines.append(f"- {f.get('title', '이름없음')} (링크: {f.get('href', '링크없음')})")
                 
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write('\n'.join(lines))

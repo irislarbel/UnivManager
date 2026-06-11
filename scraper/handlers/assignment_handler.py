@@ -175,6 +175,7 @@ class AssignmentHandler(BaseHandler):
                                 if pf['title'] == filename:
                                     pf['download_status'] = 'success'
                                     pf['filepath'] = final_filepath
+                                    pf['href'] = download.url
                         else:
                             print(f"      ℹ️ [{filename}] 다운로드 메뉴가 없음.")
                         

@@ -1,7 +1,7 @@
 from .base_handler import BaseHandler
 
 class ExamHandler(BaseHandler):
-    async def extract(self, detail_page, item: dict):
+    async def extract(self, detail_page, item: dict, save_dir: str = None):
         full_path = item.get('fullPath', '')
         s_id = item.get('scraperId', '')
         print(f"  🚨 [시험/퀴즈 탐색 시작]: {full_path}")
