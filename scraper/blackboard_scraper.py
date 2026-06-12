@@ -292,7 +292,14 @@ class BlackboardScraper:
                                         
                                 # 2단계: 현재 로딩된 항목 중 닫혀 있는 폴더를 찾아 모두 열기 및 더보기 버튼 클릭
                                 closed_folders = await detail_page.query_selector_all('button[id^="folder-title-"][aria-expanded="false"]')
-                                load_more_buttons = await detail_page.query_selector_all('button[data-analytics-id*="loadMoreButton"]:not([disabled]), button.js-load-more:not([disabled])')
+                                
+                                load_more_selector = (
+                                    'button[data-analytics-id*="loadMoreButton"]:not([disabled]), '
+                                    'button.js-load-more:not([disabled]), '
+                                    'button:has-text("더 보기"):not([disabled]), '
+                                    'button:has-text("Load More"):not([disabled])'
+                                )
+                                load_more_buttons = await detail_page.query_selector_all(load_more_selector)
                                 
                                 if not closed_folders and not load_more_buttons:
                                     break # 열 폴더가 아예 하나도 없고 더보기 버튼도 없으면 최종 완료로 간주하고 루프 탈출

@@ -37,23 +37,18 @@ class AnnouncementHandler(BaseHandler):
         last_ann_count = 0
         no_change_count = 0
         while True:
-            # "더 보기" 버튼 클릭 시도
-            load_more_btn = await detail_page.query_selector('button[data-analytics-id*="loadMoreButton"]:not([disabled]), button.js-load-more:not([disabled])')
-            if load_more_btn:
-                try:
-                    await load_more_btn.scroll_into_view_if_needed(timeout=500)
-                    await load_more_btn.click(force=True)
-                    await detail_page.wait_for_timeout(800)
-                except:
-                    pass
-
             # 패널 내부 스크롤 (Blackboard Ultra는 사이드 패널 등에서 스크롤을 감지하여 추가 로드함)
+            # 가용 가능한 모든 컨테이너를 강제 스크롤하여 무한 스크롤 트리거
             await detail_page.evaluate('''() => {
-                let panel = document.querySelector('.side-panel-content, .scrollable-container, #main-content, .v-html-content-renderer');
-                if (panel) { panel.scrollTop = panel.scrollHeight; }
+                let containers = document.querySelectorAll('.side-panel-content, .scrollable-container, #main-content, .v-html-content-renderer, .announcements-container, [class*="list-container"], [role="main"], .offcanvas-body, div');
+                containers.forEach(c => {
+                    if (c.scrollHeight > c.clientHeight && window.getComputedStyle(c).overflowY !== 'hidden') {
+                        c.scrollTop = c.scrollHeight;
+                    }
+                });
                 window.scrollTo(0, document.body.scrollHeight);
             }''')
-            await detail_page.wait_for_timeout(500)
+            await detail_page.wait_for_timeout(800)
             
             current_elements = await detail_page.query_selector_all(ann_list_selector)
             current_count = len(current_elements)
@@ -83,19 +78,18 @@ class AnnouncementHandler(BaseHandler):
                 # 매 반복마다 목록을 새로 조회하여 i번째 요소를 사용합니다.
                 fresh_elements = await detail_page.query_selector_all(ann_list_selector)
                 
-                # 리스트가 리셋되어 요소가 부족해진 경우, 다시 더 보기 버튼을 눌러 복구합니다.
+                # 리스트가 리셋되어 요소가 부족해진 경우, 무한 스크롤을 강제 트리거하여 복구합니다.
                 restore_attempts = 0
                 while i >= len(fresh_elements) and restore_attempts < 10:
-                    load_more_btn = await detail_page.query_selector('button[data-analytics-id*="loadMoreButton"]:not([disabled]), button.js-load-more:not([disabled])')
-                    if load_more_btn:
-                        try:
-                            await load_more_btn.scroll_into_view_if_needed(timeout=500)
-                            await load_more_btn.click(force=True)
-                            await detail_page.wait_for_timeout(800)
-                        except:
-                            pass
-                    else:
-                        break
+                    await detail_page.evaluate('''() => {
+                        document.querySelectorAll('div').forEach(c => {
+                            if (c.scrollHeight > c.clientHeight && window.getComputedStyle(c).overflowY !== 'hidden') {
+                                c.scrollTop = c.scrollHeight;
+                            }
+                        });
+                        window.scrollTo(0, document.body.scrollHeight);
+                    }''')
+                    await detail_page.wait_for_timeout(800)
                     fresh_elements = await detail_page.query_selector_all(ann_list_selector)
                     restore_attempts += 1
                     
