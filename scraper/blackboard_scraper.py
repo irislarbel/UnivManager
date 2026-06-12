@@ -43,8 +43,9 @@ class BlackboardScraper:
             
         is_folder = item_data.get('type') == '폴더' or item_data.get('isFolder') == True
         
-        # 1번안 구조 (모든 항목을 개별 폴더화): 폴더든 파일이든 자신의 이름으로 폴더를 한 뎁스 더 만듭니다.
-        rel_folder = os.path.join(rel_folder, clean_title) if rel_folder else clean_title
+        # 오디오 항목일 경우에만 본인 이름의 개별 폴더를 생성하지 않고 부모 폴더에 바로 저장합니다.
+        if item_data.get('type') != '오디오' and 'audio' not in str(item_data.get('type', '')).lower():
+            rel_folder = os.path.join(rel_folder, clean_title) if rel_folder else clean_title
             
         save_dir = os.path.join(DOWNLOAD_PATH, clean_course, rel_folder) if rel_folder else os.path.join(DOWNLOAD_PATH, clean_course)
         os.makedirs(save_dir, exist_ok=True)
@@ -447,8 +448,9 @@ class BlackboardScraper:
                                     parts = [re.sub(r'[\\/:*?"<>|]', '_', p) for p in path_parts if p]
                                     rel_folder = os.path.join(*parts) if parts else ''
                                     
-                                    # 1번안 구조 (모든 항목을 개별 폴더화): 폴더든 파일이든 자신의 이름으로 폴더를 한 뎁스 더 만듭니다.
-                                    rel_folder = os.path.join(rel_folder, clean_item_title) if rel_folder else clean_item_title
+                                    # 오디오 항목일 경우에만 본인 이름의 개별 폴더를 생성하지 않고 부모 폴더에 바로 저장합니다.
+                                    if item.get('itemType') != '오디오' and 'audio' not in str(item.get('itemType', '')).lower():
+                                        rel_folder = os.path.join(rel_folder, clean_item_title) if rel_folder else clean_item_title
                                     
                                     save_dir = os.path.join(DOWNLOAD_PATH, clean_course, rel_folder) if rel_folder else os.path.join(DOWNLOAD_PATH, clean_course)
                                     

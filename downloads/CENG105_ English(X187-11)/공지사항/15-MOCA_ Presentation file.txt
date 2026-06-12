@@ -1,8 +1,0 @@
-과목명: CENG105_ English(X187-11)
-유형: 기타
-제목: 15-MOCA: Presentation file
-
-========================================
-[본문 내용]
-========================================
-I'd like to share the MOCA content on Presentation file design.Please visit the following website, go to Contents, and search for "PPT."You'll find the videos as shown in the image below. [링크: https://moca.ajou.ac.kr/member/rl/main.do] These videos contain helpful tips for creating your Presentation file, so please make sure to watch them. [이미지 첨부: https://eclass2.ajou.ac.kr/bbcswebdav/internal/courses/2026U000200120260066511/announcements/_338380_1/PPT-moca.jpg]

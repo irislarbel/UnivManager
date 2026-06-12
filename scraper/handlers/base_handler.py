@@ -75,9 +75,10 @@ class BaseHandler:
         )
         try:
             # 이전 파일에서 열어둔 더보기 메뉴가 DOM에 남아 있으면 다음 파일의 다운로드 링크 탐색을 오염시키므로,
-            # 시작 시 Escape로 떠 있는 메뉴를 먼저 정리합니다. (1,1,1 재다운로드 방지)
+            # 시작 시 Escape 및 빈 공간 클릭으로 떠 있는 메뉴를 확실히 파괴합니다.
             await detail_page.keyboard.press("Escape")
-            await detail_page.wait_for_timeout(200)
+            await detail_page.mouse.click(0, 0)
+            await detail_page.wait_for_timeout(300)
 
             # 1. data-scraper-id를 기초로 하여 해당 항목 '한 줄(Row)'에 정확히 해당하는 컨테이너를 찾습니다.
             #    filter(has=...)는 해당 항목을 품은 '모든' 조상(리스트 전체 래퍼 포함)을 매칭하므로,
@@ -107,11 +108,16 @@ class BaseHandler:
             await detail_page.wait_for_timeout(800)
 
             # 2. 팝업 메뉴 안에 '다운로드' 항목이 실제로 존재하는지 먼저 확인합니다.
+            # DOM에 남아있는 유령 버튼을 누르지 않도록 문서 마지막에 추가된 가장 최신 팝업(last)을 타겟팅합니다.
             download_selector = 'li[data-analytics-id="components.directives.content-item-base.overflowMenu.global.download.link"], li[role="menuitem"]:has-text("다운로드"), li[role="menuitem"]:has-text("Download")'
 
             download_el = None
             try:
-                download_el = await detail_page.wait_for_selector(download_selector, timeout=3000, state="visible")
+                # state="visible"인 요소들을 전부 잡은 뒤 가장 마지막(최상단 레이어 팝업)을 취함
+                visible_btns = detail_page.locator(download_selector).filter(state="visible")
+                # 버튼이 렌더링될 때까지 최대 3초 대기
+                await visible_btns.last.wait_for(timeout=3000, state="visible")
+                download_el = visible_btns.last
             except Exception:
                 download_el = None
 
@@ -125,8 +131,10 @@ class BaseHandler:
 
             try:
                 # 다운로드 항목이 확인되었으므로, 클릭과 동시에 파일 스트림 수신을 감시합니다.
-                async with detail_page.expect_download(timeout=15000) as download_info:
-                    await download_el.click(force=True)
+                # 대용량 오디오/비디오 파일이 준비되는 시간을 고려하여 타임아웃을 3분(180000ms)으로 넉넉히 설정합니다.
+                async with detail_page.expect_download(timeout=180000) as download_info:
+                    # force=True를 제거하여, 실제로 화면에 가려지지 않은 진짜 버튼인지 검증하게 만듭니다. (유령 버튼 방어)
+                    await download_el.click()
                     print("      💾 다운로드 버튼 클릭 완료. 파일 스트림을 획득 중입니다...")
 
                 # 3. 임시 바이너리 스트림을 본래 파일명 그대로 downloads 폴더 아래에 복사 저장합니다.
