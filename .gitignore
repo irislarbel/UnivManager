@@ -3,3 +3,6 @@ credentials.json
 token.json
 .DS_Store
 downloads/
+processed_items.json
+*.pyc
+__pycache__/
