@@ -8,12 +8,17 @@ class BaseHandler:
         """
         raise NotImplementedError("extract method must be implemented by subclasses.")
 
-    async def open_panel_if_needed(self, detail_page, s_id: str):
+    async def open_panel_if_needed(self, detail_page, s_id: str, fallback_title: str = ""):
         """
         현재 아이템의 노드를 클릭하여 사이드 패널을 엽니다.
         """
         try:
             node = detail_page.locator(f'[data-scraper-id="{s_id}"]')
+            if await node.count() == 0 and fallback_title:
+                # Blackboard Ultra가 가상화(Virtualization) 리스트를 사용하여 
+                # 화면에서 벗어난 요소를 언마운트할 때 data-scraper-id가 날아가는 현상 대비 폴백
+                node = detail_page.locator(f'a:has-text("{fallback_title}"), [class*="title"]:has-text("{fallback_title}")').first
+                
             await node.scroll_into_view_if_needed()
             await node.click(force=True)
             await detail_page.wait_for_timeout(2500)
@@ -60,7 +65,7 @@ class BaseHandler:
         except:
             pass
 
-    async def download_file(self, detail_page, s_id: str, save_dir: str):
+    async def download_file(self, detail_page, s_id: str, save_dir: str, fallback_title: str = ""):
         """
         아이템의 더보기 메뉴를 열고, 실제 원본 파일(.pdf, .ppt 등)을 물리적으로 로컬 디스크에 다운로드받아 보관합니다.
         """
@@ -81,10 +86,6 @@ class BaseHandler:
             await detail_page.wait_for_timeout(300)
 
             # 1. data-scraper-id를 기초로 하여 해당 항목 '한 줄(Row)'에 정확히 해당하는 컨테이너를 찾습니다.
-            #    filter(has=...)는 해당 항목을 품은 '모든' 조상(리스트 전체 래퍼 포함)을 매칭하므로,
-            #    여기에 '더보기 버튼도 함께 포함' 조건을 추가로 걸고 .last(문서 순서상 가장 안쪽=항목 자신의 행)를 취해
-            #    리스트 전체가 아닌 바로 그 파일의 행으로 범위를 좁힙니다.
-            #    (.first를 쓰면 가장 바깥 래퍼가 잡혀 항상 첫 번째 파일 버튼을 누르던 버그가 있었음)
             row = detail_page.locator(
                 'li[role="listitem"], div[class*="outline-item"], div[class*="ListItem"]'
             ).filter(
@@ -92,6 +93,16 @@ class BaseHandler:
             ).filter(
                 has=detail_page.locator(overflow_selector)
             )
+
+            if await row.count() == 0 and fallback_title:
+                # 폴백: 가상화로 인해 data-scraper-id가 날아갔을 경우 title을 기반으로 행을 탐색합니다.
+                row = detail_page.locator(
+                    'li[role="listitem"], div[class*="outline-item"], div[class*="ListItem"]'
+                ).filter(
+                    has=detail_page.locator(f'a:has-text("{fallback_title}"), [class*="title"]:has-text("{fallback_title}")')
+                ).filter(
+                    has=detail_page.locator(overflow_selector)
+                )
 
             menu_btn = None
             if await row.count() > 0:

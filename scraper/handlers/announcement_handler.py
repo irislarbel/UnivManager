@@ -32,6 +32,36 @@ class AnnouncementHandler(BaseHandler):
             print("    ⚠️ 공지 사항 리스트 로딩이 지연되었습니다.")
 
         ann_list_selector = 'a.list-item-title, [class*="list-item-title"]'
+        
+        print("    - 공지 사항 전체 목록을 불러옵니다 (스크롤 및 더 보기 버튼 확인)...")
+        last_ann_count = 0
+        no_change_count = 0
+        while True:
+            # 패널 내부 스크롤 (Blackboard Ultra는 사이드 패널 등에서 스크롤을 감지하여 추가 로드함)
+            # 가용 가능한 모든 컨테이너를 강제 스크롤하여 무한 스크롤 트리거
+            await detail_page.evaluate('''() => {
+                let containers = document.querySelectorAll('.side-panel-content, .scrollable-container, #main-content, .v-html-content-renderer, .announcements-container, [class*="list-container"], [role="main"], .offcanvas-body, div');
+                containers.forEach(c => {
+                    if (c.scrollHeight > c.clientHeight && window.getComputedStyle(c).overflowY !== 'hidden') {
+                        c.scrollTop = c.scrollHeight;
+                    }
+                });
+                window.scrollTo(0, document.body.scrollHeight);
+            }''')
+            await detail_page.wait_for_timeout(800)
+            
+            current_elements = await detail_page.query_selector_all(ann_list_selector)
+            current_count = len(current_elements)
+            
+            if current_count == last_ann_count:
+                no_change_count += 1
+            else:
+                no_change_count = 0
+                last_ann_count = current_count
+                
+            if no_change_count >= 3:
+                break
+                
         title_elements = await detail_page.query_selector_all(ann_list_selector)
 
         if not title_elements:
@@ -44,10 +74,27 @@ class AnnouncementHandler(BaseHandler):
         final_data = []
         for i in range(total):
             try:
-                # 공지를 열고 닫는 과정에서 리스트가 다시 렌더링되면 처음 잡아둔 핸들이 무효화(stale)될 수 있으므로,
+                # 공지를 열고 닫는 과정에서 리스트가 다시 렌더링되면 초기화될 수 있으므로,
                 # 매 반복마다 목록을 새로 조회하여 i번째 요소를 사용합니다.
                 fresh_elements = await detail_page.query_selector_all(ann_list_selector)
+                
+                # 리스트가 리셋되어 요소가 부족해진 경우, 무한 스크롤을 강제 트리거하여 복구합니다.
+                restore_attempts = 0
+                while i >= len(fresh_elements) and restore_attempts < 10:
+                    await detail_page.evaluate('''() => {
+                        document.querySelectorAll('div').forEach(c => {
+                            if (c.scrollHeight > c.clientHeight && window.getComputedStyle(c).overflowY !== 'hidden') {
+                                c.scrollTop = c.scrollHeight;
+                            }
+                        });
+                        window.scrollTo(0, document.body.scrollHeight);
+                    }''')
+                    await detail_page.wait_for_timeout(800)
+                    fresh_elements = await detail_page.query_selector_all(ann_list_selector)
+                    restore_attempts += 1
+                    
                 if i >= len(fresh_elements):
+                    print(f"      ⚠️ {i+1}번째 공지를 찾을 수 없어 루프를 중단합니다. (DOM 복구 실패)")
                     break
                 title_el = fresh_elements[i]
 

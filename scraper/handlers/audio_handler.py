@@ -14,9 +14,8 @@ class AudioHandler(BaseHandler):
         download_status = "not_downloadable"
         downloaded_info = None
         
-        # 1. 1차 시도: 더보기 메뉴에 일반 다운로드 버튼이 있는 경우 대비
         if scraper_id and save_dir:
-            download_result = await self.download_file(detail_page, scraper_id, save_dir)
+            download_result = await self.download_file(detail_page, scraper_id, save_dir, fallback_title=item_title)
             if download_result:
                 download_status = download_result.get('status', 'not_downloadable')
                 if download_status == "success":
@@ -26,7 +25,7 @@ class AudioHandler(BaseHandler):
         # 2. 2차 시도: 다운로드 메뉴가 없거나 실패 시, 내장 뷰어(오디오 플레이어) 추출
         if download_status in ["not_downloadable", "failed"] and scraper_id and save_dir:
             print("    🎧 더보기 메뉴 다운로드 불가. 패널을 열어 내장 오디오 소스를 직접 추출합니다.")
-            opened = await self.open_panel_if_needed(detail_page, scraper_id)
+            opened = await self.open_panel_if_needed(detail_page, scraper_id, fallback_title=item_title)
             if opened:
                 try:
                     # 패널 오픈 후 HTML5 <audio><source src="..."></audio> 렌더링 대기

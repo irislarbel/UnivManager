@@ -290,12 +290,31 @@ class BlackboardScraper:
                                     if no_change_count >= 3:
                                         break
                                         
-                                # 2단계: 현재 로딩된 항목 중 닫혀 있는 폴더를 찾아 모두 열기
+                                # 2단계: 현재 로딩된 항목 중 닫혀 있는 폴더를 찾아 모두 열기 및 더보기 버튼 클릭
                                 closed_folders = await detail_page.query_selector_all('button[id^="folder-title-"][aria-expanded="false"]')
-                                if not closed_folders:
-                                    break # 열 폴더가 아예 하나도 없으면 최종 완료로 간주하고 루프 탈출
+                                
+                                load_more_selector = (
+                                    'button[data-analytics-id*="loadMoreButton"]:not([disabled]), '
+                                    'button.js-load-more:not([disabled]), '
+                                    'button:has-text("더 보기"):not([disabled]), '
+                                    'button:has-text("Load More"):not([disabled])'
+                                )
+                                load_more_buttons = await detail_page.query_selector_all(load_more_selector)
+                                
+                                if not closed_folders and not load_more_buttons:
+                                    break # 열 폴더가 아예 하나도 없고 더보기 버튼도 없으면 최종 완료로 간주하고 루프 탈출
                                     
                                 clicked_any = False
+                                
+                                # 더보기 버튼 클릭
+                                for btn in load_more_buttons:
+                                    try:
+                                        await btn.scroll_into_view_if_needed(timeout=500)
+                                        await btn.click(force=True)
+                                        clicked_any = True
+                                    except:
+                                        pass
+                                
                                 for folder in closed_folders:
                                     try:
                                         await folder.scroll_into_view_if_needed(timeout=500)
@@ -306,11 +325,11 @@ class BlackboardScraper:
                                     except:
                                         pass
                                 
-                                # 찾은 폴더들을 순식간에 전부 누른 직후, 네트워크 통신/렌더링 애니메이션을 통째로 '딱 한 번만' 0.8초 대기
+                                # 클릭을 순식간에 전부 누른 직후, 네트워크 통신/렌더링 애니메이션을 통째로 '딱 한 번만' 0.8초 대기
                                 if clicked_any:
                                     await detail_page.wait_for_timeout(800)
                                 
-                                # 폴더 UI 요소는 찾았지만 팝업 등에 가려져 단 하나도 클릭하지 못했다면 무한 루프 늪에 빠질 수 있으므로 강제 탈출
+                                # UI 요소는 찾았지만 팝업 등에 가려져 단 하나도 클릭하지 못했다면 무한 루프 늪에 빠질 수 있으므로 강제 탈출
                                 if not clicked_any:
                                     break
 
