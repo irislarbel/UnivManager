@@ -1,8 +1,0 @@
-과목명: CGEX1052_ 아주상상프로젝트-디지털 혁명과 사회변화(X117-13)
-유형: LTI/외부링크
-제목: 학습분석차트(Analytics Chart)
-
-========================================
-[본문 내용]
-========================================
-🔗 링크 주소: https://eclass2.ajou.ac.kr/webapps/blackboard/execute/ultraFramePassThrough?redirectTo=https%3A%2F%2Feclass2.ajou.ac.kr%2Fwebapps%2Fblackboard%2Fexecute%2Fblti%2FlaunchPlacement%3Fblti_placement_id%3D_809_1%26content_id%3D_2234717_1%26course_id%3D_113089_1%26wrapped%3Dtrue%26from_ultra%3Dtrue

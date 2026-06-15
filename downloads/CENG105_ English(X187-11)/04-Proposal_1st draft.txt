@@ -1,9 +1,0 @@
-과목명: CENG105_ English(X187-11)
-유형: 기타
-제목: 04-Proposal_1st draft
-
-========================================
-[본문 내용]
-========================================
-[원문 작성자: 이나리 | 작성일: Apr 7, 2026 10:01 AM]
-<Project evaluation> [이미지 첨부 1: https://eclass2.ajou.ac.kr/courses/1/2026U000200120260066511/db/_635713_1/embedded/PE.jpg] Complete your project proposal using these steps:1.Refer to the attached file:04-Proposal.docx2.Follow these four key criteria:Clarity: Make your objectives specific and clearSpecificity: Create a detailed, logical project planCreativity: Develop original ideas that stand outPunctuality: Submit by the deadline3.This time, please complete only two sections: 1. Project Overview and 2. Creativity and Originality.The remaining sections will be added after feedback.4.Due: 10:00am, Monday April 13 (W6)Upload your proposal document file to your designated group folder.You may revise and reupload it as many times as needed before the deadline, but be sure to add "-final" to the filename of your final version (e.g., "Group9-Proposal-final.docx").Check the sample proposal for guidance on creating an effective submission:05-Proposal_sample.pdf5.During the class: Students must upload their work before class ends at your group folder.This can be either a digital file or a photo of their handout work.6.AI usage: Additionally, provide screenshots of your AI usage.These should include:(1) the first prompt you used to initiate the AI activity along with the beginning of its response,(2) the final prompt you selected for the activity.The purpose of this requirement is to document your AI usage and demonstrate your thinking process.

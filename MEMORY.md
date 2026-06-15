@@ -30,6 +30,13 @@
 - **[완료]** 파일 다운로드 aria-label 미제공 시 FileHandler 누락. 폴백으로 title/href 확장자 검사 추가. aria-label(`"PDF, 파일명.pdf"`) 1순위는 유지 — 확장자 방식으로 대체하지 말 것. (`handlers/__init__.py`)
 - **[완료]** 공지 사항 stale 핸들 및 evaluate_handle 누수. 패널 열고 닫을 때 리스트 re-render로 핸들 무효화 가능. 매 반복 목록 재조회 + `row_handle.dispose()` 추가. (`announcement_handler.py`)
 - **[완료]** `processed_items.json` 항목마다 전체 재기록(O(n²) I/O). 저장 시점을 과목 단위(finally 블록)로 이동. 과목 중간 크래시 시 해당 과목만 재수집(dedup 멱등). (`blackboard_scraper.py`)
+- **[완료]** 오디오 타입 문자열 필터링 조건 강화. '오디오'와 정확히 일치하지 않고 포함만 하는 경우(예: '오디오 파일') 개별 폴더가 생성되던 버그를 방지하기 위해 `in` 연산자 기반의 서브스트링 검사로 수정. (`blackboard_scraper.py`)
+- **[완료]** 하드코딩된 도메인 주소 제거. 오디오 파일 소스 URL 파싱 중 사용된 하드코딩 도메인(`https://eclass2.ajou.ac.kr`)을 제거하고 `urllib.parse.urljoin`을 활용하여 현재 페이지 URL 기준으로 동적 절대 경로를 생성하도록 수정. (`scraper/handlers/audio_handler.py`)
+- **[완료]** 과제 첨부파일 다운로드 시 stale 요소 클릭 방지. `assignment_handler.py`에서 다운로드 버튼 탐색 시 화면에 보이지 않는 이전 패널이나 메뉴의 찌꺼기가 남은 상태에서 잘못된 요소를 클릭하는 현상을 막기 위해, `filter(state="visible")` 및 `last`를 사용하도록 개선. (`scraper/handlers/assignment_handler.py`)
+- **[완료]** 무한 스크롤 성능 최적화. `announcement_handler.py` 및 `discussion_handler.py` 내의 무한 스크롤 트리거 스크립트에서 레이아웃 스래싱을 유발하는 `window.getComputedStyle(c)` 호출을 제거하여 불필요한 성능 저하 및 렌더링 지연을 완벽히 해결함.
+- **[완료]** 환경 변수 절대 경로 파싱 로직 개선. `config.py`에서 `CHROMA_DB_PATH` 및 `DOWNLOAD_PATH`에 상대 경로가 입력될 경우, 현재 작업 디렉토리 기준이 아닌 프로젝트 루트(`BASE_DIR`) 기준으로 정확하게 절대 경로를 생성하도록 `os.path.isabs` 기반 검증 로직 추가.
+- **[완료]** 바이너리 항목 다운로드 실패 시 오작동 방지. `blackboard_scraper.py`에서 파일/오디오/비디오 등 바이너리 항목이 다운로드 불가 상태(`not_downloadable`)일 때 껍데기 텍스트 파일로 저장되고 처리 완료로 간주되는 버그를 수정. 이진 항목은 성공 시에만 처리 완료 목록에 포함되며, 실패 시 `.txt` 생성을 스킵하고 다음 실행 때 재시도 하도록 조건 로직 강화.
+- **[완료]** 큰따옴표 포함 문자열 파싱 오류 방지. `base_handler.py`에서 폴백용 제목 기반 노드 탐색 시, `has-text` 텍스트 선택자에 큰따옴표 등의 특수문자가 직접 삽입되어 Playwright 문법 에러가 발생하는 문제를 막기 위해 안전한 `filter(has_text=...)` API로 교체.
 
 ## 추후 진행할 작업 (미구현 항목 및 계획)
 1. **[직전 작업 예정] AssignmentHandler 안정화**: 과제 본문 혼선 문제 해결.

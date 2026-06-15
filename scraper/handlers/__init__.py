@@ -8,6 +8,7 @@ from .announcement_handler import AnnouncementHandler
 from .default_handler import DefaultHandler
 
 from .file_handler import FileHandler
+from .audio_handler import AudioHandler
 
 def get_handler(item_type: str, href: str = "", title: str = "", aria_label: str = "") -> BaseHandler:
     item_type = item_type.lower() if item_type else ""
@@ -27,8 +28,12 @@ def get_handler(item_type: str, href: str = "", title: str = "", aria_label: str
     elif "폴더" in item_type or "folder" in item_type:
         return FolderHandler()
         
+    # MP3 오디오 전담 핸들러 분기 (내장 뷰어 추출)
+    elif "audio" in item_type or "오디오" in item_type or "mp3" in title or "mp3" in href or "mp3" in aria_label:
+        return AudioHandler()
+        
     # 다운로드 대상 파일 유형 검사
-    file_types = ['pdf', 'hwp', 'hwpx', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'zip', 'rar', 'mp3', 'mp4']
+    file_types = ['pdf', 'hwp', 'hwpx', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'zip', 'rar', 'mp4']
 
     is_file = False
 

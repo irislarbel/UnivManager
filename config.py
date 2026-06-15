@@ -25,10 +25,14 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # 데이터베이스 저장 경로 (ChromaDB)
 CHROMA_DB_PATH = os.getenv("CHROMA_DB_PATH", os.path.join(BASE_DIR, "chroma_db"))
+if not os.path.isabs(CHROMA_DB_PATH):
+    CHROMA_DB_PATH = os.path.join(BASE_DIR, CHROMA_DB_PATH)
 CHROMA_DB_PATH = os.path.abspath(CHROMA_DB_PATH)
 
 # 데이터 및 파일 저장 경로
 DOWNLOAD_PATH = os.getenv("DOWNLOAD_PATH", os.path.join(BASE_DIR, "downloads"))
+if not os.path.isabs(DOWNLOAD_PATH):
+    DOWNLOAD_PATH = os.path.join(BASE_DIR, DOWNLOAD_PATH)
 DOWNLOAD_PATH = os.path.abspath(DOWNLOAD_PATH)
 
 DATA_FILE = os.path.join(BASE_DIR, "processed_items.json")

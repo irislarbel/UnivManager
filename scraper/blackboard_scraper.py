@@ -43,8 +43,9 @@ class BlackboardScraper:
             
         is_folder = item_data.get('type') == '폴더' or item_data.get('isFolder') == True
         
-        # 1번안 구조 (모든 항목을 개별 폴더화): 폴더든 파일이든 자신의 이름으로 폴더를 한 뎁스 더 만듭니다.
-        rel_folder = os.path.join(rel_folder, clean_title) if rel_folder else clean_title
+        # 오디오 항목일 경우에만 본인 이름의 개별 폴더를 생성하지 않고 부모 폴더에 바로 저장합니다.
+        if '오디오' not in str(item_data.get('type', '')) and 'audio' not in str(item_data.get('type', '')).lower():
+            rel_folder = os.path.join(rel_folder, clean_title) if rel_folder else clean_title
             
         save_dir = os.path.join(DOWNLOAD_PATH, clean_course, rel_folder) if rel_folder else os.path.join(DOWNLOAD_PATH, clean_course)
         os.makedirs(save_dir, exist_ok=True)
@@ -295,12 +296,31 @@ class BlackboardScraper:
                                     if no_change_count >= 3:
                                         break
                                         
-                                # 2단계: 현재 로딩된 항목 중 닫혀 있는 폴더를 찾아 모두 열기
+                                # 2단계: 현재 로딩된 항목 중 닫혀 있는 폴더를 찾아 모두 열기 및 더보기 버튼 클릭
                                 closed_folders = await detail_page.query_selector_all('button[id^="folder-title-"][aria-expanded="false"]')
-                                if not closed_folders:
-                                    break # 열 폴더가 아예 하나도 없으면 최종 완료로 간주하고 루프 탈출
+                                
+                                load_more_selector = (
+                                    'button[data-analytics-id*="loadMoreButton"]:not([disabled]), '
+                                    'button.js-load-more:not([disabled]), '
+                                    'button:has-text("더 보기"):not([disabled]), '
+                                    'button:has-text("Load More"):not([disabled])'
+                                )
+                                load_more_buttons = await detail_page.query_selector_all(load_more_selector)
+                                
+                                if not closed_folders and not load_more_buttons:
+                                    break # 열 폴더가 아예 하나도 없고 더보기 버튼도 없으면 최종 완료로 간주하고 루프 탈출
                                     
                                 clicked_any = False
+                                
+                                # 더보기 버튼 클릭
+                                for btn in load_more_buttons:
+                                    try:
+                                        await btn.scroll_into_view_if_needed(timeout=500)
+                                        await btn.click(force=True)
+                                        clicked_any = True
+                                    except:
+                                        pass
+                                
                                 for folder in closed_folders:
                                     try:
                                         await folder.scroll_into_view_if_needed(timeout=500)
@@ -311,11 +331,11 @@ class BlackboardScraper:
                                     except:
                                         pass
                                 
-                                # 찾은 폴더들을 순식간에 전부 누른 직후, 네트워크 통신/렌더링 애니메이션을 통째로 '딱 한 번만' 0.8초 대기
+                                # 클릭을 순식간에 전부 누른 직후, 네트워크 통신/렌더링 애니메이션을 통째로 '딱 한 번만' 0.8초 대기
                                 if clicked_any:
                                     await detail_page.wait_for_timeout(800)
                                 
-                                # 폴더 UI 요소는 찾았지만 팝업 등에 가려져 단 하나도 클릭하지 못했다면 무한 루프 늪에 빠질 수 있으므로 강제 탈출
+                                # UI 요소는 찾았지만 팝업 등에 가려져 단 하나도 클릭하지 못했다면 무한 루프 늪에 빠질 수 있으므로 강제 탈출
                                 if not clicked_any:
                                     break
 
@@ -453,8 +473,9 @@ class BlackboardScraper:
                                     parts = [re.sub(r'[\\/:*?"<>|]', '_', p) for p in path_parts if p]
                                     rel_folder = os.path.join(*parts) if parts else ''
                                     
-                                    # 1번안 구조 (모든 항목을 개별 폴더화): 폴더든 파일이든 자신의 이름으로 폴더를 한 뎁스 더 만듭니다.
-                                    rel_folder = os.path.join(rel_folder, clean_item_title) if rel_folder else clean_item_title
+                                    # 오디오 항목일 경우에만 본인 이름의 개별 폴더를 생성하지 않고 부모 폴더에 바로 저장합니다.
+                                    if '오디오' not in str(item.get('itemType', '')) and 'audio' not in str(item.get('itemType', '')).lower():
+                                        rel_folder = os.path.join(rel_folder, clean_item_title) if rel_folder else clean_item_title
                                     
                                     save_dir = os.path.join(DOWNLOAD_PATH, clean_course, rel_folder) if rel_folder else os.path.join(DOWNLOAD_PATH, clean_course)
                                     
@@ -467,13 +488,24 @@ class BlackboardScraper:
                                             print(f"    ⚠️ 다운로드 실패 또는 타임아웃: {item_title} (다음 스크랩 시 재시도)")
                                             continue
                                             
+                                        # '파일', '오디오', '비디오' 등 바이너리 속성 판단
+                                        item_type_str = str(item.get('itemType', '')).lower()
+                                        extracted_type_str = str(extracted_data.get('type', '')).lower()
+                                        is_binary_item = any(k in item_type_str or k in extracted_type_str for k in ['파일', 'file', '오디오', 'audio', '비디오', 'video', '동영상', '영상', '이미지', 'image'])
+
+                                        # 바이너리 항목인데 다운로드 성공이 아니라면(예: not_downloadable) 
+                                        # 텍스트 파일로 저장하거나 처리 완료(processed_items)에 남기지 않고 재시도를 위해 건너뜁니다.
+                                        if is_binary_item and extracted_data.get('download_status') != 'success':
+                                            print(f"    ⚠️ 원본 다운로드 불가 (메뉴 미발견 등): {item_title} (다음 번에 재시도)")
+                                            continue
+                                            
                                         if folder_path not in self.processed_items[course_title]:
                                             self.processed_items[course_title][folder_path] = []
                                             
                                         self.processed_items[course_title][folder_path].append(extracted_data)
                                         
-                                        # 실제 다운로드된 파일인 경우 텍스트(.txt) 기록을 남기지 않습니다.
-                                        if extracted_data.get('download_status') != 'success':
+                                        # 실제 다운로드된 바이너리 파일이 아닌 본문형 항목(과제, 문서 등)에 대해서만 텍스트(.txt)를 생성합니다.
+                                        if not is_binary_item and extracted_data.get('download_status') != 'success':
                                             self._export_item_to_txt(course_title, path_parts, extracted_data)
 
                                 except Exception as e:
