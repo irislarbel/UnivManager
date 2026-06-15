@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from playwright.async_api import async_playwright, TimeoutError
 from playwright_stealth import Stealth
-from config import BLACKBOARD_URL, BLACKBOARD_USER, BLACKBOARD_PASS, DATA_FILE, DOWNLOAD_PATH
+from config import BLACKBOARD_URL, BLACKBOARD_USER, BLACKBOARD_PASS, DATA_FILE, DOWNLOAD_PATH, TARGET_COURSE
 from handlers import get_handler, AnnouncementHandler
 
 class BlackboardScraper:
@@ -43,8 +43,8 @@ class BlackboardScraper:
             
         is_folder = item_data.get('type') == '폴더' or item_data.get('isFolder') == True
         
-        # 현재 항목 자체가 폴더인 경우, 자신의 이름을 경로에 추가하여 물리적 폴더 구조를 만듭니다.
-        if is_folder:
+        # 오디오 항목일 경우에만 본인 이름의 개별 폴더를 생성하지 않고 부모 폴더에 바로 저장합니다.
+        if '오디오' not in str(item_data.get('type', '')) and 'audio' not in str(item_data.get('type', '')).lower():
             rel_folder = os.path.join(rel_folder, clean_title) if rel_folder else clean_title
             
         save_dir = os.path.join(DOWNLOAD_PATH, clean_course, rel_folder) if rel_folder else os.path.join(DOWNLOAD_PATH, clean_course)
@@ -67,27 +67,62 @@ class BlackboardScraper:
             lines.append(f"마감일: {item_data['deadline']}")
         if item_data.get('maxScore'):
             lines.append(f"최고점수: {item_data['maxScore']}")
+        if item_data.get('timeLimit'):
+            lines.append(f"제한시간: {item_data['timeLimit']}")
+        if item_data.get('attempts'):
+            lines.append(f"제출횟수/시도정보: {item_data['attempts']}")
             
         lines.append("\n" + "="*40 + "\n[본문 내용]\n" + "="*40)
         
-        # 본문 설명 추출
-        instructions = item_data.get('instructions')
-        content = item_data.get('content')
+        content_lines = []
         
-        if content:
-            lines.append(content)
-        elif instructions:
-            if isinstance(instructions, list):
-                lines.append('\n'.join(instructions))
+        # 1. 링크 주소
+        if item_data.get('href'):
+            content_lines.append(f"🔗 링크 주소: {item_data['href']}\n")
+            
+        # 2. 본문(공지사항 등)
+        if item_data.get('content'):
+            content_lines.append(item_data['content'])
+            
+        # 3. 설명(과제 등에서 사용됨)
+        # ExamHandler에서 이미 content로 포맷을 맞춰주지만, 기존 과제 핸들러 등을 위해 남겨두되, 
+        # content가 비어있을 때만 instructions를 출력하도록 처리하여 중복을 방지합니다.
+        if item_data.get('instructions') and not item_data.get('content'):
+            if isinstance(item_data['instructions'], list):
+                content_lines.append('\n'.join(item_data['instructions']))
             else:
-                lines.append(str(instructions))
+                content_lines.append(str(item_data['instructions']))
+                
+        # 4. 문항(시험/폼)
+        # ExamHandler에서 이미 content로 터미널과 동일한 포맷을 밀어넣었으므로,
+        # 중복 출력을 막기 위해 여기서 별도로 questions를 문자열로 조립하지 않습니다.
+                        
+        # 5. 토론(원문/댓글)
+        if item_data.get('original_post'):
+            op = item_data['original_post']
+            author = op.get('author', '알 수 없음')
+            date_str = f" | 작성일: {op.get('date', '')}" if op.get('date') else ""
+            content_lines.append(f"[원문 작성자: {author}{date_str}]")
+            content_lines.append(op.get('content', ''))
+            
+            comments = item_data.get('comments', [])
+            if comments:
+                content_lines.append("\n" + "-"*30 + "\n[댓글 및 답변 목록]\n" + "-"*30)
+                for c in comments:
+                    reply_mark = "  ↳ (답글) " if c.get('isReply') else "▶ "
+                    content_lines.append(f"{reply_mark}[{c.get('author')} | {c.get('date')}]")
+                    content_lines.append(f"    {c.get('content')}")
+                    content_lines.append("    " + "-" * 20)
+
+        if content_lines:
+            lines.extend(content_lines)
         else:
             lines.append("(본문 없음)")
             
         if item_data.get('files') and len(item_data['files']) > 0:
             lines.append("\n" + "="*40 + "\n[첨부파일 목록]\n" + "="*40)
             for f in item_data['files']:
-                lines.append(f"- {f.get('title', '이름없음')} ({f.get('href', '링크없음')})")
+                    lines.append(f"- {f.get('title', '이름없음')} (링크: {f.get('href', '링크없음')})")
                 
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write('\n'.join(lines))
@@ -197,6 +232,9 @@ class BlackboardScraper:
 
                     # 수집한 각 과목별로 새 탭을 열고 outline 페이지에 접속합니다.
                     for internal_id, course_title in course_info_list:
+                        if TARGET_COURSE and TARGET_COURSE.lower() not in course_title.lower():
+                            continue
+                            
                         print(f"\n=============================================")
                         print(f"[과목 탐색] {course_title}")
                         
@@ -210,10 +248,17 @@ class BlackboardScraper:
                             await detail_page.goto(detail_url)
                             await detail_page.wait_for_timeout(3000) # 초기 로딩 확보
                             
-                            # [팝업 제거] 공지사항 등 화면을 가리는 오버레이 강제 제거
                             try:
-                                # 블랙보드 Ultra의 공지사항 팝업 전용 고유 ID (언어나 클래스명이 바뀌어도 동일함)
-                                close_btn = await detail_page.wait_for_selector('button[data-analytics-id="course.announcements.modal.close.button"], button.close-reveal-modal', timeout=3000)
+                                # 블랙보드 Ultra의 공지사항 팝업 전용 고유 ID 및 한국어/영어 로케일 대응 닫기 버튼
+                                close_btn = await detail_page.wait_for_selector(
+                                    'button[analytics-id="bb-close.course.outline.announcements.title"], '
+                                    'button[data-analytics-id="course.announcements.modal.close.button"], '
+                                    'button.close-reveal-modal, '
+                                    'button[aria-label*="닫기"], '
+                                    'button[aria-label*="Close"], '
+                                    'button.bb-close',
+                                    timeout=3000
+                                )
                                 if close_btn:
                                     print("  ⛔ 공지사항 팝업이 감지되었습니다. 화면 확보를 위해 닫습니다.")
                                     await close_btn.click()
@@ -245,12 +290,31 @@ class BlackboardScraper:
                                     if no_change_count >= 3:
                                         break
                                         
-                                # 2단계: 현재 로딩된 항목 중 닫혀 있는 폴더를 찾아 모두 열기
+                                # 2단계: 현재 로딩된 항목 중 닫혀 있는 폴더를 찾아 모두 열기 및 더보기 버튼 클릭
                                 closed_folders = await detail_page.query_selector_all('button[id^="folder-title-"][aria-expanded="false"]')
-                                if not closed_folders:
-                                    break # 열 폴더가 아예 하나도 없으면 최종 완료로 간주하고 루프 탈출
+                                
+                                load_more_selector = (
+                                    'button[data-analytics-id*="loadMoreButton"]:not([disabled]), '
+                                    'button.js-load-more:not([disabled]), '
+                                    'button:has-text("더 보기"):not([disabled]), '
+                                    'button:has-text("Load More"):not([disabled])'
+                                )
+                                load_more_buttons = await detail_page.query_selector_all(load_more_selector)
+                                
+                                if not closed_folders and not load_more_buttons:
+                                    break # 열 폴더가 아예 하나도 없고 더보기 버튼도 없으면 최종 완료로 간주하고 루프 탈출
                                     
                                 clicked_any = False
+                                
+                                # 더보기 버튼 클릭
+                                for btn in load_more_buttons:
+                                    try:
+                                        await btn.scroll_into_view_if_needed(timeout=500)
+                                        await btn.click(force=True)
+                                        clicked_any = True
+                                    except:
+                                        pass
+                                
                                 for folder in closed_folders:
                                     try:
                                         await folder.scroll_into_view_if_needed(timeout=500)
@@ -261,11 +325,11 @@ class BlackboardScraper:
                                     except:
                                         pass
                                 
-                                # 찾은 폴더들을 순식간에 전부 누른 직후, 네트워크 통신/렌더링 애니메이션을 통째로 '딱 한 번만' 0.8초 대기
+                                # 클릭을 순식간에 전부 누른 직후, 네트워크 통신/렌더링 애니메이션을 통째로 '딱 한 번만' 0.8초 대기
                                 if clicked_any:
                                     await detail_page.wait_for_timeout(800)
                                 
-                                # 폴더 UI 요소는 찾았지만 팝업 등에 가려져 단 하나도 클릭하지 못했다면 무한 루프 늪에 빠질 수 있으므로 강제 탈출
+                                # UI 요소는 찾았지만 팝업 등에 가려져 단 하나도 클릭하지 못했다면 무한 루프 늪에 빠질 수 있으므로 강제 탈출
                                 if not clicked_any:
                                     break
 
@@ -341,10 +405,12 @@ class BlackboardScraper:
                                     
                                     // 사용자의 요청: aria-label이 "폴더 열기"이거나 영어로 "folder"일 때 폴더로 인식
                                     let typeLower = itemType.toLowerCase();
-                                    if (itemType.includes("폴더 열기") || typeLower.includes("folder") || !!container.querySelector('svg[aria-label*="folder" i]')) {
+                                    if (itemType.includes("폴더 열기") || typeLower.includes("folder") || !!(container && container.querySelector('svg[aria-label*="folder" i]'))) {
                                         isFolder = true;
                                         itemType = "폴더";
                                     }
+                                    
+                                    let ariaLabel = el.getAttribute('aria-label') || '';
                                     
                                     results.push({
                                         title: name,
@@ -353,7 +419,8 @@ class BlackboardScraper:
                                         fullPath: fullPath,
                                         folderPathArray: path,
                                         scraperId: scraperId,
-                                        itemType: itemType
+                                        itemType: itemType,
+                                        ariaLabel: ariaLabel
                                     });
                                 }
                                 return results;
@@ -392,20 +459,49 @@ class BlackboardScraper:
                                     continue
                                 
                                 # --- 여기서부터는 모듈화된 (handlers) 개별 객체에 추출 책임을 위임합니다 ---
-                                handler = get_handler(item.get('itemType', 'Unknown'), item.get('href', ''))
+                                handler = get_handler(item.get('itemType', 'Unknown'), item.get('href', ''), item.get('title', ''), item.get('ariaLabel', ''))
                                 try:
-                                    extracted_data = await handler.extract(detail_page, item)
+                                    # 물리적 파일 저장을 위한 절대 경로 사전 계산 (특수문자 정제 및 조인)
+                                    clean_course = re.sub(r'[\\/:*?"<>|]', '_', course_title)
+                                    clean_item_title = re.sub(r'[\\/:*?"<>|]', '_', item_title)
+                                    parts = [re.sub(r'[\\/:*?"<>|]', '_', p) for p in path_parts if p]
+                                    rel_folder = os.path.join(*parts) if parts else ''
+                                    
+                                    # 오디오 항목일 경우에만 본인 이름의 개별 폴더를 생성하지 않고 부모 폴더에 바로 저장합니다.
+                                    if '오디오' not in str(item.get('itemType', '')) and 'audio' not in str(item.get('itemType', '')).lower():
+                                        rel_folder = os.path.join(rel_folder, clean_item_title) if rel_folder else clean_item_title
+                                    
+                                    save_dir = os.path.join(DOWNLOAD_PATH, clean_course, rel_folder) if rel_folder else os.path.join(DOWNLOAD_PATH, clean_course)
+                                    
+                                    # FileHandler 및 AssignmentHandler 등 모든 핸들러에 save_dir를 주입합니다.
+                                    extracted_data = await handler.extract(detail_page, item, save_dir=save_dir)
                                     
                                     if extracted_data:
+                                        # 다운로드 타겟이지만 실패했다면, 이번 회차에서는 무시하고 다음 번에 재시도할 수 있도록 처리합니다.
+                                        if extracted_data.get('download_status') == 'failed':
+                                            print(f"    ⚠️ 다운로드 실패 또는 타임아웃: {item_title} (다음 스크랩 시 재시도)")
+                                            continue
+                                            
+                                        # '파일', '오디오', '비디오' 등 바이너리 속성 판단
+                                        item_type_str = str(item.get('itemType', '')).lower()
+                                        extracted_type_str = str(extracted_data.get('type', '')).lower()
+                                        is_binary_item = any(k in item_type_str or k in extracted_type_str for k in ['파일', 'file', '오디오', 'audio', '비디오', 'video', '동영상', '영상', '이미지', 'image'])
+
+                                        # 바이너리 항목인데 다운로드 성공이 아니라면(예: not_downloadable) 
+                                        # 텍스트 파일로 저장하거나 처리 완료(processed_items)에 남기지 않고 재시도를 위해 건너뜁니다.
+                                        if is_binary_item and extracted_data.get('download_status') != 'success':
+                                            print(f"    ⚠️ 원본 다운로드 불가 (메뉴 미발견 등): {item_title} (다음 번에 재시도)")
+                                            continue
+                                            
                                         if folder_path not in self.processed_items[course_title]:
                                             self.processed_items[course_title][folder_path] = []
                                             
                                         self.processed_items[course_title][folder_path].append(extracted_data)
-                                        # 로컬 텍스트 파일 생성
-                                        self._export_item_to_txt(course_title, path_parts, extracted_data)
-                                        # 실시간 상태 저장 (강제 종료/크래시 대비)
-                                        self._save_processed_items()
                                         
+                                        # 실제 다운로드된 바이너리 파일이 아닌 본문형 항목(과제, 문서 등)에 대해서만 텍스트(.txt)를 생성합니다.
+                                        if not is_binary_item and extracted_data.get('download_status') != 'success':
+                                            self._export_item_to_txt(course_title, path_parts, extracted_data)
+
                                 except Exception as e:
                                     print(f"  ❌ [{item.get('itemType', 'Unknown')}] 항목 분석 중 에러: {e}")
 
@@ -436,13 +532,14 @@ class BlackboardScraper:
                                     })
                                     # TXT 추출
                                     self._export_item_to_txt(course_title, ["공지사항"], ann)
-                                    # 실시간 상태 저장 (강제 종료/크래시 대비)
-                                    self._save_processed_items()
 
                         except Exception as e:
                             print(f"과목 상세 로딩 중 에러: {e}")
                         
                         finally:
+                            # 과목 단위로 한 번만 저장합니다. (항목마다 359KB JSON 전체를 다시 쓰던 O(n^2) I/O 제거)
+                            # 과목 중간에 크래시가 나도 조기종료 dedup이 멱등이라 다음 실행에 해당 과목만 다시 수집됩니다.
+                            self._save_processed_items()
                             await detail_page.close()
 
                 except TimeoutError:

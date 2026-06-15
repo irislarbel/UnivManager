@@ -1,7 +1,7 @@
 from .base_handler import BaseHandler
 
 class DiscussionHandler(BaseHandler):
-    async def extract(self, detail_page, item: dict):
+    async def extract(self, detail_page, item: dict, save_dir: str = None):
         full_path = item.get('fullPath', '')
         s_id = item.get('scraperId', '')
         print(f"  🗣️ [토론 탐색 시작]: {full_path}")
@@ -18,8 +18,14 @@ class DiscussionHandler(BaseHandler):
             let lastHeight = container.scrollHeight;
             let noChangeCount = 0;
             for(let i=0; i<50; i++) {
+                // 무한 스크롤 강제 트리거 (가용 가능한 모든 컨테이너 스크롤)
+                document.querySelectorAll('div').forEach(c => {
+                    if (c.scrollHeight > c.clientHeight) {
+                        c.scrollTop = c.scrollHeight;
+                    }
+                });
                 container.scrollTo(0, container.scrollHeight);
-                window.scrollBy(0, 500);
+                window.scrollBy(0, 1000);
                 await new Promise(r => setTimeout(r, 600));
                 
                 let newHeight = container.scrollHeight;

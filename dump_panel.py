@@ -17,30 +17,29 @@ async def run():
         await page.click("#loginSubmit")
         await page.wait_for_selector("#courses-overview-filter-search", timeout=30000)
         
-        # 특정 과목 outline 이동
-        await page.goto("https://eclass2.ajou.ac.kr/ultra/courses/_114238_1/outline")
+        # 특정 과제 직접 이동
+        await page.goto("https://eclass2.ajou.ac.kr/ultra/courses/_111078_1/outline/assessment/_2304079_1/overview?courseId=_111078_1")
         await page.wait_for_timeout(5000)
         
-        # '과제 0' 요소가 보일 때까지 스크롤 
-        for _ in range(5):
-             await page.mouse.wheel(0, 5000)
-             await page.wait_for_timeout(1000)
-             
-        item = await page.wait_for_selector('a:has-text("과제 0")', timeout=15000)
-        await item.click(force=True)
-        await page.wait_for_timeout(3000)
-        
-        # btn click 
-        view_btns = await page.query_selector_all('button')
-        for v_btn in view_btns:
-            v_text = (await v_btn.inner_text()).strip()
-            v_clean = v_text.replace(" ", "").lower()
-            if any(kw in v_clean for kw in ["지시", "평가보기", "토론보기", "시작", "계속", "view", "start", "continue"]):
-                await v_btn.click(force=True)
-                await page.wait_for_timeout(3000)
-                break
+        # 패널 내부 클릭 대기 (평가보기 등)
+        all_btns = await page.query_selector_all('button, a')
+        clicked = False
+        for btn in all_btns:
+            try:
+                v_text = (await btn.inner_text()).strip().replace(" ", "").lower()
+                if "평가" in v_text or "시작" in v_text or "view" in v_text or "보기" in v_text:
+                    print(f"Clicking: {v_text}")
+                    await btn.click(force=True)
+                    await page.wait_for_timeout(4000)
+                    clicked = True
+                    break
+            except:
+                pass
                 
-        panel_html = await page.evaluate("() => document.body.innerHTML")
+        if not clicked:
+            print("No button clicked, maybe panel is already active.")
+            
+        panel_html = await page.evaluate("() => { let p = document.querySelector('.bb-offcanvas-panel.active:not(.hide-in-background)'); return p ? p.innerHTML : document.body.innerHTML; }")
         with open("panel_dump.html", "w", encoding="utf-8") as f:
             f.write(panel_html)
             
