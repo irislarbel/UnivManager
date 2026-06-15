@@ -322,6 +322,83 @@ class DiscussionHandler(BaseHandler):
         op = panel_data.get('original_post', {})
         cmts = panel_data.get('comments', [])
         
+        if 'files' not in panel_data:
+            panel_data['files'] = []
+            
+        # [수정]: 토론 첨부파일 다운로드 로직 추가 (활성화된 최상단 DOM 기준 및 filter 오류 수정)
+        if save_dir:
+            import os
+            import re
+            try:
+                # 활성화된 패널 또는 토론 메인 컨테이너에서 가시적인 버튼만 추출
+                base_selector = '.bb-offcanvas-panel.active'
+                if await detail_page.locator(base_selector).count() == 0:
+                    base_selector = '#full-discussions'
+                    
+                btn_selector = f'{base_selector} button[data-analytics-id="fileViewer.action.menu"], {base_selector} button[aria-label*="에 대한 추가 옵션"], {base_selector} button[aria-label*="More options for"]'
+                
+                all_btns = await detail_page.locator(btn_selector).all()
+                option_btns = []
+                for b in all_btns:
+                    if await b.is_visible():
+                        option_btns.append(b)
+
+                for btn in option_btns:
+                    try:
+                        title_attr = await btn.get_attribute('title') or await btn.get_attribute('aria-label') or ""
+                        filename = title_attr.replace('에 대한 추가 옵션', '').replace('Additional options for ', '').replace('More options for ', '').strip()
+                        if not filename:
+                            filename = "첨부파일"
+                        
+                        existing_titles = [f.get('title') for f in panel_data['files']]
+                        if filename not in existing_titles:
+                            panel_data['files'].append({"title": filename, "href": "download_via_menu"})
+                        
+                        print(f"    🖱️ [{filename}] 더보기 메뉴 클릭 시도 (토론 첨부파일)")
+                        await btn.scroll_into_view_if_needed()
+                        await btn.click(force=True)
+                        await detail_page.wait_for_timeout(800)
+                        
+                        # filter(state="visible") 대신 is_visible() 직접 체크
+                        download_selector = 'li[data-analytics-id="fileViewer.downloadFile"], li[role="menuitem"]:has-text("다운로드"), li[role="menuitem"]:has-text("Download")'
+                        all_download_els = await detail_page.locator(download_selector).all()
+                        
+                        download_el = None
+                        for el in all_download_els:
+                            if await el.is_visible():
+                                download_el = el
+                                break
+                        
+                        if download_el:
+                            async with detail_page.expect_download(timeout=15000) as download_info:
+                                await download_el.click(force=True)
+                                print(f"      💾 [{filename}] 다운로드 버튼 클릭 완료. 파일 스트림 획득 중...")
+                            
+                            download = await download_info.value
+                            clean_filename = re.sub(r'[\\/:*?"<>|]', '_', download.suggested_filename or filename)
+                            final_filepath = os.path.join(save_dir, clean_filename)
+                            
+                            os.makedirs(save_dir, exist_ok=True)
+                            await download.save_as(final_filepath)
+                            print(f"      ✅ [물리 원본 다운로드 성공]: {clean_filename}")
+                            
+                            for pf in panel_data['files']:
+                                if pf['title'] == filename:
+                                    pf['download_status'] = 'success'
+                                    pf['filepath'] = final_filepath
+                                    pf['href'] = download.url
+                        else:
+                            print(f"      ℹ️ [{filename}] 다운로드 메뉴가 없음.")
+                        
+                        await detail_page.keyboard.press("Escape")
+                        await detail_page.wait_for_timeout(300)
+                    except Exception as inner_e:
+                        print(f"    ❌ [{filename}] 다운로드 중 에러: {inner_e}")
+                        await detail_page.keyboard.press("Escape")
+                        await detail_page.wait_for_timeout(300)
+            except Exception as e:
+                print(f"    ❌ 토론 내부 첨부파일 추출 중 에러: {e}")
+                
         print(f"    🏷️ [토론 주제]: {panel_data['title']}")
         if op.get('content'):
             author_str = op.get('author', '').strip()

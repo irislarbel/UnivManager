@@ -155,11 +155,17 @@ class AssignmentHandler(BaseHandler):
                         
                         # 다운로드 버튼 클릭 (stale 메뉴 방지를 위해 visible 상태인 요소만 필터링)
                         download_selector = 'li[data-analytics-id="fileViewer.downloadFile"], li[role="menuitem"]:has-text("다운로드")'
-                        download_el = detail_page.locator(download_selector).filter(state="visible")
+                        all_download_els = await detail_page.locator(download_selector).all()
                         
-                        if await download_el.count() > 0:
+                        download_el = None
+                        for el in all_download_els:
+                            if await el.is_visible():
+                                download_el = el
+                                break
+                        
+                        if download_el:
                             async with detail_page.expect_download(timeout=15000) as download_info:
-                                await download_el.last.click(force=True)
+                                await download_el.click(force=True)
                                 print(f"      💾 [{filename}] 다운로드 버튼 클릭 완료. 파일 스트림 획득 중...")
                             
                             download = await download_info.value
