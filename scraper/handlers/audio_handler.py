@@ -36,8 +36,8 @@ class AudioHandler(BaseHandler):
                         src_url = await source_el.get_attribute('src')
                         if src_url:
                             # 상대 경로를 블랙보드 도메인 절대 경로로 변환
-                            if src_url.startswith('/'):
-                                src_url = "https://eclass2.ajou.ac.kr" + src_url
+                            from urllib.parse import urljoin
+                            src_url = urljoin(detail_page.url, src_url)
                                 
                             print(f"    📡 [오디오 소스 감지 완료]: {src_url}")
                             

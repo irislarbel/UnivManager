@@ -42,7 +42,7 @@ class AnnouncementHandler(BaseHandler):
             await detail_page.evaluate('''() => {
                 let containers = document.querySelectorAll('.side-panel-content, .scrollable-container, #main-content, .v-html-content-renderer, .announcements-container, [class*="list-container"], [role="main"], .offcanvas-body, div');
                 containers.forEach(c => {
-                    if (c.scrollHeight > c.clientHeight && window.getComputedStyle(c).overflowY !== 'hidden') {
+                    if (c.scrollHeight > c.clientHeight) {
                         c.scrollTop = c.scrollHeight;
                     }
                 });
@@ -83,7 +83,7 @@ class AnnouncementHandler(BaseHandler):
                 while i >= len(fresh_elements) and restore_attempts < 10:
                     await detail_page.evaluate('''() => {
                         document.querySelectorAll('div').forEach(c => {
-                            if (c.scrollHeight > c.clientHeight && window.getComputedStyle(c).overflowY !== 'hidden') {
+                            if (c.scrollHeight > c.clientHeight) {
                                 c.scrollTop = c.scrollHeight;
                             }
                         });

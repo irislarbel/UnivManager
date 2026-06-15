@@ -17,7 +17,7 @@ class BaseHandler:
             if await node.count() == 0 and fallback_title:
                 # Blackboard Ultra가 가상화(Virtualization) 리스트를 사용하여 
                 # 화면에서 벗어난 요소를 언마운트할 때 data-scraper-id가 날아가는 현상 대비 폴백
-                node = detail_page.locator(f'a:has-text("{fallback_title}"), [class*="title"]:has-text("{fallback_title}")').first
+                node = detail_page.locator('a, [class*="title"]').filter(has_text=fallback_title).first
                 
             await node.scroll_into_view_if_needed()
             await node.click(force=True)
@@ -99,7 +99,7 @@ class BaseHandler:
                 row = detail_page.locator(
                     'li[role="listitem"], div[class*="outline-item"], div[class*="ListItem"]'
                 ).filter(
-                    has=detail_page.locator(f'a:has-text("{fallback_title}"), [class*="title"]:has-text("{fallback_title}")')
+                    has=detail_page.locator('a, [class*="title"]').filter(has_text=fallback_title)
                 ).filter(
                     has=detail_page.locator(overflow_selector)
                 )
