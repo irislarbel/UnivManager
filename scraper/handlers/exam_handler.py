@@ -69,8 +69,14 @@ class ExamHandler(BaseHandler):
             let instructions = []; // 본문/지문(Questions로 오인되는 텍스트) 분리
             let canvas = activePanel.querySelector('bb-attempt-canvas, [class*="assessment-canvas"]');
             
+            if (!canvas) {
+                if (activePanel.querySelector('.js-collapsible-question-container-root, [data-testid="question-header.questionPrompt"]')) {
+                    canvas = activePanel;
+                }
+            }
+            
             if (canvas) {
-                let rawQuestionBlocks = canvas.querySelectorAll('div[class*="assessment-question"], div.question, li, [role="listitem"], fieldset, bb-question');
+                let rawQuestionBlocks = canvas.querySelectorAll('div.js-collapsible-question-container-root, div[class*="assessment-question"], div.question, li, [role="listitem"], fieldset, bb-question');
                 let questionBlocks = [];
                 rawQuestionBlocks.forEach(qb => {
                     let isDescendant = questionBlocks.some(parent => parent.contains(qb));
@@ -80,7 +86,7 @@ class ExamHandler(BaseHandler):
                 let processedTexts = new Set();
                 
                 questionBlocks.forEach(qBlock => {
-                    let qTextEl = qBlock.querySelector('.bb-editor-root p, .bb-editor-root, [class*="question-text"], legend');
+                    let qTextEl = qBlock.querySelector('[data-testid="question-header.questionPrompt"] .ql-editor, [data-testid="question-header.questionPrompt"], .bb-editor-root p, .bb-editor-root, [class*="question-text"], legend');
                     if (!qTextEl) return; 
                     
                     let questionBody = qTextEl.innerText.trim();
@@ -89,15 +95,25 @@ class ExamHandler(BaseHandler):
                     
                     // 문제 상단 헤더(문항 번호 및 배점 등 휴리스틱 탐색)
                     let headerText = "";
-                    let pointEl = qBlock.querySelector('[class*="point"], [class*="badge"], .point-value');
-                    if (pointEl && pointEl.innerText.match(/[0-9]/)) {
-                        headerText = pointEl.innerText.replace(/[\r\n]+/g, ' ').trim();
+                    let headerBadge = qBlock.querySelector('span[data-testid="question-number"]');
+                    let headerType = qBlock.querySelector('h2 span.MuiTypography-h4');
+                    
+                    if (headerBadge) {
+                        headerText = "문제 " + headerBadge.innerText.trim();
+                        if (headerType && headerType.innerText) {
+                            headerText += " (" + headerType.innerText.trim() + ")";
+                        }
                     } else {
-                        let allText = qBlock.innerText.trim().split('\n');
-                        for(let i=0; i<Math.min(3, allText.length); i++) {
-                            let lower = allText[i].toLowerCase();
-                            if ((lower.includes('점') || lower.includes('point') || lower.includes('문항')) && lower.match(/[0-9]/)) {
-                                headerText += allText[i] + " ";
+                        let pointEl = qBlock.querySelector('[class*="point"], [class*="badge"], .point-value');
+                        if (pointEl && pointEl.innerText.match(/[0-9]/)) {
+                            headerText = pointEl.innerText.replace(/[\r\n]+/g, ' ').trim();
+                        } else {
+                            let allText = qBlock.innerText.trim().split('\n');
+                            for(let i=0; i<Math.min(3, allText.length); i++) {
+                                let lower = allText[i].toLowerCase();
+                                if ((lower.includes('점') || lower.includes('point') || lower.includes('문항')) && lower.match(/[0-9]/)) {
+                                    headerText += allText[i] + " ";
+                                }
                             }
                         }
                     }
@@ -108,16 +124,26 @@ class ExamHandler(BaseHandler):
                     // 1. 라디오버튼/체크박스로 확실히 보기 탐색 (숨겨진 구조 파악)
                     let choiceInputs = qBlock.querySelectorAll('input[type="radio"], input[type="checkbox"]');
                     choiceInputs.forEach(inp => {
-                        let wrapper = inp.closest('label') || inp.parentElement;
+                        let wrapper = inp.closest('li.readonly-answer__container') || inp.closest('label') || inp.parentElement;
                         if (!wrapper) return;
                         
-                        let isSelected = inp.checked || wrapper.className.includes('selected') || wrapper.className.includes('checked');
-                        let optVal = wrapper.innerText.trim().replace(/[\r\n]+/g, ' ');
+                        let isSelected = inp.checked || wrapper.className.includes('selected') || wrapper.className.includes('checked') || inp.hasAttribute('checked');
                         
+                        let optVal = "";
+                        let optTextNode = wrapper.querySelector('.ql-editor, .bb-editor-root, .option-text');
                         let optLabelNode = wrapper.querySelector('.option-label, .prefix');
-                        let optTextNode = wrapper.querySelector('.bb-editor-root, .option-text');
-                        if (optLabelNode && optTextNode) {
-                             optVal = optLabelNode.innerText.trim() + " " + optTextNode.innerText.trim();
+                        
+                        if (optTextNode) {
+                            if (optLabelNode) {
+                                optVal = optLabelNode.innerText.trim() + " " + optTextNode.innerText.trim();
+                            } else {
+                                optVal = optTextNode.innerText.trim();
+                            }
+                        } else {
+                            // "옵션 B"와 같은 스크린리더용 텍스트 무시하기 위해 클론하여 필터링
+                            let clone = wrapper.cloneNode(true);
+                            clone.querySelectorAll('.sr-only').forEach(sr => sr.remove());
+                            optVal = clone.innerText.trim().replace(/[\r\n]+/g, ' ');
                         }
                         
                         if (optVal && optVal.length > 0 && optVal !== questionBody && !processedOptions.has(optVal)) {
