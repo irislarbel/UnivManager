@@ -86,7 +86,7 @@ class ExamHandler(BaseHandler):
                 let processedTexts = new Set();
                 
                 questionBlocks.forEach(qBlock => {
-                    let qTextEl = qBlock.querySelector('[data-testid="question-header.questionPrompt"] .ql-editor, [data-testid="question-header.questionPrompt"], .bb-editor-root p, .bb-editor-root, [class*="question-text"], legend');
+                    let qTextEl = qBlock.querySelector('[data-testid="question-header.questionPrompt"] .ql-editor, [data-testid="question-header.questionPrompt"], .question-text .ql-editor, .question-text .bb-editor-root, .bb-editor-root p, .bb-editor-root, [class*="question-text"]');
                     if (!qTextEl) return; 
                     
                     let questionBody = qTextEl.innerText.trim();
@@ -96,10 +96,14 @@ class ExamHandler(BaseHandler):
                     // 문제 상단 헤더(문항 번호 및 배점 등 휴리스틱 탐색)
                     let headerText = "";
                     let headerBadge = qBlock.querySelector('span[data-testid="question-number"]');
+                    if (!headerBadge) {
+                        headerBadge = qBlock.querySelector('legend.question-label');
+                    }
                     let headerType = qBlock.querySelector('h2 span.MuiTypography-h4');
                     
                     if (headerBadge) {
-                        headerText = "문제 " + headerBadge.innerText.trim();
+                        let badgeText = headerBadge.innerText.trim();
+                        headerText = badgeText.includes("문제") ? badgeText : "문제 " + badgeText;
                         if (headerType && headerType.innerText) {
                             headerText += " (" + headerType.innerText.trim() + ")";
                         }
@@ -181,6 +185,13 @@ class ExamHandler(BaseHandler):
                     let isTextResponse = qBlock.querySelectorAll('textarea, input[type="text"]').length > 0;
                     if (options.length === 0 && isTextResponse) {
                         options.push("✍️ (서술/단답형 문항)");
+                    }
+                    
+                    // opinion-scale(리커트 척도) 양 끝 라벨 수집
+                    let scaleLeftLabel = qBlock.querySelector('[class*="viewScaleLabelLeft"], [class*="ScaleLabelLeft"]');
+                    let scaleRightLabel = qBlock.querySelector('[class*="viewScaleLabelRight"], [class*="ScaleLabelRight"]');
+                    if (scaleLeftLabel && scaleRightLabel && options.length > 0) {
+                        options.unshift(`📊 [척도: ${scaleLeftLabel.innerText.trim()} ↔ ${scaleRightLabel.innerText.trim()}]`);
                     }
                     
                     // 문항 판단 휴리스틱: 점수 표시가 없고, 옵션도 없고, 주관식 입력창도 없다면 이건 문제가 아니라 '공지사항/지문'임.
